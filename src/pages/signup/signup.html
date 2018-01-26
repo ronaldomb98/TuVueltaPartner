@@ -1,0 +1,250 @@
+<!--
+  Generated template for the SignupPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>signup</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header text-center>
+      Registro
+    </ion-card-header>
+
+    <ion-card-content>
+      <form [formGroup]="form">
+
+        <!-- Nombres -->
+        <ion-item>
+          <ion-label >Nombres</ion-label>
+          <ion-input formControlName="Nombres" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="error" *ngIf="Nombres.invalid && (Nombres.dirty || Nombres.touched)">
+          <p *ngIf="Nombres.errors.required">
+            Campo obligatorio
+          </p>
+        </ion-item>
+
+        <!-- Apellidos -->
+        <ion-item>
+          <ion-label >Apellidos</ion-label>
+          <ion-input formControlName="Apellidos" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="error" *ngIf="Apellidos.invalid && (Apellidos.dirty || Apellidos.touched)">
+          <p *ngIf="Apellidos.errors.required">
+            Campo obligatorio
+          </p>
+        </ion-item>
+
+        <!-- Celular -->
+        <ion-item>
+          <ion-label >Celular</ion-label>
+          <ion-input formControlName="Celular" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="error" *ngIf="Celular.invalid && (Celular.dirty || Celular.touched)">
+          <p *ngIf="Celular.errors.required">
+            Campo obligatorio
+          </p>
+        </ion-item>
+        
+        <!-- Telefono -->
+        <ion-item>
+          <ion-label >Telefono</ion-label>
+          <ion-input formControlName="Telefono" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="error" *ngIf="Telefono.invalid && (Telefono.dirty || Telefono.touched)">
+          <p *ngIf="Telefono.errors.required">
+            Campo obligatorio
+          </p>
+        </ion-item>
+
+        <!-- Cedula -->
+        <ion-item>
+          <ion-label >Cedula</ion-label>
+          <ion-input formControlName="Cedula" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="error" *ngIf="Cedula.invalid && (Cedula.dirty || Cedula.touched)">
+          <p *ngIf="Cedula.errors.required">
+            Campo obligatorio
+          </p>
+        </ion-item>
+        
+        <!-- Direccion -->
+        <ion-item>
+          <ion-label >Direccion</ion-label>
+          <ion-input formControlName="Direccion" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="error" *ngIf="Direccion.invalid && (Direccion.dirty || Direccion.touched)">
+          <p *ngIf="Direccion.errors.required">
+              Campo obligatorio
+          </p>
+        </ion-item>
+
+        <!-- Ciudad -->
+        <div *ngIf="paramsRegistro">
+          <ion-item>
+            <ion-label>Ciudad</ion-label>
+            <ion-select formControlName="Ciudad">
+              <ion-option *ngFor="let row of paramsRegistro.Ciudad" [value]="row">
+                {{ row }}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="error" *ngIf="Ciudad.invalid && (Ciudad.dirty || Ciudad.touched)">
+            <p *ngIf="Ciudad.errors.required">
+                Direccion obligatorio
+            </p>
+          </ion-item>
+
+          <!-- Tiene Celular Android y Datos -->
+          <ion-item>
+            <ion-label>TieneCelAndroidYDatos</ion-label>
+            <ion-select formControlName="TieneCelAndroidYDatos">
+              <ion-option *ngFor="let row of paramsRegistro.TieneCelAndroidYDatos" [value]="row">
+                {{ row }}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="error" *ngIf="TieneCelAndroidYDatos.invalid && (TieneCelAndroidYDatos.dirty || TieneCelAndroidYDatos.touched)">
+            <p *ngIf="TieneCelAndroidYDatos.errors.required">
+                Direccion obligatorio
+            </p>
+          </ion-item>
+
+          <!-- Tiene EPS -->
+          <ion-item>
+            <ion-label>TieneEPS</ion-label>
+            <ion-select formControlName="TieneEPS">
+              <ion-option *ngFor="let row of paramsRegistro.TieneEPS" [value]="row">
+                {{ row }}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="error" *ngIf="TieneEPS.invalid && (TieneEPS.dirty || TieneEPS.touched)">
+            <p *ngIf="TieneEPS.errors.required">
+                Direccion obligatorio
+            </p>
+          </ion-item>
+
+          <!-- TipoVehiculo -->
+          <ion-item>
+            <ion-label>TipoVehiculo</ion-label>
+            <ion-select formControlName="TipoVehiculo">
+              <ion-option *ngFor="let row of paramsRegistro.TipoVehiculo" [value]="row">
+                {{ row }}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="error" *ngIf="TipoVehiculo.invalid && (TipoVehiculo.dirty || TipoVehiculo.touched)">
+            <p *ngIf="TipoVehiculo.errors.required">
+                Direccion obligatorio
+            </p>
+          </ion-item>
+
+            <!-- PlacaVehiculo -->
+          <ion-item>
+            <ion-label >PlacaVehiculo</ion-label>
+            <ion-input formControlName="PlacaVehiculo" type="text"></ion-input>
+          </ion-item>
+          <ion-item class="error" *ngIf="PlacaVehiculo.invalid && (PlacaVehiculo.dirty || PlacaVehiculo.touched)">
+            <p *ngIf="PlacaVehiculo.errors.required">
+              Campo obligatorio
+            </p>
+          </ion-item>
+
+          <!-- TiempoDispParaHacerServicio -->
+          <ion-item>
+            <ion-label>TiempoDispParaHacerServicio</ion-label>
+            <ion-select formControlName="TiempoDispParaHacerServicio">
+              <ion-option *ngFor="let row of paramsRegistro.TiempoDispParaHacerServicio" [value]="row">
+                {{ row }}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="error" *ngIf="TiempoDispParaHacerServicio.invalid && (TiempoDispParaHacerServicio.dirty || TiempoDispParaHacerServicio.touched)">
+            <p *ngIf="TiempoDispParaHacerServicio.errors.required">
+                Direccion obligatorio
+            </p>
+          </ion-item>
+
+          <!-- ComoNosConocio -->
+          <ion-item>
+            <ion-label>ComoNosConocio</ion-label>
+            <ion-select formControlName="ComoNosConocio">
+              <ion-option *ngFor="let row of paramsRegistro.ComoNosConocio" [value]="row">
+                {{ row }}
+              </ion-option>
+            </ion-select>
+          </ion-item>
+          <ion-item class="error" *ngIf="ComoNosConocio.invalid && (ComoNosConocio.dirty || ComoNosConocio.touched)">
+            <p *ngIf="ComoNosConocio.errors.required">
+                Direccion obligatorio
+            </p>
+          </ion-item>
+        </div>
+        
+
+        <!-- Email -->
+        <ion-item>
+          <ion-label >Correo Electronico</ion-label>
+          <ion-input formControlName="email" type="email"></ion-input>
+        </ion-item>
+        <ion-item class="error" *ngIf="email.invalid && (email.dirty || email.touched)">
+          <p *ngIf="email.errors.required">
+            Campo obligatorio
+          </p>
+          <p *ngIf="email.errors.email">
+            El campo debe ser un correo. Ej: usuario@email.com
+          </p>
+        </ion-item>
+
+        <!-- Password 1 -->
+        <ion-item>
+          <ion-label >Contraseña</ion-label>
+          <ion-input formControlName="password1" minlength="6" type="password"></ion-input>
+        </ion-item>
+        <ion-item class="error" *ngIf="password1.invalid && (password1.dirty || password1.touched)">
+          <p *ngIf="password1.errors.required">
+            Campo obligatorio
+          </p>
+
+          <p *ngIf="password1.errors.minlength">
+            Debe contener más de 6 caracteres
+          </p>
+        </ion-item>
+        <!-- Password 2 -->
+        <ion-item>
+          <ion-label >Confirme contraseña</ion-label>
+          <ion-input formControlName="password2" type="password"></ion-input>
+          <ion-item class="error" *ngIf="password2.invalid && (password2.dirty || password2.touched)">
+            <p *ngIf="password2.errors.required">
+              Campo obligatorio
+            </p>
+          </ion-item>
+        </ion-item>
+
+        <ion-item class="error" *ngIf="(password1.dirty || password1.touched) && (password2.dirty || password2.touched) && (password1.value != password2.value)">
+          <p>
+            Las contraseñas no coinciden
+          </p>
+        </ion-item>
+
+        <div padding>
+          <button (click)="signup()" [disabled]="!(form.valid && (password1.value == password2.value))" ion-button block>Registrarme!</button>
+        </div>
+      </form>
+    </ion-card-content>
+  </ion-card>
+
+  <pre>
+    {{ form.value | json}}
+  </pre>
+</ion-content>

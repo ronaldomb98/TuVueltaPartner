@@ -1,0 +1,74 @@
+<!--
+  Generated template for the EquipmentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="orange">
+    <ion-title>Equipamiento</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div *ngIf="equipment">
+    <form [formGroup]="form">
+      <!-- Equipo Moto -->
+      <ion-list radio-group formControlName="EquipoMoto">
+        <ion-list-header>
+          {{equipment.Requisitos.EquipoMoto.Etiqueta}}
+        </ion-list-header>
+        <ion-item *ngFor="let row of equipment.Requisitos.EquipoMoto.Opciones">
+            <ion-label>{{ row }}</ion-label>
+            <ion-radio [value]="row"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <!-- Equipo del mensajero -->
+      <ion-list radio-group formControlName="EquipoMensajero">
+        <ion-list-header>
+          {{equipment.Requisitos.EquipoMensajero.Etiqueta}}
+        </ion-list-header>
+        <ion-item *ngFor="let row of equipment.Requisitos.EquipoMensajero.Opciones">
+            <ion-label>{{ row }}</ion-label>
+            <ion-radio [value]="row"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <!-- Equipo del mensajero -->
+      <ion-list radio-group formControlName="ChaquetaMensajero">
+        <ion-list-header>
+          {{equipment.Requisitos.ChaquetaMensajero.Etiqueta}}
+        </ion-list-header>
+        <ion-item *ngFor="let row of equipment.Requisitos.ChaquetaMensajero.Opciones">
+            <ion-label>{{ row }}</ion-label>
+            <ion-radio [value]="row"></ion-radio>
+        </ion-item>
+      </ion-list>
+
+      <ion-list>
+        <ion-item>
+          <ion-label stacked>Monto Para Trabajar Hoy</ion-label>
+          <ion-input formControlName="MontoParaTrabajarHoy" type="number"></ion-input>
+        </ion-item>
+        <ion-item *ngIf="MontoParaTrabajarHoy.invalid && (MontoParaTrabajarHoy.dirty || MontoParaTrabajarHoy.touched)">
+          <p *ngIf="MontoParaTrabajarHoy.errors.required">
+            Campo obligatorio
+          </p>
+        </ion-item>
+        <ion-item *ngIf="MontoParaTrabajarHoy.dirty || MontoParaTrabajarHoy.touched">
+          <p *ngIf="MontoParaTrabajarHoy.value != equipment.MontoParaTrabajarHoy">
+            El monto debe ser igual a: {{ equipment.MontoParaTrabajarHoy}}
+          </p>
+        </ion-item>
+      </ion-list>
+      <div [innerHTML]="equipment.Mensaje"></div>
+      <button ion-button block (click)="onSubmit()" [disabled]="form.invalid || (MontoParaTrabajarHoy.value != equipment.MontoParaTrabajarHoy)">GUARDAR</button>
+    </form>
+  </div>
+  
+</ion-content>

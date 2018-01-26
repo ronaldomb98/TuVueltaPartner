@@ -1,0 +1,37 @@
+<ion-header>
+
+  <ion-navbar  color="orange">
+    <ion-title>domicilios-activos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+      <ion-list *ngIf="pendingSolicitud">
+        <ion-item-divider>
+            Domicilios
+        </ion-item-divider>
+        <ion-item *ngFor="let row of pendingSolicitud">
+          <span item-start>
+            $ {{ row.payload.val().GananciaMensajero}}
+          </span>
+          <p>
+            <ion-icon name="md-more"></ion-icon><span>{{ row.payload.val().puntoInicio}}</span>
+          </p>
+          <p>
+            <ion-icon name="md-pin"></ion-icon> <span>{{ row.payload.val().puntoFinal}}</span>
+          </p>
+          <p>
+            <ion-icon name="arrow-round-up"></ion-icon>
+            <ion-icon *ngIf="row.payload.val().esPagoConTarjeta == true" name="arrow-round-down"></ion-icon>
+          </p>
+          <p *ngIf="row.payload.val().ValorDomicilio">
+            $ {{ row.payload.val().ValorDomicilio }}
+          </p>
+          <button ion-button color="orange" item-end>
+            Comprar
+          </button>
+        </ion-item>
+      </ion-list>
+</ion-content>

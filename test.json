@@ -1,0 +1,18 @@
+{
+  "Mensaje" : "Recuerda que seleccionar el equipo que no tienes disponible o indicar un monto diferente con el que cuentas puede ser causante de penalizacion por parte de nuestros agentes de seguimiento",
+  "MontoParaTrabajarHoy" : 1000,
+  "Requisitos" : {
+    "ChaquetaMensajero" : {
+        "Etiqueta": "",
+        "Opciones": [ "Moto", "Bicicleta" ]
+    },
+    "EquipoMensajero" : {
+        "Etiqueta": "",
+        "Opciones": [ "Moto", "Bicicleta" ]
+    },
+    "EquipoMoto" : {
+        "Etiqueta": "",
+        "Opciones": [ "Moto", "Bicicleta" ]
+    }
+  }
+}
