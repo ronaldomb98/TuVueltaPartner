@@ -29,7 +29,7 @@ export class DbProvider {
   }
 
   public objectSolicitud(key){
-    return this.db.object(`/Usuarios/${key}`)
+    return this.db.object(`/Solicitud/${key}`)
   }
 
   public listPendingSolicitud(){
@@ -44,9 +44,24 @@ export class DbProvider {
       ref => ref.orderByChild('Estado').equalTo('Pendiente')
     )
   }
-
+  public listInProccessSolicitud(){
+    return this.db.list('/Solicitud', ref => ref.orderByChild('EnProceso').equalTo(true))
+  }
   public listLogUsuarioEquipamiento(){
     return this.db.list('/Logs/EquipamientoMotorratoner')
+  }
+
+  public listLogCreditoRetiro(key) {
+    return this.db.list(`/Logs/CreditosMensajero/CreditoRetiro/${key}`)
+  }
+
+  public listLogCreditoNoRetiro() {
+    return this.db.list('/Logs/CreditosMensajero/CreditoNoRetiro')
+  }
+
+  public listLogSolicitud(key){
+
+    return this.db.list(`/Logs/Solicitud/${key}`)
   }
 
 }

@@ -1,0 +1,29 @@
+clave: sOphseCHNWLhE3u
+
+➜  keystore git:(master) ✗ keytool -genkey -v -keystore tuvueltakey.keystore -alias tuvueltakey -keyalg RSA -keysize 2048 -validity 10000
+Introduzca la contraseña del almacén de claves:  
+Volver a escribir la contraseña nueva: 
+¿Cuáles son su nombre y su apellido?
+  [Unknown]:  tuvueltapartnertdevtuvueltapartnertdev
+¿Cuál es el nombre de su unidad de organización?
+  [Unknown]:  tuvueltapartnertdev
+¿Cuál es el nombre de su organización?
+  [Unknown]:  tuvueltapartnertdev
+¿Cuál es el nombre de su ciudad o localidad?
+  [Unknown]:  tuvueltapartnertdev
+¿Cuál es el nombre de su estado o provincia?
+  [Unknown]:  tuvueltapartnertdev
+¿Cuál es el código de país de dos letras de la unidad?
+  [Unknown]:  tuvueltapartnertdev
+¿Es correcto CN=tuvueltapartnertdevtuvueltapartnertdev, OU=tuvueltapartnertdev, O=tuvueltapartnertdev, L=tuvueltapartnertdev, ST=tuvueltapartnertdev, C=tuvueltapartnertdev?
+  [no]:  si
+
+Generando par de claves RSA de 2.048 bits para certificado autofirmado (SHA256withRSA) con una validez de 10.000 días
+	para: CN=tuvueltapartnertdevtuvueltapartnertdev, OU=tuvueltapartnertdev, O=tuvueltapartnertdev, L=tuvueltapartnertdev, ST=tuvueltapartnertdev, C=tuvueltapartnertdev
+Introduzca la contraseña de clave para <tuvueltakey>
+	(INTRO si es la misma contraseña que la del almacén de claves):  
+[Almacenando tuvueltakey.keystore]
+
+Warning:
+El almacén de claves JKS utiliza un formato propietario. Se recomienda migrar a PKCS12, que es un formato estándar del sector que utiliza "keytool -importkeystore -srckeystore tuvueltakey.keystore -destkeystore tuvueltakey.keystore -deststoretype pkcs12".
+

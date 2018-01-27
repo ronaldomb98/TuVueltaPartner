@@ -14,5 +14,31 @@
 
 
 <ion-content padding>
-
+    <ion-list *ngIf="inProccessSolicitud">
+        <ion-item-divider>
+            Domicilios
+        </ion-item-divider>
+        <ion-item *ngFor="let row of inProccessSolicitud">
+          <span item-start>
+            $ {{ row.payload.val().GananciaMensajero}}
+          </span>
+          <p>
+            <ion-icon name="md-more"></ion-icon><span>{{ row.payload.val().puntoInicio}}</span>
+          </p>
+          <p>
+            <ion-icon name="md-pin"></ion-icon> <span>{{ row.payload.val().puntoFinal}}</span>
+          </p>
+          <p>
+            <span margin-right>{{ row.key | date:'shortTime'}}</span>
+            <ion-icon name="arrow-round-up"></ion-icon>
+            <ion-icon *ngIf="row.payload.val().esPagoConTarjeta == true" name="arrow-round-down"></ion-icon>
+          </p>
+          <p *ngIf="row.payload.val().ValorDomicilio">
+            $ {{ row.payload.val().ValorDomicilio }}
+          </p>
+          <button (click)="openScheduleDetails(row.key)" ion-button color="orange" item-end>
+            Ver
+          </button>
+        </ion-item>
+      </ion-list>
 </ion-content>

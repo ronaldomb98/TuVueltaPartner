@@ -26,6 +26,7 @@ import { EquipmentPage } from '../pages/equipment/equipment';
 import { PrincipalPage } from '../pages/principal/principal';
 import { DomiciliosActivosPage } from '../pages/domicilios-activos/domicilios-activos';
 import { DomiciliosDisponiblesPage } from '../pages/domicilios-disponibles/domicilios-disponibles';
+import { SolicitudInProcessDetailsPage } from '../pages/solicitud-in-process-details/solicitud-in-process-details';
 @NgModule({
   declarations: [
     MyApp,
@@ -39,7 +40,9 @@ import { DomiciliosDisponiblesPage } from '../pages/domicilios-disponibles/domic
     ResetPasswordPage,
     AuthPage,
     CompleteRegistrationPage,
-    EquipmentPage
+    EquipmentPage,
+    SolicitudInProcessDetailsPage
+
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,8 @@ import { DomiciliosDisponiblesPage } from '../pages/domicilios-disponibles/domic
     ResetPasswordPage,
     AuthPage,
     CompleteRegistrationPage,
-    EquipmentPage
+    EquipmentPage,
+    SolicitudInProcessDetailsPage
   ],
   providers: [
     StatusBar,

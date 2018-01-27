@@ -33,11 +33,16 @@ export class DomiciliosActivosPage {
   private loadPendingSolicitud(){
     this.sub = this.dbProvider.listPendingSolicitud().snapshotChanges()
       .subscribe(res=> {
-        this.pendingSolicitud = res
-        console.log(res[0].payload.val())
+        this.pendingSolicitud = res.sort(( (a,b) =>{
+          return Number(b.key) - Number(a.key)
+        }))
       },err=>{
         console.log(err)
       })
+  }
+
+  orderByCreationDate(){
+
   }
 
   ionViewWillUnload(){
@@ -52,13 +57,30 @@ export class DomiciliosActivosPage {
     console.log('DomiciliosActivosPage ionViewWillLeave')
   }
 
-  changeState(key){
+  changeState(key, GananciaMensajero){
     let _key = key;
     let _uid = this.authProvider.currentUserUid;
     let date = new Date().getTime()
-    this.dbProvider.objectSolicitud(_key).update({
+    this.dbProvider.objectSolicitud(_key)
+    .update({
       Estado: "En Proceso",
-      Motorratoner_id: _uid
+      Motorratoner_id: _uid,
+      EnProceso: true
+    })
+    .then(res=>{
+      return this.dbProvider.listLogSolicitud(key).push({
+        Estado: "En Proceso",
+        Motorratoner_id: _uid,
+        fecha: date
+      })
+    }).then(res => {
+      return this.dbProvider.listLogCreditoRetiro(_uid).push({
+        servicio_id: key,
+        fecha: date,
+        GananciaMensajero: GananciaMensajero
+      })
+    }).catch(err => {
+      console.log(err);
     })
   }
 

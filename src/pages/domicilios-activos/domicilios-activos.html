@@ -30,7 +30,7 @@
           <p *ngIf="row.payload.val().ValorDomicilio">
             $ {{ row.payload.val().ValorDomicilio }}
           </p>
-          <button (click)="changeState(row.key)" ion-button color="orange" item-end>
+          <button (click)="changeState(row.key, row.payload.val().GananciaMensajero)" ion-button color="orange" item-end>
             Comprar
           </button>
         </ion-item>
