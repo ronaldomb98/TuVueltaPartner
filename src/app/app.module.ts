@@ -7,7 +7,7 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { PrincipalPage, DomiciliosActivosPage, DomiciliosDisponiblesPage } from  "../pages/index.paginas";
+
 import { AuthProvider } from '../providers/auth/auth';
 // Firebase Config
 import { AngularFireModule } from 'angularfire2';
@@ -23,6 +23,9 @@ import { DbProvider } from '../providers/db/db';
 import { AuthPage } from '../pages/auth/auth';
 import { CompleteRegistrationPage } from '../pages/complete-registration/complete-registration';
 import { EquipmentPage } from '../pages/equipment/equipment';
+import { PrincipalPage } from '../pages/principal/principal';
+import { DomiciliosActivosPage } from '../pages/domicilios-activos/domicilios-activos';
+import { DomiciliosDisponiblesPage } from '../pages/domicilios-disponibles/domicilios-disponibles';
 @NgModule({
   declarations: [
     MyApp,

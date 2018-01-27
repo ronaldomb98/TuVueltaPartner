@@ -3,9 +3,8 @@ import { Nav, Platform, LoadingController, MenuController } from 'ionic-angular'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { PrincipalPage } from  '../pages/index.paginas';
+
 import { ListPage } from '../pages/list/list';
-import { NoAuthPage } from '../pages/no-auth/no-auth';
 import { AuthPage } from '../pages/auth/auth';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthProvider } from '../providers/auth/auth';
@@ -13,6 +12,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { DbProvider } from '../providers/db/db';
 import { CompleteRegistrationPage } from '../pages/complete-registration/complete-registration';
 import { EquipmentPage } from '../pages/equipment/equipment';
+import { PrincipalPage } from '../pages/principal/principal';
+import { DomiciliosActivosPage } from '../pages/domicilios-activos/domicilios-activos';
 
 @Component({
   templateUrl: 'app.html'
@@ -96,7 +97,7 @@ export class MyApp {
             console.log()
             let _userInfo = res.payload.val();
             if (_userInfo) {
-              this.nav.setRoot(EquipmentPage).then(()=>{
+              this.nav.setRoot(DomiciliosActivosPage).then(()=>{ //  EquipmentPage
                 this.nav.popToRoot()
                 loading.dismiss()
               })

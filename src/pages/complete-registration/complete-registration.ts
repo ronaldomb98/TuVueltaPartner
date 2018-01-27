@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
 import {AuthProvider} from "../../providers/auth/auth";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import { ResetPasswordPage } from '../reset-password/reset-password';
 import { DbProvider } from '../../providers/db/db';
 import { Subscription } from 'rxjs/Subscription';
 /**
@@ -26,7 +24,6 @@ export class CompleteRegistrationPage {
 
   public testText: string = "item1, item2, item3, item4.";
   constructor(
-    private navCtrl: NavController,
     private formBuilder: FormBuilder,
     private authProvider: AuthProvider,
     private dbProvider: DbProvider

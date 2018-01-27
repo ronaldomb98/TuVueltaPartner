@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DbProvider } from '../../providers/db/db';
 import { Subscription } from 'rxjs/Subscription';
+import { AuthProvider } from '../../providers/auth/auth';
+
 
 /**
  * Generated class for the DomiciliosActivosPage page.
@@ -10,7 +11,6 @@ import { Subscription } from 'rxjs/Subscription';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-domicilios-activos',
   templateUrl: 'domicilios-activos.html',
@@ -20,9 +20,8 @@ export class DomiciliosActivosPage {
   public pendingSolicitud;
   private sub: Subscription;
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams,
-    private dbProvider: DbProvider
+    private dbProvider: DbProvider,
+    private authProvider: AuthProvider
   ) {
   }
 
@@ -51,6 +50,16 @@ export class DomiciliosActivosPage {
   }
   ionViewWillLeave(){
     console.log('DomiciliosActivosPage ionViewWillLeave')
+  }
+
+  changeState(key){
+    let _key = key;
+    let _uid = this.authProvider.currentUserUid;
+    let date = new Date().getTime()
+    this.dbProvider.objectSolicitud(_key).update({
+      Estado: "En Proceso",
+      Motorratoner_id: _uid
+    })
   }
 
 }

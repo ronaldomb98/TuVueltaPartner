@@ -61,13 +61,13 @@
           </p>
         </ion-item>
         <ion-item *ngIf="MontoParaTrabajarHoy.dirty || MontoParaTrabajarHoy.touched">
-          <p *ngIf="MontoParaTrabajarHoy.value != equipment.MontoParaTrabajarHoy">
-            El monto debe ser igual a: {{ equipment.MontoParaTrabajarHoy}}
+          <p *ngIf="MontoParaTrabajarHoy.value < equipment.MontoParaTrabajarHoy">
+            El monto debe ser mayor o igual a: {{ equipment.MontoParaTrabajarHoy}}
           </p>
         </ion-item>
       </ion-list>
       <div [innerHTML]="equipment.Mensaje"></div>
-      <button ion-button block (click)="onSubmit()" [disabled]="form.invalid || (MontoParaTrabajarHoy.value != equipment.MontoParaTrabajarHoy)">GUARDAR</button>
+      <button ion-button block (click)="onSubmit()" [disabled]="form.invalid || (MontoParaTrabajarHoy.value < equipment.MontoParaTrabajarHoy)">GUARDAR</button>
     </form>
   </div>
   

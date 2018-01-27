@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 
@@ -29,8 +28,21 @@ export class DbProvider {
     return this.db.object(`/Equipamiento`)
   }
 
+  public objectSolicitud(key){
+    return this.db.object(`/Usuarios/${key}`)
+  }
+
   public listPendingSolicitud(){
-    return this.db.list('/Solicitud', ref => ref.orderByChild('Estado').equalTo('Pendiente'))
+    /* let today = new Date();
+    let dd = today.getDate()-1;
+    let mm = today.getMonth(); //January is 0!
+    var yyyy = today.getFullYear();
+    let _today = new Date(yyyy, mm, dd).getTime().toString()
+    ref.orderByKey().startAt(_today) */
+    return this.db.list(
+      '/Solicitud', 
+      ref => ref.orderByChild('Estado').equalTo('Pendiente')
+    )
   }
 
   public listLogUsuarioEquipamiento(){

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
 
 /**
  * Generated class for the DomiciliosDisponiblesPage page.
@@ -8,14 +8,13 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
 @Component({
   selector: 'page-domicilios-disponibles',
   templateUrl: 'domicilios-disponibles.html',
 })
 export class DomiciliosDisponiblesPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor() {
   }
 
   ionViewDidLoad() {
