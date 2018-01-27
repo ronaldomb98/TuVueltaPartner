@@ -53,7 +53,8 @@
     </ion-list>
     <button block ion-button color="orange" (click)="changeStateToEnSitio()" *ngIf="solicitudDetails.payload.val().Estado == 'En Proceso'">En Sitio</button>
     <button block ion-button color="orange" (click)="changeStateToDespachado()" *ngIf="solicitudDetails.payload.val().Estado == 'En Sitio'">Despachado</button>
-    <button block ion-button color="orange" (click)="changeStateToFinalizado()" *ngIf="solicitudDetails.payload.val().Estado == 'Despachado'">Finalizar</button>
+    <button block ion-button color="orange" (click)="changeStateToDondeElCliente()" *ngIf="solicitudDetails.payload.val().Estado == 'Despachado'">Donde El Cliente</button>
+    <button block ion-button color="orange" (click)="changeStateToFinalizado()" *ngIf="solicitudDetails.payload.val().Estado == 'En Punto'">Finalizar</button>
       </ion-card-content>
     </ion-card>
    

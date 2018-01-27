@@ -61,6 +61,10 @@ export class SolicitudInProcessDetailsPage {
   changeStateToFinalizado(){
     this.updateSolicitudEstado("Finalizado", true)
   }
+  
+  changeStateToDondeElCliente(){
+    this.updateSolicitudEstado("En Punto", true)
+  }
 
   updateSolicitudEstado(state, isFinalizado=false){
     let key = this.navParams.get('key')
