@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar  color="orange">
-    <ion-title>domicilios-activos</ion-title>
+    <ion-title text-center>domicilios-activos</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -34,5 +34,9 @@
             Comprar
           </button>
         </ion-item>
+
+        <div class="no-solicitudes-pendientes" text-center *ngIf="pendingSolicitud.length == 0">
+          No Hay Solicitudes Pendientes
+        </div>
       </ion-list>
 </ion-content>

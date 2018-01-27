@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>domicilios-disponibles</ion-title>
+    <ion-title text-center>domicilios-disponibles</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -40,5 +40,9 @@
             Ver
           </button>
         </ion-item>
+
+        <div class="no-solicitudes-pendientes" text-center *ngIf="inProccessSolicitud.length == 0">
+            No Hay Solicitudes En Proceso
+          </div>
       </ion-list>
 </ion-content>
