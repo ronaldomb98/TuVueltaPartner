@@ -16,16 +16,47 @@
 <ion-content padding>
 
   <div *ngIf="solicitudDetails">
-    <div><h4><strong>Punto de inicio: </strong></h4>{{ solicitudDetails.payload.val().puntoInicio }}</div>
-    <div><h4><strong>Punto de Finalización: </strong></h4>{{ solicitudDetails.payload.val().puntoFinal }}</div>
-    <div><h4><strong>Nombres: </strong></h4>{{ solicitudDetails.payload.val().Nombres }}</div>
-    <div><h4><strong>Apellidos: </strong></h4>{{ solicitudDetails.payload.val().Apellidos }}</div>
-    <div><h4><strong>Celular: </strong></h4>{{ solicitudDetails.payload.val().Celular }}</div>
-    <div><h4><strong>DistanciaTotal: </strong></h4>{{ solicitudDetails.payload.val().DistanciaTotal / 1000 }} Km</div>
-    <div><h4><strong>Estado: </strong></h4>{{ solicitudDetails.payload.val().Estado  }}</div>
+    <ion-card>
+      <ion-card-header text-center>
+        Descripción de Solicitud
+      </ion-card-header>
+      <ion-card-content>
+ <ion-list>
+      <ion-item>
+        <ion-label stacked>Punto de Inicio</ion-label>
+        <ion-input readonly [value]="solicitudDetails.payload.val().puntoInicio"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Punto de Finalización</ion-label>
+        <ion-input readonly [value]="solicitudDetails.payload.val().puntoFinal"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Nombres</ion-label>
+        <ion-input readonly [value]="solicitudDetails.payload.val().Nombres"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Apellidos</ion-label>
+        <ion-input readonly [value]="solicitudDetails.payload.val().Apellidos"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Celular</ion-label>
+        <ion-input readonly [value]="solicitudDetails.payload.val().Celular"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Distancia Total en Km</ion-label>
+        <ion-input readonly [value]="solicitudDetails.payload.val().DistanciaTotal / 1000"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>Estado </ion-label>
+        <ion-input readonly [value]="solicitudDetails.payload.val().Estado">}</ion-input>
+      </ion-item>
+    </ion-list>
     <button block ion-button color="orange" (click)="changeStateToEnSitio()" *ngIf="solicitudDetails.payload.val().Estado == 'En Proceso'">En Sitio</button>
     <button block ion-button color="orange" (click)="changeStateToDespachado()" *ngIf="solicitudDetails.payload.val().Estado == 'En Sitio'">Despachado</button>
     <button block ion-button color="orange" (click)="changeStateToFinalizado()" *ngIf="solicitudDetails.payload.val().Estado == 'Despachado'">Finalizar</button>
+      </ion-card-content>
+    </ion-card>
+   
 
   </div>
 

@@ -96,7 +96,7 @@ export class MyApp {
             console.log()
             let _userInfo = res.payload.val();
             if (_userInfo) {
-              this.nav.setRoot(PrincipalPage).then(()=>{ //  EquipmentPage
+              this.nav.setRoot(EquipmentPage).then(()=>{ //  EquipmentPage
                 this.nav.popToRoot()
                 loading.dismiss()
               })

@@ -67,7 +67,7 @@
         </ion-item>
       </ion-list>
       <div [innerHTML]="equipment.Mensaje"></div>
-      <button ion-button block (click)="onSubmit()" [disabled]="form.invalid || (MontoParaTrabajarHoy.value < equipment.MontoParaTrabajarHoy)">GUARDAR</button>
+      <button color="orange" ion-button block (click)="onSubmit()" [disabled]="form.invalid || (MontoParaTrabajarHoy.value < equipment.MontoParaTrabajarHoy)">GUARDAR</button>
     </form>
   </div>
   
