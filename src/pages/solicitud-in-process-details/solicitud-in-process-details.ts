@@ -63,7 +63,7 @@ export class SolicitudInProcessDetailsPage {
   }
   
   changeStateToDondeElCliente(){
-    this.updateSolicitudEstado("En Punto", true)
+    this.updateSolicitudEstado("En Punto")
   }
 
   updateSolicitudEstado(state, isFinalizado=false){
