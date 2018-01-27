@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { DbProvider } from '../../providers/db/db';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthProvider } from '../../providers/auth/auth';
-
+import { NativeAudio } from '@ionic-native/native-audio';
+import { StreamingMedia } from '@ionic-native/streaming-media';
 
 /**
  * Generated class for the DomiciliosActivosPage page.
@@ -19,29 +20,59 @@ export class DomiciliosActivosPage {
 
   public pendingSolicitud;
   private sub: Subscription;
+  private audio = new Audio();
+  private lengthSolicitudes: number = -1;
   constructor(
     private dbProvider: DbProvider,
-    private authProvider: AuthProvider
+    private authProvider: AuthProvider,
+    private nativeAudio: NativeAudio,
+    private streamingMedia: StreamingMedia
   ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DomiciliosActivosPage');
     this.loadPendingSolicitud();
+
+    
+    this.audio.src = 'assets/audio/notifynew.mp3';
+    
   }
 
   private loadPendingSolicitud(){
     this.sub = this.dbProvider.listPendingSolicitud().snapshotChanges()
       .subscribe(res=> {
+        console.log(res)
+        this.notifyNewSolicitud(res.length)
         this.pendingSolicitud = res.sort(( (a,b) =>{
           return Number(b.key) - Number(a.key)
         }))
+
+        
+
       },err=>{
         console.log(err)
       })
   }
 
-  orderByCreationDate(){
+  private notifyNewSolicitud(newLength){
+    let _newLength = newLength;
+    if (this.lengthSolicitudes == -1) {
+      this.lengthSolicitudes= _newLength;
+      console.log("Es la primera carga")
+      return
+    }
+
+    if (this.lengthSolicitudes >= _newLength) {
+      console.log(`el tamaño no es mayor ${this.lengthSolicitudes} < ${_newLength}`)
+      this.lengthSolicitudes= _newLength;
+      return
+    }
+    console.log("El tamaño es mayor")
+    this.lengthSolicitudes= _newLength;
+    this.audio.src = 'assets/audio/notifynew.mp3';
+    this.audio.load();
+    this.audio.play();
 
   }
 

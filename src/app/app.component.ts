@@ -14,6 +14,7 @@ import { CompleteRegistrationPage } from '../pages/complete-registration/complet
 import { EquipmentPage } from '../pages/equipment/equipment';
 import { PrincipalPage } from '../pages/principal/principal';
 import { DomiciliosActivosPage } from '../pages/domicilios-activos/domicilios-activos';
+import { PushNotificationProvider } from '../providers/push-notification/push-notification';
 
 @Component({
   templateUrl: 'app.html'
@@ -33,7 +34,8 @@ export class MyApp {
     public loadingCtrl: LoadingController,
     public menuController: MenuController,
     public authProvider: AuthProvider,
-    private dbProvider: DbProvider
+    private dbProvider: DbProvider,
+    public pushNotifications: PushNotificationProvider
   ) {
     this.initializeApp();
 
@@ -50,6 +52,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.pushNotifications.init_notifications();
       this.checkLog();
     });
   }

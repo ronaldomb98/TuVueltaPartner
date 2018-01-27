@@ -27,3 +27,4 @@ Introduzca la contraseña de clave para <tuvueltakey>
 Warning:
 El almacén de claves JKS utiliza un formato propietario. Se recomienda migrar a PKCS12, que es un formato estándar del sector que utiliza "keytool -importkeystore -srckeystore tuvueltakey.keystore -destkeystore tuvueltakey.keystore -deststoretype pkcs12".
 
+id app: com.tuvuelta.partnerdev
