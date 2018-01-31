@@ -9,7 +9,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 */
 @Injectable()
 export class DbProvider {
-  private urlParamsSignup: string = '/ParamsRegistro'
+  private urlParamsSignup: string = '/Administrativo/ParamsRegistro'
   constructor(
     private db: AngularFireDatabase
   ) {
@@ -20,16 +20,16 @@ export class DbProvider {
     return this.db.object(this.urlParamsSignup)
   }
 
-  public objectUserInfo(email){
-    return this.db.object(`/Usuarios/${email}`)
+  public objectUserInfo(uid){
+    return this.db.object(`/Administrativo/Usuarios/${uid}`)
   }
 
   public objectEquipamiento(){
-    return this.db.object(`/Equipamiento`)
+    return this.db.object(`/Administrativo/Equipamiento`)
   }
 
   public objectSolicitud(key){
-    return this.db.object(`/Solicitud/${key}`)
+    return this.db.object(`/Operativo/Solicitud/${key}`)
   }
 
   public listPendingSolicitud(){
@@ -40,28 +40,27 @@ export class DbProvider {
     let _today = new Date(yyyy, mm, dd).getTime().toString()
     ref.orderByKey().startAt(_today) */
     return this.db.list(
-      '/Solicitud', 
+      '/Operativo/Solicitud', 
       ref => ref.orderByChild('Estado').equalTo('Pendiente')
     )
   }
   public listInProccessSolicitud(){
-    return this.db.list('/Solicitud', ref => ref.orderByChild('EnProceso').equalTo(true))
+    return this.db.list('/Operativo/Solicitud', ref => ref.orderByChild('EnProceso').equalTo(true))
   }
-  public listLogUsuarioEquipamiento(){
-    return this.db.list('/Logs/EquipamientoMotorratoner')
+  public listLogUsuarioEquipamiento(uid){
+    return this.db.list(`/Operativo/Logs/EquipamientoMotorratoner/${uid}`)
   }
 
   public listLogCreditoRetiro(key) {
-    return this.db.list(`/Logs/CreditosMensajero/CreditoRetiro/${key}`)
+    return this.db.list(`/Operativo/Logs/CreditosMensajero/CreditoRetiro/${key}`)
   }
 
   public listLogCreditoNoRetiro() {
-    return this.db.list('/Logs/CreditosMensajero/CreditoNoRetiro')
+    return this.db.list('/Operativo/Logs/CreditosMensajero/CreditoNoRetiro')
   }
 
   public listLogSolicitud(key){
-
-    return this.db.list(`/Logs/Solicitud/${key}`)
+    return this.db.list(`/Operativo/Logs/Solicitud/${key}`)
   }
 
 }

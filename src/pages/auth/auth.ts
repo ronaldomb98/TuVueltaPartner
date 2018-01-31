@@ -39,10 +39,10 @@ export class AuthPage {
 
   buildFormLogin(): void{
     this.form = this.formBuilder.group({
-      email: this.formBuilder.control('',[
+      email: this.formBuilder.control('test2@gmail.com',[
         Validators.required, Validators.email
       ]),
-      password1: this.formBuilder.control('',[Validators.required]),
+      password1: this.formBuilder.control('ronaldo123123',[Validators.required]),
 
     })
   }

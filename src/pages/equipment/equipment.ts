@@ -67,14 +67,16 @@ export class EquipmentPage {
   onSubmit(){
     let data = this.form.value;
     data.Fecha = new Date().getTime();
-    data.user_id = this.authProvider.currentUserUid;
-    this.dbProvider.listLogUsuarioEquipamiento()
+    const uid = this.authProvider.currentUserUid;
+    this.dbProvider.listLogUsuarioEquipamiento(uid)
     .push(data)
     .then(()=>{
       return this.navCtrl.setRoot(PrincipalPage);
     }).then(()=>{
-      this.navCtrl.popToRoot();
+      return this.navCtrl.popToRoot();
     })
+    
+    
   }
   get EquipoMoto() { return this.form.get('EquipoMoto') }
   get EquipoMensajero() { return this.form.get('EquipoMensajero') }

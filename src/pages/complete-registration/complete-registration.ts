@@ -3,6 +3,7 @@ import {AuthProvider} from "../../providers/auth/auth";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { DbProvider } from '../../providers/db/db';
 import { Subscription } from 'rxjs/Subscription';
+import { ROLES } from '../../config/Roles';
 /**
  * Generated class for the CompleteRegistrationPage page.
  *
@@ -21,6 +22,7 @@ export class CompleteRegistrationPage {
   form: FormGroup;
   errorMessage: string;
   private sub: Subscription;
+  public Ciudades;
 
   public testText: string = "item1, item2, item3, item4.";
   constructor(
@@ -47,26 +49,51 @@ export class CompleteRegistrationPage {
 
   buildForm(): void{
     this.form = this.formBuilder.group({
-      Nombres: this.formBuilder.control(null, [Validators.required]),
-      Apellidos: this.formBuilder.control(null, [Validators.required]),
-      Celular: this.formBuilder.control(null, [Validators.required]),
-      Telefono: this.formBuilder.control(null, [Validators.required]),
-      Cedula: this.formBuilder.control(null, [Validators.required]),
-      Direccion: this.formBuilder.control(null, [Validators.required]),
-      Ciudad: this.formBuilder.control(null, [Validators.required]),
-      TieneCelAndroidYDatos: this.formBuilder.control(null, [Validators.required]),
-      TieneEPS: this.formBuilder.control(null, [Validators.required]),
-      TipoVehiculo: this.formBuilder.control(null, [Validators.required]),
-      PlacaVehiculo: this.formBuilder.control(null, [Validators.required]),
-      TiempoDispParaHacerServicio: this.formBuilder.control(null, [Validators.required]),
-      ComoNosConocio: this.formBuilder.control(null, [Validators.required])
+      Nombres: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      Apellidos: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      Celular: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      CelularFijo: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      Correo: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      Cedula: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      Direccion: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      FechaNacimiento: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      TipoCelular: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      Ciudad: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      TieneDatos: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      TieneEPS: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      TipoVehiculo: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      PlacaVehiculo: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      TiempoDispParaHacerServicio: 
+        this.formBuilder.control('Test2', [Validators.required]),
+      ComoNosConocio: 
+        this.formBuilder.control('Test2', [Validators.required])
     })
   }
 
   onSubmit():void {
     let uid = this.authProvider.currentUserUid;
     let data = this.form.value;
-    this.dbProvider.objectUserInfo(uid).update(data)
+    data.Rol = ROLES.Mensajero;
+    console.log(data)
+    this.dbProvider.objectUserInfo(uid)
+      .update(data)
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   private loadParamsRegistro():void {
@@ -74,17 +101,28 @@ export class CompleteRegistrationPage {
       .snapshotChanges()
       .subscribe(action => {
         this.paramsRegistro = action.payload.val()
+        let _Ciudades = this.paramsRegistro.Ciudades
+        console.log(this.paramsRegistro)
+        this.Ciudades = Object.keys(_Ciudades).map(key => {
+          let city = _Ciudades[key];
+          city.key = key;
+          return city
+        })
+        console.log(this.Ciudades)
       })
   } 
 
   get Nombres() { return this.form.get('Nombres')}
   get Apellidos() { return this.form.get('Apellidos')}
   get Celular() { return this.form.get('Celular')}
-  get Telefono() { return this.form.get('Telefono')}
+  get CelularFijo() { return this.form.get('CelularFijo')}
+  get Correo() { return this.form.get('Correo')}
   get Cedula() { return this.form.get('Cedula')}
   get Direccion() { return this.form.get('Direccion')}
+  get FechaNacimiento() { return this.form.get('FechaNacimiento')}
+  get TipoCelular() { return this.form.get('TipoCelular')}
   get Ciudad() { return this.form.get('Ciudad')}
-  get TieneCelAndroidYDatos() { return this.form.get('TieneCelAndroidYDatos')}
+  get TieneDatos() { return this.form.get('TieneDatos')}
   get TieneEPS() { return this.form.get('TieneEPS')}
   get TipoVehiculo() { return this.form.get('TipoVehiculo')}
   get PlacaVehiculo() { return this.form.get('PlacaVehiculo')}

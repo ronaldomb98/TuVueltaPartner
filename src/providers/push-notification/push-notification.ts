@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { OneSignal } from '@ionic-native/onesignal';
 import { Platform } from 'ionic-angular/platform/platform';

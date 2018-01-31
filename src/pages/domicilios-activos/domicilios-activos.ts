@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { DbProvider } from '../../providers/db/db';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthProvider } from '../../providers/auth/auth';
-import { NativeAudio } from '@ionic-native/native-audio';
-import { StreamingMedia } from '@ionic-native/streaming-media';
-
+import { ESTADOS_ERVICIO } from '../../config/EstadosServicio';
 /**
  * Generated class for the DomiciliosActivosPage page.
  *
@@ -24,9 +22,7 @@ export class DomiciliosActivosPage {
   private lengthSolicitudes: number = -1;
   constructor(
     private dbProvider: DbProvider,
-    private authProvider: AuthProvider,
-    private nativeAudio: NativeAudio,
-    private streamingMedia: StreamingMedia
+    private authProvider: AuthProvider
   ) {
   }
 
@@ -94,13 +90,13 @@ export class DomiciliosActivosPage {
     let date = new Date().getTime()
     this.dbProvider.objectSolicitud(_key)
     .update({
-      Estado: "En Proceso",
+      Estado: ESTADOS_ERVICIO.EnProceso,
       Motorratoner_id: _uid,
       EnProceso: true
     })
     .then(res=>{
       return this.dbProvider.listLogSolicitud(key).push({
-        Estado: "En Proceso",
+        Estado: ESTADOS_ERVICIO.EnProceso,
         Motorratoner_id: _uid,
         fecha: date
       })

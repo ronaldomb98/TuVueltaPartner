@@ -4,7 +4,6 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 
-import { ListPage } from '../pages/list/list';
 import { AuthPage } from '../pages/auth/auth';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthProvider } from '../providers/auth/auth';
@@ -13,7 +12,6 @@ import { DbProvider } from '../providers/db/db';
 import { CompleteRegistrationPage } from '../pages/complete-registration/complete-registration';
 import { EquipmentPage } from '../pages/equipment/equipment';
 import { PrincipalPage } from '../pages/principal/principal';
-import { DomiciliosActivosPage } from '../pages/domicilios-activos/domicilios-activos';
 import { PushNotificationProvider } from '../providers/push-notification/push-notification';
 
 @Component({
@@ -99,7 +97,7 @@ export class MyApp {
             console.log()
             let _userInfo = res.payload.val();
             if (_userInfo) {
-              this.nav.setRoot(EquipmentPage).then(()=>{ //  EquipmentPage
+              this.nav.setRoot(PrincipalPage).then(()=>{ //  EquipmentPage
                 this.nav.popToRoot()
                 loading.dismiss()
               })

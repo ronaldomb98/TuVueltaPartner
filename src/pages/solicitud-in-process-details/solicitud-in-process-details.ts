@@ -3,7 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { DbProvider } from '../../providers/db/db';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthProvider } from '../../providers/auth/auth';
-
+import { ESTADOS_ERVICIO } from '../../config/EstadosServicio';
 /**
  * Generated class for the SolicitudInProcessDetailsPage page.
  *
@@ -45,25 +45,30 @@ export class SolicitudInProcessDetailsPage {
     })
   }
 
+  
   getSolicitudObject(){
     let key = this.navParams.get('key');
     return this.dbProvider.objectSolicitud(key)
   }
 
-  changeStateToEnSitio(){
-    this.updateSolicitudEstado("En Sitio")
+  changeStateToEnSitio():void {
+    const newEstate = ESTADOS_ERVICIO.EnSitio
+    this.updateSolicitudEstado(newEstate)
   }
 
-  changeStateToDespachado(){
-    this.updateSolicitudEstado("Despachado")
+  changeStateToDespachado():void {
+    const newEstate = ESTADOS_ERVICIO.Despachado
+    this.updateSolicitudEstado(newEstate)
   }
 
-  changeStateToFinalizado(){
-    this.updateSolicitudEstado("Finalizado", true)
+  changeStateToDondeElCliente():void {
+    const newEstate = ESTADOS_ERVICIO.EnPunto
+    this.updateSolicitudEstado(newEstate)
   }
-  
-  changeStateToDondeElCliente(){
-    this.updateSolicitudEstado("En Punto")
+
+  changeStateToFinalizado():void {
+    const newEstate = ESTADOS_ERVICIO.Finalizado
+    this.updateSolicitudEstado(newEstate, true)
   }
 
   updateSolicitudEstado(state, isFinalizado=false){

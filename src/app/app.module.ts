@@ -27,8 +27,6 @@ import { PrincipalPage } from '../pages/principal/principal';
 import { DomiciliosActivosPage } from '../pages/domicilios-activos/domicilios-activos';
 import { DomiciliosDisponiblesPage } from '../pages/domicilios-disponibles/domicilios-disponibles';
 import { SolicitudInProcessDetailsPage } from '../pages/solicitud-in-process-details/solicitud-in-process-details';
-import { NativeAudio } from '@ionic-native/native-audio';
-import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
 import { PushNotificationProvider } from '../providers/push-notification/push-notification';
 import { OneSignal } from '@ionic-native/onesignal';
 @NgModule({
@@ -79,8 +77,6 @@ import { OneSignal } from '@ionic-native/onesignal';
     AuthProvider,
     LoadingProvider,
     DbProvider,
-    NativeAudio,
-    StreamingMedia,
     PushNotificationProvider
   ]
 })

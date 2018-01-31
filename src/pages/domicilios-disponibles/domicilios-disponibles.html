@@ -29,7 +29,7 @@
             <ion-icon name="md-pin"></ion-icon> <span>{{ row.payload.val().puntoFinal}}</span>
           </p>
           <p>
-            <span margin-right>{{ row.key | date:'shortTime'}}</span>
+            <span margin-right>{{ row.key | date:'full'}}</span>
             <ion-icon name="arrow-round-up"></ion-icon>
             <ion-icon *ngIf="row.payload.val().esPagoConTarjeta == true" name="arrow-round-down"></ion-icon>
           </p>
