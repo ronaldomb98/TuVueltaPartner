@@ -1,0 +1,8 @@
+Multa y no valor
+GananciaMensajero
+
+disparador
+solo se puede relanzar una sola vez
+BonoRelanzamiento = 1500
+
+cuando le de comprar subar GananciaMensajero mas BonoRelanzamiento.

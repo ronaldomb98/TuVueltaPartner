@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { DbProvider } from '../../providers/db/db';
 import { Subscription } from 'rxjs/Subscription';
 import { ROLES } from '../../config/Roles';
+import { ESTADOS_USUARIO } from '../../config/EstadosUsuario';
 /**
  * Generated class for the CompleteRegistrationPage page.
  *
@@ -50,37 +51,37 @@ export class CompleteRegistrationPage {
   buildForm(): void{
     this.form = this.formBuilder.group({
       Nombres: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       Apellidos: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       Celular: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       CelularFijo: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       Correo: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       Cedula: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       Direccion: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       FechaNacimiento: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       TipoCelular: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       Ciudad: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       TieneDatos: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       TieneEPS: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       TipoVehiculo: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       PlacaVehiculo: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       TiempoDispParaHacerServicio: 
-        this.formBuilder.control('Test2', [Validators.required]),
+        this.formBuilder.control(null, [Validators.required]),
       ComoNosConocio: 
-        this.formBuilder.control('Test2', [Validators.required])
+        this.formBuilder.control(null, [Validators.required])
     })
   }
 
@@ -88,6 +89,7 @@ export class CompleteRegistrationPage {
     let uid = this.authProvider.currentUserUid;
     let data = this.form.value;
     data.Rol = ROLES.Mensajero;
+    data.Estado = ESTADOS_USUARIO.Inactivo;
     console.log(data)
     this.dbProvider.objectUserInfo(uid)
       .update(data)

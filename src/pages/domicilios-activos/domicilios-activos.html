@@ -8,35 +8,42 @@
 
 
 <ion-content>
-      <ion-list *ngIf="pendingSolicitud">
-        <ion-item-divider>
-            Domicilios
-        </ion-item-divider>
-        <ion-item *ngFor="let row of pendingSolicitud">
-          <span item-start>
-            $ {{ row.payload.val().GananciaMensajero}}
-          </span>
-          <p>
-            <ion-icon name="md-more"></ion-icon><span>{{ row.payload.val().puntoInicio}}</span>
-          </p>
-          <p>
-            <ion-icon name="md-pin"></ion-icon> <span>{{ row.payload.val().puntoFinal}}</span>
-          </p>
-          <p>
-            <span margin-right>{{ row.key | date:'full'}}</span>
-            <ion-icon name="arrow-round-up"></ion-icon>
-            <ion-icon *ngIf="row.payload.val().esPagoConTarjeta == true" name="arrow-round-down"></ion-icon>
-          </p>
-          <p *ngIf="row.payload.val().ValorDomicilio">
-            $ {{ row.payload.val().ValorDomicilio }}
-          </p>
-          <button (click)="changeState(row.key, row.payload.val().GananciaMensajero)" ion-button color="orange" item-end>
-            Comprar
-          </button>
-        </ion-item>
+  <ion-list *ngIf="pendingSolicitud && isActive">
+    <ion-item-divider>
+        Domicilios
+    </ion-item-divider>
+    <ion-item *ngFor="let row of pendingSolicitud">
+      <span item-start>
+        $ {{ row.payload.val().GananciaMensajero}}
+      </span>
+      <p>
+        <ion-icon name="md-more"></ion-icon><span>{{ row.payload.val().puntoInicio}}</span>
+      </p>
+      <p>
+        <ion-icon name="md-pin"></ion-icon> <span>{{ row.payload.val().puntoFinal}}</span>
+      </p>
+      <p>
+        <ion-icon name="arrow-round-up"></ion-icon>
+        <ion-icon *ngIf="row.payload.val().esPagoConTarjeta == true" name="arrow-round-down"></ion-icon>
+        <span margin-right>{{ row.key | date:'shortTime'}}</span>
+      </p>
+      <p *ngIf="row.payload.val().BonoRelanzamiento">
+        Bonificación: $ {{ row.payload.val().BonoRelanzamiento | number }}
+      </p>
+      <p *ngIf="row.payload.val().ValorDomicilio">
+        $ {{ row.payload.val().ValorDomicilio | number }}
+      </p>
+      <button (click)="loadConfirm(row)" ion-button color="orange" item-end>
+        Comprar
+      </button>
+    </ion-item>
 
-        <div class="no-solicitudes-pendientes" text-center *ngIf="pendingSolicitud.length == 0">
-          No Hay Solicitudes Pendientes
-        </div>
-      </ion-list>
+    <div class="no-solicitudes-pendientes" text-center *ngIf="pendingSolicitud.length == 0">
+      No Hay Solicitudes Pendientes
+    </div>
+  </ion-list>
+
+  <div *ngIf="!isActive" class="no-active-message">
+    Debes estar activo para poder ver los servicios pendientes
+  </div>
 </ion-content>

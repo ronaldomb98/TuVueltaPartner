@@ -1,3 +1,24 @@
 page-retirar {
+    ion-card.form-retiro{
+        ion-card-header{
+            background: color($colors, orange);
+            .header {
+                color: white;
+            }
+        }
+    }
+    .header{
+        
+        .total-amount, .title-retirar{
+            font-size: 2em;
+            font-weight: 900;
+        }
+        .title-retirar{
+            padding-top: 1.5em;
+        }
+    }
 
+    .individual-credits{
+        margin-top: -4em;
+    }
 }

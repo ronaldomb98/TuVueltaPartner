@@ -1,17 +1,49 @@
 <ion-menu [content]="content">
-  <ion-header>
+  <!-- <ion-header>
     <ion-toolbar color="orange">
       <ion-title text-center>Menu</ion-title>
     </ion-toolbar>
-  </ion-header>
+  </ion-header> -->
 
   <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
-      </button>
-      <button menuClose ion-item (click)="signOut()">Cerrar Sesión</button>
-    </ion-list>
+
+    <!-- Header logo and user information -->
+    <div text-center class="logo-menu">
+      <div class="logo">
+          <img class="logo" src="assets/imgs/tuvueltablanco.png" alt="">
+          <div *ngIf="_userInfo" class="username">
+            {{ _userInfo.Nombres  }}
+          </div>
+          <ion-row *ngIf="dbProvider.gananciasMensajero" class="creditos">
+            <ion-col col-6>
+              <div text-center class="credito-name">Retiro</div>
+              <div text-center class="credito-description">$ {{ dbProvider.gananciasMensajero.CreditosRetiro | number }}</div>
+            </ion-col>
+            <ion-col col-6>
+              <div text-center class="credito-name">No Retiro</div>
+              <div text-center class="credito-description">$ {{ dbProvider.gananciasMensajero.CreditosNoRetiro | number }}</div>
+            </ion-col>
+          </ion-row>
+      </div>
+      
+    </div>
+
+    <!-- option list  -->
+    <div class="menu-list">
+
+      <!-- main routes -->
+      <ion-list *ngIf="_userInfo && _userInfo.Rol == 'Mensajero'">
+        <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+          {{p.title}}
+        </button>
+        <button menuClose ion-item (click)="signOut()">Cerrar Sesión</button>
+      </ion-list>
+
+      <!-- logout -->
+      <ion-list class="logout" *ngIf="_userInfo && _userInfo.Rol != 'Mensajero'">
+        <button menuClose ion-item (click)="signOut()">Cerrar Sesión</button>
+      </ion-list>
+    </div>    
   </ion-content>
 
 </ion-menu>

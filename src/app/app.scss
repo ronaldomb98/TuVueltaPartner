@@ -18,7 +18,63 @@
 
 
 .no-solicitudes-pendientes{
-    margin-top: 2em;
-    font-size: 1.5em;
-    color: color($colors, orange)
+  margin-top: 2em;
+  font-size: 1.5em;
+  color: color($colors, orange)
+}
+
+.no-active-message{
+  margin-top: 5em;
+}
+
+.header-auth{
+  background: color($colors, orange);
+  height: 15em;
+  text-align: center;
+  color: white;
+  img{
+    margin-top: 1em;
+    height: 7em;
   }
+}
+
+ion-card.auth{
+  position: relative;
+  margin-top: -2em;
+  width: calc(100% - 4em);
+  margin-left: 2em
+
+}
+.logout{
+  
+}
+.logo-menu{
+  color: white;
+  font-weight: 400;
+  div.logo{
+    width: 100%;
+    background: color($colors, orange);
+    height: 200px;
+  }
+  img.logo{
+    width: calc(100% - 6em);
+    height: 100px;
+  }
+
+  .username{
+    text-decoration: underline;
+    
+    margin: .5em 0;
+  }
+  .creditos{
+
+  }
+  .credito-name{
+
+  }
+  .credito-description{
+
+  }
+
+}
+

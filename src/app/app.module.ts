@@ -15,9 +15,6 @@ import { firebaseConfig } from '../config/environment';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { LoadingProvider } from '../providers/loading/loading';
-import { NoAuthPage } from '../pages/no-auth/no-auth';
-import { LoginPage } from '../pages/login/login';
-import { SignupPage } from '../pages/signup/signup';
 import { ResetPasswordPage } from '../pages/reset-password/reset-password';
 import { DbProvider } from '../providers/db/db';
 import { AuthPage } from '../pages/auth/auth';
@@ -29,6 +26,14 @@ import { DomiciliosDisponiblesPage } from '../pages/domicilios-disponibles/domic
 import { SolicitudInProcessDetailsPage } from '../pages/solicitud-in-process-details/solicitud-in-process-details';
 import { PushNotificationProvider } from '../providers/push-notification/push-notification';
 import { OneSignal } from '@ionic-native/onesignal';
+import { RetirarPage } from '../pages/retirar/retirar';
+import { UsuarioBloqueadoPage } from '../pages/usuario-bloqueado/usuario-bloqueado';
+import { NoMensajeroRolPage } from '../pages/no-mensajero-rol/no-mensajero-rol';
+import { Geolocation } from '@ionic-native/geolocation';
+import { Network } from '@ionic-native/network';
+import { NoInternetPage } from '../pages/no-internet/no-internet';
+import { SignupPage } from '../pages/signup/signup';
+import { LoginPage } from '../pages/login/login';
 @NgModule({
   declarations: [
     MyApp,
@@ -36,15 +41,17 @@ import { OneSignal } from '@ionic-native/onesignal';
     PrincipalPage, 
     DomiciliosActivosPage, 
     DomiciliosDisponiblesPage,
-    NoAuthPage,
-    LoginPage,
-    SignupPage,
     ResetPasswordPage,
     AuthPage,
     CompleteRegistrationPage,
     EquipmentPage,
-    SolicitudInProcessDetailsPage
-
+    SolicitudInProcessDetailsPage,
+    RetirarPage,
+    UsuarioBloqueadoPage,
+    NoMensajeroRolPage,
+    NoInternetPage,
+    LoginPage,
+    SignupPage
   ],
   imports: [
     BrowserModule,
@@ -60,19 +67,24 @@ import { OneSignal } from '@ionic-native/onesignal';
     PrincipalPage, 
     DomiciliosActivosPage, 
     DomiciliosDisponiblesPage,
-    NoAuthPage,
-    LoginPage,
-    SignupPage,
     ResetPasswordPage,
     AuthPage,
     CompleteRegistrationPage,
     EquipmentPage,
-    SolicitudInProcessDetailsPage
+    SolicitudInProcessDetailsPage,
+    RetirarPage,
+    UsuarioBloqueadoPage,
+    NoMensajeroRolPage,
+    NoInternetPage,
+    LoginPage,
+    SignupPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     OneSignal,
+    Geolocation,
+    Network,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
     LoadingProvider,

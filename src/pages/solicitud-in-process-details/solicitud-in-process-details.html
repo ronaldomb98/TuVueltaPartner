@@ -16,9 +16,10 @@
 <ion-content padding>
 
   <div *ngIf="solicitudDetails">
-    <ion-card>
+    <ion-card class="details">
       <ion-card-header text-center>
-        Descripción de Solicitud
+        Descripción de Solicitud 
+        
       </ion-card-header>
       <ion-card-content>
  <ion-list>
@@ -51,15 +52,22 @@
         <ion-input readonly [value]="solicitudDetails.payload.val().Estado">}</ion-input>
       </ion-item>
     </ion-list>
-    <button block ion-button color="orange" (click)="changeStateToEnSitio()" *ngIf="solicitudDetails.payload.val().Estado == 'En Proceso'">En Sitio</button>
-    <button block ion-button color="orange" (click)="changeStateToDespachado()" *ngIf="solicitudDetails.payload.val().Estado == 'En Sitio'">Despachado</button>
+    <button block ion-button color="orange" (click)="changeStateToEnSitio()" *ngIf="solicitudDetails.payload.val().Estado == 'EnProceso'">En Sitio</button>
+    <button block ion-button color="orange" (click)="changeStateToDespachado()" *ngIf="solicitudDetails.payload.val().Estado == 'EnSitio'">Despachado</button>
     <button block ion-button color="orange" (click)="changeStateToDondeElCliente()" *ngIf="solicitudDetails.payload.val().Estado == 'Despachado'">Donde El Cliente</button>
-    <button block ion-button color="orange" (click)="changeStateToFinalizado()" *ngIf="solicitudDetails.payload.val().Estado == 'En Punto'">Finalizar</button>
+    <button block ion-button color="orange" (click)="changeStateToDevolucionDatafono()" *ngIf="solicitudDetails.payload.val().Estado == 'EnPunto' && solicitudDetails.payload.val().esPagoConTarjeta == true">Devolucion Datafono</button>
+    <button block ion-button color="orange" (click)="changeStateToFinalizado()" *ngIf="solicitudDetails.payload.val().Estado == 'EnPunto' && solicitudDetails.payload.val().esPagoConTarjeta == false">Finalizar</button>
+    <button block ion-button color="orange" (click)="changeStateToFinalizado()" *ngIf="solicitudDetails.payload.val().Estado == 'DevolucionDatafono' && solicitudDetails.payload.val().esPagoConTarjeta == true">Finalizar</button>
+    <button block ion-button color="light" (click)="goBack()">Volver</button>
+    <button block (click)="relaunch(solicitudDetails)" *ngIf="solicitudDetails.payload.val().fechaCompra && ((solicitudDetails.payload.val().fechaCompra + 30000) > currentTime ) " ion-button color="orange">
+      Relanzar {{ (((solicitudDetails.payload.val().fechaCompra + 30000) - currentTime) / 1000) | number:'2.0-0' }}
+    </button>
+    
       </ion-card-content>
     </ion-card>
    
 
   </div>
 
-<button block ion-button color="light" (click)="goBack()">Volver</button>
+
 </ion-content>

@@ -13,13 +13,23 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <form [formGroup]="form">
-    
+    <!-- Cedula -->
+    <ion-item>
+      <ion-label ><ion-icon name="card"></ion-icon> Cédula</ion-label>
+      <ion-input  clearInput formControlName="Cedula" type="number"></ion-input>
+    </ion-item>
+    <ion-item class="error" *ngIf="Cedula.invalid && (Cedula.dirty || Cedula.touched)">
+      <p *ngIf="Cedula.errors.required">
+        Campo obligatorio
+      </p>
+    </ion-item>
+
     <!-- Nombres -->
     <ion-item>
-      <ion-label >Nombres</ion-label>
-      <ion-input formControlName="Nombres" type="text"></ion-input>
+      <ion-label ><ion-icon name="person"></ion-icon> Nombres</ion-label>
+      <ion-input  clearInput formControlName="Nombres" type="text"></ion-input>
     </ion-item>
     <ion-item class="error" *ngIf="Nombres.invalid && (Nombres.dirty || Nombres.touched)">
       <p *ngIf="Nombres.errors.required">
@@ -29,8 +39,8 @@
 
     <!-- Apellidos -->
     <ion-item>
-      <ion-label >Apellidos</ion-label>
-      <ion-input formControlName="Apellidos" type="text"></ion-input>
+      <ion-label ><ion-icon name="person"></ion-icon> Apellidos</ion-label>
+      <ion-input  clearInput formControlName="Apellidos" type="text"></ion-input>
     </ion-item>
     <ion-item class="error" *ngIf="Apellidos.invalid && (Apellidos.dirty || Apellidos.touched)">
       <p *ngIf="Apellidos.errors.required">
@@ -40,8 +50,8 @@
 
     <!-- Celular -->
     <ion-item>
-      <ion-label >Celular</ion-label>
-      <ion-input formControlName="Celular" type="text"></ion-input>
+      <ion-label ><ion-icon name="phone-portrait"></ion-icon> Celular</ion-label>
+      <ion-input  clearInput formControlName="Celular" type="number"></ion-input>
     </ion-item>
     <ion-item class="error" *ngIf="Celular.invalid && (Celular.dirty || Celular.touched)">
       <p *ngIf="Celular.errors.required">
@@ -51,8 +61,8 @@
     
     <!-- CelularFijo -->
     <ion-item>
-      <ion-label >CelularFijo</ion-label>
-      <ion-input formControlName="CelularFijo" type="text"></ion-input>
+      <ion-label ><ion-icon name="call"></ion-icon> Telefono Fijo</ion-label>
+      <ion-input  clearInput formControlName="CelularFijo" type="number"></ion-input>
     </ion-item>
     <ion-item class="error" *ngIf="CelularFijo.invalid && (CelularFijo.dirty || CelularFijo.touched)">
       <p *ngIf="CelularFijo.errors.required">
@@ -60,20 +70,10 @@
       </p>
     </ion-item>
 
-    <!-- Cedula -->
-    <ion-item>
-      <ion-label >Cedula</ion-label>
-      <ion-input formControlName="Cedula" type="text"></ion-input>
-    </ion-item>
-    <ion-item class="error" *ngIf="Cedula.invalid && (Cedula.dirty || Cedula.touched)">
-      <p *ngIf="Cedula.errors.required">
-        Campo obligatorio
-      </p>
-    </ion-item>
      <!-- Correo -->
      <ion-item>
-      <ion-label >Correo</ion-label>
-      <ion-input formControlName="Correo" type="text"></ion-input>
+      <ion-label ><ion-icon name="mail"></ion-icon> Correo</ion-label>
+      <ion-input  clearInput formControlName="Correo" type="email"></ion-input>
     </ion-item>
     <ion-item class="error" *ngIf="Correo.invalid && (Correo.dirty || Correo.touched)">
       <p *ngIf="Correo.errors.required">
@@ -83,8 +83,8 @@
     
     <!-- FechaNacimiento -->
     <ion-item>
-      <ion-label >FechaNacimiento</ion-label>
-      <ion-input formControlName="FechaNacimiento" type="text"></ion-input>
+      <ion-label><ion-icon name="calendar"></ion-icon> Fecha de Nacimiento</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" clearInput formControlName="FechaNacimiento" type="text"></ion-datetime>
     </ion-item>
     <ion-item class="error" *ngIf="FechaNacimiento.invalid && (FechaNacimiento.dirty || FechaNacimiento.touched)">
       <p *ngIf="FechaNacimiento.errors.required">
@@ -94,8 +94,11 @@
 
      <!-- TipoCelular -->
      <ion-item>
-      <ion-label >TipoCelular</ion-label>
-      <ion-input formControlName="TipoCelular" type="text"></ion-input>
+      <ion-label ><ion-icon ios="apple" md="logo-android"></ion-icon> Tipo Celular</ion-label>
+      <ion-select  clearInput clearInput formControlName="TipoCelular">
+        <ion-option value="Android">Android</ion-option>
+        <ion-option value="IOS">IOS</ion-option>
+      </ion-select>
     </ion-item>
     <ion-item class="error" *ngIf="TipoCelular.invalid && (TipoCelular.dirty || TipoCelular.touched)">
       <p *ngIf="TipoCelular.errors.required">
@@ -105,8 +108,8 @@
     
     <!-- Direccion -->
     <ion-item>
-      <ion-label >Direccion</ion-label>
-      <ion-input formControlName="Direccion" type="text"></ion-input>
+      <ion-label ><ion-icon name="home"></ion-icon> Dirección</ion-label>
+      <ion-input  clearInput formControlName="Direccion" type="text"></ion-input>
     </ion-item>
     <ion-item class="error" *ngIf="Direccion.invalid && (Direccion.dirty || Direccion.touched)">
       <p *ngIf="Direccion.errors.required">
@@ -117,8 +120,8 @@
     <!-- Ciudad -->
     <div *ngIf="paramsRegistro">
       <ion-item *ngIf="Ciudades">
-        <ion-label>Ciudad</ion-label>
-        <ion-select formControlName="Ciudad">
+        <ion-label><ion-icon name="navigate"></ion-icon> Ciudad</ion-label>
+        <ion-select  clearInput formControlName="Ciudad">
           <ion-option *ngFor="let row of Ciudades" [value]="row.key">
             {{ row.Nombre }}
           </ion-option>
@@ -132,8 +135,8 @@
 
       <!-- Tiene Celular Android y Datos -->
       <ion-item>
-        <ion-label>TieneDatos</ion-label>
-        <ion-select formControlName="TieneDatos">
+        <ion-label><ion-icon name="wifi"></ion-icon> Tiene Datos</ion-label>
+        <ion-select  clearInput formControlName="TieneDatos">
           <ion-option *ngFor="let row of paramsRegistro.TieneCelAndroidYDatos" [value]="row">
             {{ row }}
           </ion-option>
@@ -147,8 +150,8 @@
 
       <!-- Tiene EPS -->
       <ion-item>
-        <ion-label>TieneEPS</ion-label>
-        <ion-select formControlName="TieneEPS">
+        <ion-label><ion-icon name="medkit"></ion-icon> TieneEPS</ion-label>
+        <ion-select  clearInput formControlName="TieneEPS">
           <ion-option *ngFor="let row of paramsRegistro.TieneEPS" [value]="row">
             {{ row }}
           </ion-option>
@@ -162,8 +165,8 @@
 
       <!-- TipoVehiculo -->
       <ion-item>
-        <ion-label>TipoVehiculo</ion-label>
-        <ion-select formControlName="TipoVehiculo">
+        <ion-label><ion-icon name="bicycle"></ion-icon> Tipo Vehiculo</ion-label>
+        <ion-select  clearInput formControlName="TipoVehiculo">
           <ion-option *ngFor="let row of paramsRegistro.TipoVehiculo" [value]="row">
             {{ row }}
           </ion-option>
@@ -177,8 +180,8 @@
 
         <!-- PlacaVehiculo -->
       <ion-item>
-        <ion-label >PlacaVehiculo</ion-label>
-        <ion-input formControlName="PlacaVehiculo" type="text"></ion-input>
+        <ion-label ><ion-icon name="paper"></ion-icon> Placa Vehiculo</ion-label>
+        <ion-input  clearInput formControlName="PlacaVehiculo" type="text"></ion-input>
       </ion-item>
       <ion-item class="error" *ngIf="PlacaVehiculo.invalid && (PlacaVehiculo.dirty || PlacaVehiculo.touched)">
         <p *ngIf="PlacaVehiculo.errors.required">
@@ -188,8 +191,8 @@
 
       <!-- TiempoDispParaHacerServicio -->
       <ion-item>
-        <ion-label>TiempoDispParaHacerServicio</ion-label>
-        <ion-select formControlName="TiempoDispParaHacerServicio">
+        <ion-label><ion-icon name="time"></ion-icon> Tiempo Disponible</ion-label>
+        <ion-select  clearInput formControlName="TiempoDispParaHacerServicio">
           <ion-option *ngFor="let row of paramsRegistro.TiempoDispParaHacerServicio" [value]="row">
             {{ row }}
           </ion-option>
@@ -203,8 +206,8 @@
 
       <!-- ComoNosConocio -->
       <ion-item>
-        <ion-label>ComoNosConocio</ion-label>
-        <ion-select formControlName="ComoNosConocio">
+        <ion-label><ion-icon name="people"></ion-icon> Como Nos Conocio</ion-label>
+        <ion-select  clearInput formControlName="ComoNosConocio">
           <ion-option *ngFor="let row of paramsRegistro.ComoNosConocio" [value]="row">
             {{ row }}
           </ion-option>
@@ -219,8 +222,8 @@
 
 
 
-    <div padding>
-      <button (click)="onSubmit()" [disabled]="!form.valid" ion-button block>Registrarme!</button>
+    <div text-center margin-top margin-bottom>
+      <button (click)="onSubmit()" color="orange" [disabled]="!form.valid" ion-button round>Registrarme!</button>
     </div>
   </form>
 </ion-content>

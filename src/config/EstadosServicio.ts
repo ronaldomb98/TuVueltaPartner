@@ -3,5 +3,7 @@ export const ESTADOS_ERVICIO = {
     EnProceso: 'EnProceso',
     EnPunto: 'EnPunto',
     EnSitio: 'EnSitio',
-    Finalizado: 'Finalizado'
+    Finalizado: 'Finalizado',
+    Pendiente: 'Pendiente',
+    DevolucionDatafono: 'DevolucionDatafono'
 }

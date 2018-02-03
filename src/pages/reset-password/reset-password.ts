@@ -61,6 +61,10 @@ export class ResetPasswordPage implements OnInit{
     })
   }
 
+  goToBack(){
+    this.navCtrl.pop();
+  }
+
   get email() { return this.form.get('email') }
 
 }

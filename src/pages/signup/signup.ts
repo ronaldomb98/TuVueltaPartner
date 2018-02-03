@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import {AuthProvider} from "../../providers/auth/auth";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { ResetPasswordPage } from '../reset-password/reset-password';
-import { DbProvider } from '../../providers/db/db';
+import { LoginPage } from '../login/login';
 /**
  * Generated class for the SignupPage page.
  *
@@ -18,7 +18,6 @@ import { DbProvider } from '../../providers/db/db';
 export class SignupPage {
 
   public hasAccount: boolean = false;
-  public paramsRegistro;
   form: FormGroup;
   errorMessage: string;
 
@@ -26,8 +25,7 @@ export class SignupPage {
   constructor(
     private navCtrl: NavController,
     private formBuilder: FormBuilder,
-    private authProvider: AuthProvider,
-    private dbProvider: DbProvider
+    private authProvider: AuthProvider
   ) {
 
   }
@@ -37,26 +35,33 @@ export class SignupPage {
   }
 
   ngOnInit(): void {
-    this.buildForm();
-    this.loadParamsRegistro();
+    this.buildFormSignup();
   }
-  
 
-  buildForm(): void{
+  buildFormLogin(): void{
     this.form = this.formBuilder.group({
-      Nombres: this.formBuilder.control(null, [Validators.required]),
-      Apellidos: this.formBuilder.control(null, [Validators.required]),
-      Celular: this.formBuilder.control(null, [Validators.required]),
-      Telefono: this.formBuilder.control(null, [Validators.required]),
-      Cedula: this.formBuilder.control(null, [Validators.required]),
-      Direccion: this.formBuilder.control(null, [Validators.required]),
-      Ciudad: this.formBuilder.control(null, [Validators.required]),
-      TieneCelAndroidYDatos: this.formBuilder.control(null, [Validators.required]),
-      TieneEPS: this.formBuilder.control(null, [Validators.required]),
-      TipoVehiculo: this.formBuilder.control(null, [Validators.required]),
-      PlacaVehiculo: this.formBuilder.control(null, [Validators.required]),
-      TiempoDispParaHacerServicio: this.formBuilder.control(null, [Validators.required]),
-      ComoNosConocio: this.formBuilder.control(null, [Validators.required]),
+      email: this.formBuilder.control('test2@gmail.com',[
+        Validators.required, Validators.email
+      ]),
+      password1: this.formBuilder.control('ronaldo123123',[Validators.required]),
+
+    })
+  }
+
+  public login() {
+    this.authProvider.basicLogin(this.email.value, this.password1.value)
+      .then(res=>{
+        console.log(res)
+      }).catch(()=>{
+        this.errorMessage = 'Algo salio mal al iniciar sesión.';
+      });
+  }
+
+  get email() { return this.form.get('email') }
+  get password1(){ return this.form.get('password1') }
+
+  buildFormSignup(): void{
+    this.form = this.formBuilder.group({
       email: this.formBuilder.control(null,[
         Validators.required,
         Validators.email
@@ -78,28 +83,15 @@ export class SignupPage {
       });
   }
 
-  private loadParamsRegistro():void {
-    this.dbProvider.getParamsRegistro()
-      .snapshotChanges()
-      .subscribe(action => {
-        this.paramsRegistro = action.payload.val()
-      })
-  } 
-
   get password2(){ return this.form.get('password2') }
-  get email() { return this.form.get('email') }
-  get password1(){ return this.form.get('password1') }
-  get Nombres() { return this.form.get('Nombres')}
-  get Apellidos() { return this.form.get('Apellidos')}
-  get Celular() { return this.form.get('Celular')}
-  get Telefono() { return this.form.get('Telefono')}
-  get Cedula() { return this.form.get('Cedula')}
-  get Direccion() { return this.form.get('Direccion')}
-  get Ciudad() { return this.form.get('Ciudad')}
-  get TieneCelAndroidYDatos() { return this.form.get('TieneCelAndroidYDatos')}
-  get TieneEPS() { return this.form.get('TieneEPS')}
-  get TipoVehiculo() { return this.form.get('TipoVehiculo')}
-  get PlacaVehiculo() { return this.form.get('PlacaVehiculo')}
-  get TiempoDispParaHacerServicio() { return this.form.get('TiempoDispParaHacerServicio')}
-  get ComoNosConocio() { return this.form.get('ComoNosConocio')}
+  goToLogin() {
+    this.navCtrl.pop().then(()=> {
+      this.navCtrl.push(LoginPage);
+    });
+  }
+
+  goToHome(){
+    this.navCtrl.pop();
+  }
+
 }

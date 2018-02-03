@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { DbProvider } from '../../providers/db/db';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { PrincipalPage } from '../principal/principal';
 import { Subscription } from 'rxjs/Subscription';
-
+import { Geolocation, GeolocationOptions, PositionError, Coordinates} from '@ionic-native/geolocation'
 
 /**
  * Generated class for the EquipmentPage page.
@@ -27,7 +27,9 @@ export class EquipmentPage {
     public navParams: NavParams,
     private dbProvider: DbProvider,
     private formBuilder: FormBuilder,
-    private authProvider: AuthProvider
+    private authProvider: AuthProvider,
+    private geolocation: Geolocation,
+    private platform: Platform
   ) {
   }
 
@@ -64,16 +66,46 @@ export class EquipmentPage {
     })
   }
 
-  onSubmit(){
+  _onSubmit(){
     let data = this.form.value;
-    data.Fecha = new Date().getTime();
+    const date = new Date().getTime();
     const uid = this.authProvider.currentUserUid;
-    this.dbProvider.listLogUsuarioEquipamiento(uid)
-    .push(data)
+    this.dbProvider.objectLogUsuarioEquipamiento(uid, date)
+    .update(data)
     .then(()=>{
       return this.navCtrl.setRoot(PrincipalPage);
     }).then(()=>{
       return this.navCtrl.popToRoot();
+    })
+    
+    
+  }
+  onSubmit() {
+    let options: GeolocationOptions = {
+      enableHighAccuracy: true,
+      timeout: 30000
+    };
+    this.platform.ready().then(()=>{
+      return this.geolocation.getCurrentPosition(options)
+    })
+    .then(response => {
+      let data = this.form.value;
+      data.LatLng = response.coords.latitude+','+response.coords.longitude;
+      const date = new Date().getTime();
+      
+      const uid = this.authProvider.currentUserUid;
+      return this.dbProvider.objectLogUsuarioEquipamiento(uid, date)
+        .update(data)
+    })
+    .then(()=> {
+      return this.navCtrl.setRoot(PrincipalPage);
+    })
+    .then(()=>{
+      return this.navCtrl.popToRoot();
+    })
+    .catch((err: PositionError) => {
+      console.log("Error obteniendo location")
+      
     })
     
     

@@ -18,12 +18,19 @@ import { ESTADOS_ERVICIO } from '../../config/EstadosServicio';
 export class SolicitudInProcessDetailsPage {
   private sub: Subscription;
   public solicitudDetails;
+  public currentTime:number;
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public dbProvider: DbProvider,
     public authProvider: AuthProvider
   ) {
+  }
+
+  clockInterval(){
+    setInterval(()=> {
+      this.currentTime = new Date().getTime();
+    }, 1000)
   }
 
   ionViewWillUnload(){
@@ -35,6 +42,7 @@ export class SolicitudInProcessDetailsPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad SolicitudInProcessDetailsPage');
     this.loadSolicitudData();
+    this.clockInterval();
   }
 
   loadSolicitudData(){
@@ -66,6 +74,11 @@ export class SolicitudInProcessDetailsPage {
     this.updateSolicitudEstado(newEstate)
   }
 
+  changeStateToDevolucionDatafono():void {
+    const newEstate = ESTADOS_ERVICIO.DevolucionDatafono
+    this.updateSolicitudEstado(newEstate)
+  }
+
   changeStateToFinalizado():void {
     const newEstate = ESTADOS_ERVICIO.Finalizado
     this.updateSolicitudEstado(newEstate, true)
@@ -79,12 +92,26 @@ export class SolicitudInProcessDetailsPage {
       Estado: state,
       EnProceso: !isFinalizado
     }).then(res=>{
-      return this.dbProvider.listLogSolicitud(key).push({
+      return this.dbProvider.objectLogSolicitud(key,date).update({
         Estado: state,
-        Motorratoner_id: _uid,
-        fecha: date
+        Motorratoner_id: _uid
       })
     })
+  }
+
+  public relaunch(service){
+    const serviceKey = service.key;
+    const GananciaMensajero = service.payload.val().GananciaMensajero;
+    let bonoRelanzamiento = 0;
+    if (service.payload.val().BonoRelanzamiento){ 
+      bonoRelanzamiento += service.payload.val().BonoRelanzamiento;
+    }
+    this.navCtrl.pop().then(()=>{
+      return this.dbProvider.relaunchSolicitud(serviceKey, GananciaMensajero, bonoRelanzamiento)
+    }) 
+    .catch(err => {
+      console.log("Algo salio mal relanzando la solicitud")
+    });
   }
 
 

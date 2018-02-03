@@ -14,35 +14,49 @@
 
 
 <ion-content padding>
-    <ion-list *ngIf="inProccessSolicitud">
-        <ion-item-divider>
-            Domicilios
-        </ion-item-divider>
-        <ion-item *ngFor="let row of inProccessSolicitud">
-          <span item-start>
-            $ {{ row.payload.val().GananciaMensajero}}
-          </span>
-          <p>
-            <ion-icon name="md-more"></ion-icon><span>{{ row.payload.val().puntoInicio}}</span>
-          </p>
-          <p>
-            <ion-icon name="md-pin"></ion-icon> <span>{{ row.payload.val().puntoFinal}}</span>
-          </p>
-          <p>
-            <span margin-right>{{ row.key | date:'full'}}</span>
-            <ion-icon name="arrow-round-up"></ion-icon>
-            <ion-icon *ngIf="row.payload.val().esPagoConTarjeta == true" name="arrow-round-down"></ion-icon>
-          </p>
-          <p *ngIf="row.payload.val().ValorDomicilio">
-            $ {{ row.payload.val().ValorDomicilio }}
-          </p>
-          <button (click)="openScheduleDetails(row.key)" ion-button color="orange" item-end>
-            Ver
-          </button>
-        </ion-item>
+  <ion-list *ngIf="inProccessSolicitud && isActive">
+    <ion-item-divider>
+        Domicilios
+    </ion-item-divider>
+    <ion-item *ngFor="let row of inProccessSolicitud">
+      <span item-start>
+        $ {{ row.payload.val().GananciaMensajero}}
+      </span>
+      
+      <p>
+        <ion-icon name="md-more"></ion-icon><span>{{ row.payload.val().puntoInicio}}</span>
+      </p>
+      <p>
+        <ion-icon name="md-pin"></ion-icon> <span>{{ row.payload.val().puntoFinal}}</span>
+      </p>
+      <p>
+        <span margin-right>{{ row.key | date:'full'}}</span>
+        <ion-icon name="arrow-round-up"></ion-icon>
+        <ion-icon *ngIf="row.payload.val().esPagoConTarjeta == true" name="arrow-round-down"></ion-icon>
+      </p>
+      <p *ngIf="row.payload.val().ValorDomicilio">
+        $ {{ row.payload.val().ValorDomicilio }}
+      </p>
+      <p *ngIf="row.payload.val().BonoRelanzamiento">
+          Bonificación: $ {{ (row.payload.val().BonoRelanzamiento ) | number }}
+          Total: $ {{ (row.payload.val().BonoRelanzamiento + row.payload.val().GananciaMensajero) | number }}
+      </p>
+      
+      <button (click)="relaunch(row)" *ngIf="row.payload.val().fechaCompra && ((row.payload.val().fechaCompra + 30000) > currentTime ) " ion-button color="orange" item-end>
+        Relanzar {{ (((row.payload.val().fechaCompra + 30000) - currentTime) / 1000) | number:'2.0-0' }}
+      </button>
+      
+      
+      <button (click)="openScheduleDetails(row.key)" ion-button color="orange" item-end>
+        Ver
+      </button>
+    </ion-item>
 
-        <div class="no-solicitudes-pendientes" text-center *ngIf="inProccessSolicitud.length == 0">
-            No Hay Solicitudes En Proceso
-          </div>
-      </ion-list>
+    <div class="no-solicitudes-pendientes" text-center *ngIf="inProccessSolicitud.length == 0">
+        No Hay Solicitudes En Proceso
+      </div>
+  </ion-list>
+  <div *ngIf="!isActive" class="no-active-message">
+    Debes estar activo para poder ver los servicios pendientes
+  </div>
 </ion-content>
