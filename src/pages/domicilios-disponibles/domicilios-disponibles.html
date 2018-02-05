@@ -53,10 +53,16 @@
     </ion-item>
 
     <div class="no-solicitudes-pendientes" text-center *ngIf="inProccessSolicitud.length == 0">
+        <img src="assets/imgs/surprised.png" width="20%"/>
+        <br/>
+        <br/>
         No Hay Solicitudes En Proceso
       </div>
   </ion-list>
-  <div *ngIf="!isActive" class="no-active-message">
+  <div *ngIf="!isActive" class="no-active-message" text-center>
+      <img src="assets/imgs/surprised-face.png" width="20%"/>
+      <br/>
+      <br/>
     Debes estar activo para poder ver los servicios pendientes
   </div>
 </ion-content>

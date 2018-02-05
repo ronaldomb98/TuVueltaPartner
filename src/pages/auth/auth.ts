@@ -1,17 +1,9 @@
 import { Component } from '@angular/core';
-import {AuthProvider} from "../../providers/auth/auth";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FormGroup} from "@angular/forms";
 import { NavController } from 'ionic-angular/navigation/nav-controller';
-import { ResetPasswordPage } from '../reset-password/reset-password';
 import { SignupPage } from '../signup/signup';
 import { LoginPage } from '../login/login';
 
-/**
- * Generated class for the AuthPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-auth',
@@ -25,8 +17,7 @@ export class AuthPage {
   public testText: string = "item1, item2, item3, item4.";
   constructor(
     private navCtrl: NavController,
-    private formBuilder: FormBuilder,
-    private authProvider: AuthProvider
+
   ) {
 
   }

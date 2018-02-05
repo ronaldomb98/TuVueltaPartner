@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { PrincipalPage } from '../principal/principal';
 import { Subscription } from 'rxjs/Subscription';
-import { Geolocation, GeolocationOptions, PositionError, Coordinates} from '@ionic-native/geolocation'
+import { Geolocation, GeolocationOptions, PositionError} from '@ionic-native/geolocation'
 
 /**
  * Generated class for the EquipmentPage page.

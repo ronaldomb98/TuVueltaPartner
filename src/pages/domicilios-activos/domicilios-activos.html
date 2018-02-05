@@ -1,6 +1,6 @@
 <ion-header>
 
-  <ion-navbar  color="orange">
+  <ion-navbar  color="primary">
     <ion-title text-center>domicilios-activos</ion-title>
   </ion-navbar>
 
@@ -33,17 +33,23 @@
       <p *ngIf="row.payload.val().ValorDomicilio">
         $ {{ row.payload.val().ValorDomicilio | number }}
       </p>
-      <button (click)="loadConfirm(row)" ion-button color="orange" item-end>
+      <button (click)="loadConfirm(row)" ion-button color="primary" item-end>
         Comprar
       </button>
     </ion-item>
 
     <div class="no-solicitudes-pendientes" text-center *ngIf="pendingSolicitud.length == 0">
-      No Hay Solicitudes Pendientes
+      <img src="assets/imgs/surprised.png" width="20%"/>
+      <br/>
+      <br/>
+      No hay Solicitudes Pendientes
     </div>
   </ion-list>
 
-  <div *ngIf="!isActive" class="no-active-message">
+  <div *ngIf="!isActive" class="no-active-message" text-center>
+      <img src="assets/imgs/surprised-face.png" width="20%"/>
+      <br/>
+      <br/>
     Debes estar activo para poder ver los servicios pendientes
   </div>
 </ion-content>

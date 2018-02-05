@@ -18,62 +18,88 @@
 
 
 .no-solicitudes-pendientes{
-  margin-top: 2em;
+  margin-top: 10em;
   font-size: 1.5em;
-  color: color($colors, orange)
+  color: color($colors, primary);
+  font-family: 'Questrial', sans-serif;
 }
 
 .no-active-message{
-  margin-top: 5em;
+  margin-top: 10em;
+  font-size: 1.5em;
+  color: color($colors, primary);
+  font-family: 'Questrial', sans-serif;
 }
 
 .header-auth{
-  background: color($colors, orange);
+  background: #56CCF2;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  //background: color($colors, orange);
   height: 15em;
   text-align: center;
   color: white;
   img{
-    margin-top: 1em;
-    height: 7em;
+    margin-top: 2em;
+    height: 8em;
   }
+  font-family: 'Questrial', sans-serif;
 }
 
+
 ion-card.auth{
+  border-radius:5px;
   position: relative;
   margin-top: -2em;
   width: calc(100% - 4em);
-  margin-left: 2em
-
+  margin-left: 2em;
+  -webkit-box-shadow: 5px 6px 5px 0px rgba(212,212,212,1);
+  -moz-box-shadow: 5px 6px 5px 0px rgba(212,212,212,1);
+  box-shadow: 5px 6px 5px 0px rgba(212,212,212,1);
+  font-family: 'Questrial', sans-serif;
 }
+
 .logout{
   
 }
 .logo-menu{
   color: white;
   font-weight: 400;
+
   div.logo{
     width: 100%;
-    background: color($colors, orange);
-    height: 200px;
+    background: #2F80ED;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2F80ED, #2F80ED); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    height: 220px;
   }
+
   img.logo{
-    width: calc(100% - 6em);
-    height: 100px;
+    margin-top: 10%;
+    width: 60%;
+    height: 95px;
   }
 
   .username{
-    text-decoration: underline;
-    
+    text-decoration: none;    
     margin: .5em 0;
+    font-family: 'Questrial', sans-serif;
+    font-size: 18px;
   }
+  
   .creditos{
-
+    font-family: 'Questrial', sans-serif;
   }
+  
   .credito-name{
-
+    font-family: 'Questrial', sans-serif;
+    font-size: 20px;
+    text-shadow: 2px 2px #2F80ED;
   }
   .credito-description{
-
+    font-family: 'Questrial', sans-serif;
+    font-size: 18px;
+    text-shadow: 1px 1px #2F80ED;
   }
 
 }

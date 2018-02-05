@@ -9,11 +9,12 @@
 
 <ion-content >
   <div class="header-auth">
-    <img src="assets/imgs/tuvueltablanco.png" alt="">
-    <h3>Inicio de Sesión</h3>
+    <img class="logo" src="assets/imgs/tuvueltablanco.png" alt="">
+
   </div>
   <ion-card class="auth">
     <ion-card-content>
+       <h3 text-center class="title">Iniciar Sesión</h3>
       <form [formGroup]="form">
         <ion-item>
           <ion-label>  <ion-icon name="mail"></ion-icon></ion-label>
@@ -42,16 +43,16 @@
 
         <div padding>
           <div text-center>
-              <button color="orange" (click)="login()" [disabled]="!form.valid" ion-button round>Iniciar Sesión!</button>
+              <button color="primary" (click)="login()" [disabled]="!form.valid" ion-button round>Iniciar Sesión!</button>
           </div>
           <div text-center>
-              <button color="orange" (click)="openResetPassPage()" clear ion-button round>Olvide Contraseña</button>
+              <button color="primary" (click)="openResetPassPage()" clear ion-button round>Olvide Contraseña</button>
           </div>
           <div text-center>
-              <button color="orange" (click)="goToSignup()" clear ion-button round>Registrarme</button>
+              <button color="primary" (click)="goToSignup()" clear ion-button round>Registrarme</button>
           </div>
           <div text-center>
-              <button color="orange" (click)="goToHome()" clear ion-button round>Volver</button>
+              <button color="primary" (click)="goToHome()" clear ion-button round>Volver</button>
           </div>
         </div>
       </form>

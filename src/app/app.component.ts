@@ -10,7 +10,6 @@ import { AuthProvider } from '../providers/auth/auth';
 import { Subscription } from 'rxjs/Subscription';
 import { DbProvider } from '../providers/db/db';
 import { CompleteRegistrationPage } from '../pages/complete-registration/complete-registration';
-import { EquipmentPage } from '../pages/equipment/equipment';
 import { PrincipalPage } from '../pages/principal/principal';
 import { PushNotificationProvider } from '../providers/push-notification/push-notification';
 import { RetirarPage } from '../pages/retirar/retirar';
@@ -18,7 +17,7 @@ import { ESTADOS_USUARIO } from '../config/EstadosUsuario';
 import { UsuarioBloqueadoPage } from '../pages/usuario-bloqueado/usuario-bloqueado';
 import { ROLES } from '../config/Roles';
 import { NoMensajeroRolPage } from '../pages/no-mensajero-rol/no-mensajero-rol';
-import { Network } from '@ionic-native/network';
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -38,8 +37,7 @@ export class MyApp {
     public menuController: MenuController,
     public authProvider: AuthProvider,
     public dbProvider: DbProvider,
-    public pushNotifications: PushNotificationProvider,
-    private network: Network
+    public pushNotifications: PushNotificationProvider
   ) {
     this.initializeApp();
 

@@ -1,18 +1,12 @@
 <ion-menu [content]="content">
-  <!-- <ion-header>
-    <ion-toolbar color="orange">
-      <ion-title text-center>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header> -->
-
   <ion-content>
 
     <!-- Header logo and user information -->
     <div text-center class="logo-menu">
       <div class="logo">
-          <img class="logo" src="assets/imgs/tuvueltablanco.png" alt="">
+          <img class="logo" src="assets/imgs/tuvueltablanco.png" alt="tuvuelta.co">
           <div *ngIf="_userInfo" class="username">
-            {{ _userInfo.Nombres  }}
+            {{ _userInfo.Correo}}
           </div>
           <ion-row *ngIf="dbProvider.gananciasMensajero" class="creditos">
             <ion-col col-6>

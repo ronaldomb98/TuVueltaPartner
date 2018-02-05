@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DbProvider } from '../../providers/db/db';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -78,10 +78,6 @@ export class DomiciliosActivosPage {
       },err=>{
         console.log(err)
       })
-  }
-
-  private presentConfirm() {
-
   }
 
   private notifyNewSolicitud(newLength){
