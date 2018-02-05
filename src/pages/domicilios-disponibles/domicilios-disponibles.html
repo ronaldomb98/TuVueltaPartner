@@ -14,11 +14,11 @@
 
 
 <ion-content padding>
-  <ion-list *ngIf="inProccessSolicitud && isActive">
+  <ion-list *ngIf="domiciliosProvider.inProccessSolicitud && isActive">
     <ion-item-divider>
         Domicilios
     </ion-item-divider>
-    <ion-item *ngFor="let row of inProccessSolicitud">
+    <ion-item *ngFor="let row of domiciliosProvider.inProccessSolicitud">
       <span item-start>
         $ {{ row.payload.val().GananciaMensajero}}
       </span>
@@ -42,7 +42,7 @@
           Total: $ {{ (row.payload.val().BonoRelanzamiento + row.payload.val().GananciaMensajero) | number }}
       </p>
       
-      <button (click)="relaunch(row)" *ngIf="row.payload.val().fechaCompra && ((row.payload.val().fechaCompra + 30000) > currentTime ) " ion-button color="orange" item-end>
+      <button (click)="relaunch(row)" *ngIf="row.payload.val().fechaCompra && ((row.payload.val().fechaCompra + 30000) > currentTime ) && row.payload.val().Estado == 'EnProceso' " ion-button color="orange" item-end>
         Relanzar {{ (((row.payload.val().fechaCompra + 30000) - currentTime) / 1000) | number:'2.0-0' }}
       </button>
       
@@ -52,7 +52,7 @@
       </button>
     </ion-item>
 
-    <div class="no-solicitudes-pendientes" text-center *ngIf="inProccessSolicitud.length == 0">
+    <div class="no-solicitudes-pendientes" text-center *ngIf="domiciliosProvider.inProccessSolicitud.length == 0">
         <img src="assets/imgs/surprised.png" width="20%"/>
         <br/>
         <br/>

@@ -7,7 +7,11 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title text-center>Completar Registro</ion-title>
+    <button ion-button menuToggle *ngIf="authProvider.userInfo">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title text-center *ngIf="!authProvider.userInfo">Completar Registro</ion-title>
+    <ion-title text-center *ngIf="authProvider.userInfo">Actualizar Datos</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -16,7 +20,7 @@
 <ion-content>
   <form [formGroup]="form">
     <!-- Cedula -->
-    <ion-item>
+    <ion-item *ngIf="!authProvider.userInfo">
       <ion-label ><ion-icon name="card"></ion-icon> Cédula</ion-label>
       <ion-input  clearInput formControlName="Cedula" type="number"></ion-input>
     </ion-item>
@@ -223,7 +227,10 @@
 
 
     <div text-center margin-top margin-bottom>
-      <button (click)="onSubmit()" color="primary" [disabled]="!form.valid" ion-button round>Registrarme!</button>
+      <button (click)="onSubmit()" color="primary" [disabled]="!form.valid" ion-button round>
+        <span *ngIf="!authProvider.userInfo">Registrarme!</span>
+        <span *ngIf="authProvider.userInfo">Actualizar Datos!</span>
+      </button>
     </div>
   </form>
 </ion-content>

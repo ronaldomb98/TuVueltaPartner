@@ -5,8 +5,8 @@
     <div text-center class="logo-menu">
       <div class="logo">
           <img class="logo" src="assets/imgs/tuvueltablanco.png" alt="tuvuelta.co">
-          <div *ngIf="_userInfo" class="username">
-            {{ _userInfo.Correo}}
+          <div *ngIf="authProvider.userInfo" class="username">
+            {{ authProvider.userInfo.Correo}}
           </div>
           <ion-row *ngIf="dbProvider.gananciasMensajero" class="creditos">
             <ion-col col-6>
@@ -26,7 +26,7 @@
     <div class="menu-list">
 
       <!-- main routes -->
-      <ion-list *ngIf="_userInfo && _userInfo.Rol == 'Mensajero'">
+      <ion-list *ngIf="authProvider.userInfo && authProvider.userInfo.Rol == 'Mensajero'">
         <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
           {{p.title}}
         </button>
@@ -34,7 +34,7 @@
       </ion-list>
 
       <!-- logout -->
-      <ion-list class="logout" *ngIf="_userInfo && _userInfo.Rol != 'Mensajero'">
+      <ion-list class="logout" *ngIf="authProvider.userInfo && authProvider.userInfo.Rol != 'Mensajero'">
         <button menuClose ion-item (click)="signOut()">Cerrar Sesión</button>
       </ion-list>
     </div>    

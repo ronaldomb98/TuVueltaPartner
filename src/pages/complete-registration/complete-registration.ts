@@ -5,6 +5,7 @@ import { DbProvider } from '../../providers/db/db';
 import { Subscription } from 'rxjs/Subscription';
 import { ROLES } from '../../config/Roles';
 import { ESTADOS_USUARIO } from '../../config/EstadosUsuario';
+import { LoadingProvider } from '../../providers/loading/loading';
 /**
  * Generated class for the CompleteRegistrationPage page.
  *
@@ -29,7 +30,8 @@ export class CompleteRegistrationPage {
   constructor(
     private formBuilder: FormBuilder,
     private authProvider: AuthProvider,
-    private dbProvider: DbProvider
+    private dbProvider: DbProvider,
+    private loadingProvider: LoadingProvider
   ) {
 
   }
@@ -39,6 +41,11 @@ export class CompleteRegistrationPage {
   ngOnInit(): void {
     this.buildForm();
     this.loadParamsRegistro();
+
+  }
+
+  loadInfo(){
+    
   }
 
   ionViewWillUnload(){
@@ -83,16 +90,35 @@ export class CompleteRegistrationPage {
       ComoNosConocio: 
         this.formBuilder.control(null, [Validators.required])
     })
+
+    if (this.authProvider.userInfo) {
+      this.form.patchValue(this.authProvider.userInfo)
+    }
   }
 
   onSubmit():void {
     let uid = this.authProvider.currentUserUid;
     let data = this.form.value;
-    data.Rol = ROLES.Mensajero;
-    data.Estado = ESTADOS_USUARIO.Inactivo;
+    let hasData: boolean = true;
+    const loading = this.loadingProvider.createLoading();
+    loading.present();
+    if (!this.authProvider.userInfo){ 
+      data.Rol = ROLES.Mensajero;
+      data.Estado = ESTADOS_USUARIO.Inactivo;
+      hasData = false;
+    }
+    
     console.log(data)
     this.dbProvider.objectUserInfo(uid)
       .update(data)
+      .then((data)=> {
+        console.log(data)
+        loading.dismiss();
+        if (hasData){
+          const toast = this.loadingProvider.createUpdatedToast();
+          toast.present();
+        }
+      })
       .catch(err => {
         console.log(err)
       })

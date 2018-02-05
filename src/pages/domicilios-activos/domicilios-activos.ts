@@ -5,6 +5,8 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { ESTADOS_ERVICIO } from '../../config/EstadosServicio';
 import { ESTADOS_USUARIO } from '../../config/EstadosUsuario';
 import { AlertController, AlertOptions, AlertButton, Alert } from 'ionic-angular';
+import { DomiciliosProvider } from '../../providers/domicilios/domicilios';
+import { DistancematrixProvider } from '../../providers/distancematrix/distancematrix';
 
 /**
  * Generated class for the DomiciliosActivosPage page.
@@ -18,30 +20,28 @@ import { AlertController, AlertOptions, AlertButton, Alert } from 'ionic-angular
   templateUrl: 'domicilios-activos.html',
 })
 export class DomiciliosActivosPage {
-
-  public pendingSolicitud;
-  private sub: Subscription;
-  private audio = new Audio();
-  private lengthSolicitudes: number = -1;
+  
   public confirmCompra: Alert;
   public isActive = this.authProvider.userState == ESTADOS_USUARIO.Activo;
   constructor(
     private dbProvider: DbProvider,
     private authProvider: AuthProvider,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    public domiciliosProvider: DomiciliosProvider,
+    private distanceMatrixProvider: DistancematrixProvider
   ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DomiciliosActivosPage');
     
-    if (this.isActive){
-      this.loadPendingSolicitud();    
-      this.audio.src = 'assets/audio/notifynew.mp3';
-    }else {
-      this.sub = new Subscription();
-    } 
+    
+    
   }
+
+  
+
+  
 
   loadConfirm(service){
     const cancelButton: AlertButton = {
@@ -65,41 +65,10 @@ export class DomiciliosActivosPage {
 
 
 
-  private loadPendingSolicitud(){
-    this.sub = this.dbProvider.listPendingSolicitud().snapshotChanges()
-      .subscribe(res=> {
-        this.notifyNewSolicitud(res.length)
-        this.pendingSolicitud = res.sort(( (a,b) =>{
-          return Number(b.key) - Number(a.key)
-        }))
-
-        
-
-      },err=>{
-        console.log(err)
-      })
-  }
-
-  private notifyNewSolicitud(newLength){
-    let _newLength = newLength;
-    if (this.lengthSolicitudes == -1) {
-      this.lengthSolicitudes= _newLength;
-      return
-    }
-
-    if (this.lengthSolicitudes >= _newLength) {
-      this.lengthSolicitudes= _newLength;
-      return
-    }
-    this.lengthSolicitudes= _newLength;
-    this.audio.src = 'assets/audio/notifynew.mp3';
-    this.audio.load();
-    this.audio.play();
-
-  }
+ 
 
   ionViewWillUnload(){
-    this.sub.unsubscribe();
+    /* this.domiciliosProvider.sub.unsubscribe(); */
     console.log("unsuscribiendo solicitudes pendientes")
     console.log('DomiciliosActivosPage ionViewWillUnload')
     

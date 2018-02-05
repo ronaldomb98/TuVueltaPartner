@@ -5,6 +5,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { SolicitudInProcessDetailsPage } from '../solicitud-in-process-details/solicitud-in-process-details';
 import { ESTADOS_USUARIO } from '../../config/EstadosUsuario';
+import { DomiciliosProvider } from '../../providers/domicilios/domicilios';
 
 /**
  * Generated class for the DomiciliosDisponiblesPage page.
@@ -19,25 +20,21 @@ import { ESTADOS_USUARIO } from '../../config/EstadosUsuario';
 })
 export class DomiciliosDisponiblesPage {
 
-  public inProccessSolicitud;
-  private sub: Subscription;
+  
   public isActive = this.authProvider.userState === ESTADOS_USUARIO.Activo;
   public currentTime: number;
   constructor(
     private dbProvider: DbProvider,
     private authProvider: AuthProvider,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    public domiciliosProvider: DomiciliosProvider
   ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DomiciliosDisponiblesPage');
     this.clockInterval();
-    if (this.isActive){
-      this.loadPendingSolicitud();
-    }else {
-      this.sub = new Subscription();
-    }
+
   }
 
   clockInterval(){
@@ -46,26 +43,7 @@ export class DomiciliosDisponiblesPage {
     }, 1000)
   }
 
-  private loadPendingSolicitud(){
-    this.sub = this.dbProvider.listInProccessSolicitud().snapshotChanges()
-      .subscribe(res=> {
-        this.inProccessSolicitud = this.filterSolicitudByUserid(res.reverse());
-        this.inProccessSolicitud.forEach(element => {
-          console.log(element.payload.val())
-        });
-      },err=>{
-        console.log(err)
-      })
-  }
-
-  private filterSolicitudByUserid(listSolicitud){
-    let uid = this.authProvider.currentUserUid;
-    return listSolicitud.filter(solicitud => {
-      if (solicitud.payload.val().Motorratoner_id == uid){
-        return solicitud
-      }
-    })
-  }
+  
 
   public relaunch(service){
     const serviceKey = service.key;
@@ -83,7 +61,7 @@ export class DomiciliosDisponiblesPage {
 
   ionViewWillUnload(){
     console.log("unsuscribiendo solicitudes En Proceso")
-    this.sub.unsubscribe();
+    /* this.domiciliosProvider.subInProcces.unsubscribe(); */
     console.log('DomiciliosDisponiblesPage ionViewWillUnload')
     
   }

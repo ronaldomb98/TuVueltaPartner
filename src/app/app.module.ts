@@ -34,6 +34,9 @@ import { Network } from '@ionic-native/network';
 import { NoInternetPage } from '../pages/no-internet/no-internet';
 import { SignupPage } from '../pages/signup/signup';
 import { LoginPage } from '../pages/login/login';
+import { DomiciliosProvider } from '../providers/domicilios/domicilios';
+import { HttpClientModule } from '@angular/common/http';
+import { DistancematrixProvider } from '../providers/distancematrix/distancematrix';
 @NgModule({
   declarations: [
     MyApp,
@@ -59,6 +62,7 @@ import { LoginPage } from '../pages/login/login';
     AngularFireModule.initializeApp(firebaseConfig), // imports firebase/app needed for everything
     AngularFireDatabaseModule, // imports firebase/database, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -89,7 +93,10 @@ import { LoginPage } from '../pages/login/login';
     AuthProvider,
     LoadingProvider,
     DbProvider,
-    PushNotificationProvider
+    PushNotificationProvider,
+    DomiciliosProvider,
+    
+    DistancematrixProvider
   ]
 })
 export class AppModule {}

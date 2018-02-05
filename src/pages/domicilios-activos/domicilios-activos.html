@@ -8,11 +8,11 @@
 
 
 <ion-content>
-  <ion-list *ngIf="pendingSolicitud && isActive">
+  <ion-list *ngIf="domiciliosProvider.pendingSolicitud && isActive">
     <ion-item-divider>
         Domicilios
     </ion-item-divider>
-    <ion-item *ngFor="let row of pendingSolicitud">
+    <ion-item *ngFor="let row of domiciliosProvider.pendingSolicitud">
       <span item-start>
         $ {{ row.payload.val().GananciaMensajero}}
       </span>
@@ -33,12 +33,12 @@
       <p *ngIf="row.payload.val().ValorDomicilio">
         $ {{ row.payload.val().ValorDomicilio | number }}
       </p>
-      <button (click)="loadConfirm(row)" ion-button color="primary" item-end>
+      <button (click)="loadConfirm(row)" *ngIf="domiciliosProvider.inProccessSolicitud && domiciliosProvider.inProccessSolicitud.length < 2" ion-button color="primary" item-end>
         Comprar
       </button>
     </ion-item>
 
-    <div class="no-solicitudes-pendientes" text-center *ngIf="pendingSolicitud.length == 0">
+    <div class="no-solicitudes-pendientes" text-center *ngIf="domiciliosProvider.pendingSolicitud.length == 0">
       <img src="assets/imgs/surprised.png" width="20%"/>
       <br/>
       <br/>

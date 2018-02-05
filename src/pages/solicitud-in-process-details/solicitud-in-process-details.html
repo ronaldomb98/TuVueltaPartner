@@ -49,9 +49,18 @@
       </ion-item>
       <ion-item>
         <ion-label stacked>Estado </ion-label>
-        <ion-input readonly [value]="solicitudDetails.payload.val().Estado">}</ion-input>
+        <ion-input readonly [value]="solicitudDetails.payload.val().Estado"></ion-input>
       </ion-item>
+      <ion-item>
+        <ion-label stacked>Descripción </ion-label>
+      </ion-item>
+      <div>{{ solicitudDetails.payload.val().Descripcion }}</div>
+      <ion-item>
+        <ion-label stacked>Descripción Domicilio</ion-label>
+      </ion-item>
+      <div>{{ solicitudDetails.payload.val().DescripcionDomicilio }}</div>
     </ion-list>
+    
     <button block ion-button color="orange" (click)="changeStateToEnSitio()" *ngIf="solicitudDetails.payload.val().Estado == 'EnProceso'">En Sitio</button>
     <button block ion-button color="orange" (click)="changeStateToDespachado()" *ngIf="solicitudDetails.payload.val().Estado == 'EnSitio'">Despachado</button>
     <button block ion-button color="orange" (click)="changeStateToDondeElCliente()" *ngIf="solicitudDetails.payload.val().Estado == 'Despachado'">Donde El Cliente</button>
@@ -59,7 +68,7 @@
     <button block ion-button color="orange" (click)="changeStateToFinalizado()" *ngIf="solicitudDetails.payload.val().Estado == 'EnPunto' && solicitudDetails.payload.val().esPagoConTarjeta == false">Finalizar</button>
     <button block ion-button color="orange" (click)="changeStateToFinalizado()" *ngIf="solicitudDetails.payload.val().Estado == 'DevolucionDatafono' && solicitudDetails.payload.val().esPagoConTarjeta == true">Finalizar</button>
     <button block ion-button color="light" (click)="goBack()">Volver</button>
-    <button block (click)="relaunch(solicitudDetails)" *ngIf="solicitudDetails.payload.val().fechaCompra && ((solicitudDetails.payload.val().fechaCompra + 30000) > currentTime ) " ion-button color="orange">
+    <button block (click)="relaunch(solicitudDetails)" *ngIf="solicitudDetails.payload.val().fechaCompra && ((solicitudDetails.payload.val().fechaCompra + 30000) > currentTime ) && solicitudDetails.payload.val().Estado == 'EnProceso'" ion-button color="orange">
       Relanzar {{ (((solicitudDetails.payload.val().fechaCompra + 30000) - currentTime) / 1000) | number:'2.0-0' }}
     </button>
     

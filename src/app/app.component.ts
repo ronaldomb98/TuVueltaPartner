@@ -17,6 +17,7 @@ import { ESTADOS_USUARIO } from '../config/EstadosUsuario';
 import { UsuarioBloqueadoPage } from '../pages/usuario-bloqueado/usuario-bloqueado';
 import { ROLES } from '../config/Roles';
 import { NoMensajeroRolPage } from '../pages/no-mensajero-rol/no-mensajero-rol';
+import { DomiciliosProvider } from '../providers/domicilios/domicilios';
 
 @Component({
   templateUrl: 'app.html'
@@ -37,14 +38,16 @@ export class MyApp {
     public menuController: MenuController,
     public authProvider: AuthProvider,
     public dbProvider: DbProvider,
-    public pushNotifications: PushNotificationProvider
+    public pushNotifications: PushNotificationProvider,
+    public domiciliosProvider: DomiciliosProvider
   ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Inicio', component: PrincipalPage },
-      { title: 'Retirar', component: RetirarPage }
+      { title: 'Retirar', component: RetirarPage },
+      { title: 'Mi Cuenta', component: CompleteRegistrationPage }
     ];
 
   }
@@ -67,7 +70,16 @@ export class MyApp {
   }
 
   public signOut() {
-    this._userInfo = null;
+    console.log(this.domiciliosProvider.sub != undefined)
+    if(this.domiciliosProvider.sub != undefined){
+      this.domiciliosProvider.sub.unsubscribe();
+    }
+    
+    if (this.domiciliosProvider.subInProcces != undefined){
+      this.domiciliosProvider.subInProcces.unsubscribe();
+    }
+    
+    this.authProvider.userInfo = null;
     this.userDataSub.unsubscribe();
     this.dbProvider.subGanancias.unsubscribe();
     this.nav.setRoot(AuthPage).then(()=>{
@@ -104,24 +116,28 @@ export class MyApp {
           .snapshotChanges()
           .subscribe(res => {
             
-            
-            this._userInfo = res.payload.val();
-            if (this._userInfo && this._userInfo.Rol != ROLES.Mensajero){
+            this.authProvider.userInfo = res.payload.val();
+            if (this.authProvider.userInfo && this.authProvider.userInfo.Rol != ROLES.Mensajero){
               this.nav.setRoot(NoMensajeroRolPage).then(()=>{ //  EquipmentPage
                 this.nav.popToRoot()
                 loading.dismiss()
               })
-            }else if(this._userInfo && this._userInfo.Estado == ESTADOS_USUARIO.Bloqueado){
-              this.authProvider.userState = this._userInfo.Estado;
+            }else if(this.authProvider.userInfo && this.authProvider.userInfo.Estado == ESTADOS_USUARIO.Bloqueado){
+              this.authProvider.userState = this.authProvider.userInfo.Estado;
               this.nav.setRoot(UsuarioBloqueadoPage).then(()=>{ //  EquipmentPage
                 this.nav.popToRoot()
                 loading.dismiss()
               })
-            }else if (this._userInfo) {
-              console.log(this._userInfo)
-              
+            }else if (this.authProvider.userInfo) {
+              console.log(this.authProvider.userInfo)
+              this.authProvider.userState = this.authProvider.userInfo.Estado;
               this.dbProvider.loadGananciasMensajero();
-              this.authProvider.userState = this._userInfo.Estado;
+              if (this.authProvider.userState == ESTADOS_USUARIO.Activo) {
+                this.domiciliosProvider.loadInProccesSolicitud();
+                this.domiciliosProvider.loadPendingSolicitud();
+              }
+              
+              
               this.nav.setRoot(PrincipalPage).then(()=>{ //  EquipmentPage
                 this.nav.popToRoot()
                 loading.dismiss()

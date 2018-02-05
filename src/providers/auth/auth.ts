@@ -15,6 +15,7 @@ export class AuthProvider {
   public isUpdatingUserInfo: boolean = false;
   public currentUserUid: string = '';
   public userState: string = '';
+  public userInfo;
   constructor(
     private angularFireAuth: AngularFireAuth,
     public menuController: MenuController
