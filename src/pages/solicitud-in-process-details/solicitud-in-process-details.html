@@ -60,7 +60,8 @@
       </ion-item>
       <div>{{ solicitudDetails.payload.val().DescripcionDomicilio }}</div>
     </ion-list>
-    
+    <button block ion-button color="orange" (click)="openNavigator(true)">Ruta al punto de Inicio</button>
+    <button block ion-button color="orange" (click)="openNavigator(false)">Ruta al punto de Finalizacion</button>
     <button block ion-button color="orange" (click)="changeStateToEnSitio()" *ngIf="solicitudDetails.payload.val().Estado == 'EnProceso'">En Sitio</button>
     <button block ion-button color="orange" (click)="changeStateToDespachado()" *ngIf="solicitudDetails.payload.val().Estado == 'EnSitio'">Despachado</button>
     <button block ion-button color="orange" (click)="changeStateToDondeElCliente()" *ngIf="solicitudDetails.payload.val().Estado == 'Despachado'">Donde El Cliente</button>

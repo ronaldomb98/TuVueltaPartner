@@ -37,6 +37,9 @@ import { LoginPage } from '../pages/login/login';
 import { DomiciliosProvider } from '../providers/domicilios/domicilios';
 import { HttpClientModule } from '@angular/common/http';
 import { DistancematrixProvider } from '../providers/distancematrix/distancematrix';
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
+import { HistoryPage } from '../pages/history/history';
+import { HistoryDetailPage } from '../pages/history-detail/history-detail';
 @NgModule({
   declarations: [
     MyApp,
@@ -54,7 +57,9 @@ import { DistancematrixProvider } from '../providers/distancematrix/distancematr
     NoMensajeroRolPage,
     NoInternetPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    HistoryPage,
+    HistoryDetailPage
   ],
   imports: [
     BrowserModule,
@@ -81,7 +86,9 @@ import { DistancematrixProvider } from '../providers/distancematrix/distancematr
     NoMensajeroRolPage,
     NoInternetPage,
     LoginPage,
-    SignupPage
+    SignupPage,
+    HistoryPage,
+    HistoryDetailPage
   ],
   providers: [
     StatusBar,
@@ -95,7 +102,7 @@ import { DistancematrixProvider } from '../providers/distancematrix/distancematr
     DbProvider,
     PushNotificationProvider,
     DomiciliosProvider,
-    
+    LaunchNavigator,
     DistancematrixProvider
   ]
 })

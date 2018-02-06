@@ -1,0 +1,58 @@
+<!--
+  Generated template for the HistoryDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title text-center>Detalles</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <h2 text-center>Descripción</h2>
+  <div *ngIf="solicitud" padding>
+    <p class="item-detail" *ngIf="solicitud.payload.val().BonoRelanzamiento"><strong>Bono: </strong> <span class="detail">{{ solicitud.payload.val().BonoRelanzamiento | number }}</span></p><hr>
+
+    <p class="item-detail"><strong>Nombres:</strong> <span class="detail">{{ solicitud.payload.val().Nombres }}</span></p><hr>
+    <p class="item-detail"><strong>Apellidos:</strong> <span class="detail">{{ solicitud.payload.val().Apellidos }}</span></p><hr>
+    <p class="item-detail"><strong>Celular:</strong> <span class="detail">{{ solicitud.payload.val().Celular }}</span></p><hr>
+    <p class="item-detail"><strong>Ciudad:</strong> <span class="detail">{{ solicitud.payload.val().Ciudad }}</span></p><hr>
+    <p class="item-detail"><strong>Descripcion:</strong> <span class="detail">{{ solicitud.payload.val().Descripcion }}</span></p><hr>
+    <p class="item-detail"><strong>Descripcion Domicilio:</strong> <span class="detail">{{ solicitud.payload.val().DescripcionDomicilio }}</span></p><hr>
+    <p class="item-detail"><strong>Distancia Total:</strong> <span class="detail">{{ solicitud.payload.val().DistanciaTotal / 1000 }} Km</span></p><hr>
+    <p class="item-detail"><strong>¿En Proceso?:</strong> <span class="detail">{{ solicitud.payload.val().EnProceso ? 'Si': 'No' }}</span></p><hr>
+    <p class="item-detail"><strong>Estado:</strong> <span class="detail">{{ solicitud.payload.val().Estado }}</span></p><hr>
+    <p class="item-detail"><strong>Ganancia Mensajero:</strong> <span class="detail">{{ solicitud.payload.val().GananciaMensajero | number }}</span></p><hr>
+    <p class="item-detail"><strong>Telefono:</strong> <span class="detail">{{ solicitud.payload.val().Telefono }}</span></p><hr>
+    <p class="item-detail"><strong>Tipo Servicio:</strong> <span class="detail">{{ solicitud.payload.val().TipoServicio }}</span></p><hr>
+    <p class="item-detail"><strong>ValorDomicilio:</strong> <span class="detail">{{ solicitud.payload.val().ValorDomicilio | number }}</span></p><hr>
+    <p class="item-detail"><strong>codigoCiudad:</strong> <span class="detail">{{ solicitud.payload.val().codigoCiudad }}</span></p><hr>
+    <p class="item-detail"><strong>¿Pago Con Tarjeta?:</strong> <span class="detail">{{ solicitud.payload.val().esPagoConTarjeta ? 'Si': 'No'}}</span></p><hr>
+    <p class="item-detail"><strong>Fecha De Compra:</strong> <span class="detail">{{ solicitud.payload.val().fechaCompra | date:'short' }}</span></p><hr>
+    <p class="item-detail"><strong>Punto Final: </strong> <span class="detail">{{ solicitud.payload.val().puntoFinal }}</span></p><hr>
+    <p class="item-detail"><strong>Punto Inicio: </strong> <span class="detail">{{ solicitud.payload.val().puntoInicio }}</span></p><hr>
+    
+    
+    
+    
+  </div>
+  <ion-item-group *ngIf="logs">
+    <ion-item-divider color="light">Logs Del Servicio</ion-item-divider>
+    <ion-item *ngFor="let log of logs">
+      Estado: {{ log.value.Estado }} Fecha: {{ log.date | date:'short'}}
+    </ion-item>
+    
+  </ion-item-group>
+</ion-content>
+<!-- 
+  <p>puntoFinalCoors: {{ solicitud.payload.val().puntoFinalCoors }}</p><hr>
+  <p>puntoInicialCoors: {{ solicitud.payload.val().puntoInicialCoors }}</p><hr>
+  <p>Motorratoner_id: {{ solicitud.payload.val().Motorratoner_id }}</p><hr>
+  <p>user_id: {{ solicitud.payload.val().user_id }}</p><hr>
+  <p class="item-detail"><strong>TotalAPagar:</strong> <span class="detail">{{ solicitud.payload.val().TotalAPagar | number }}</span></p><hr>
+ -->

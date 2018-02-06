@@ -7,6 +7,7 @@ import { ESTADOS_USUARIO } from '../../config/EstadosUsuario';
 import { AlertController, AlertOptions, AlertButton, Alert } from 'ionic-angular';
 import { DomiciliosProvider } from '../../providers/domicilios/domicilios';
 import { DistancematrixProvider } from '../../providers/distancematrix/distancematrix';
+import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 
 /**
  * Generated class for the DomiciliosActivosPage page.
@@ -19,9 +20,13 @@ import { DistancematrixProvider } from '../../providers/distancematrix/distancem
   selector: 'page-domicilios-activos',
   templateUrl: 'domicilios-activos.html',
 })
-export class DomiciliosActivosPage {
+export class DomiciliosActivosPage implements OnInit {
   
   public confirmCompra: Alert;
+  public currentTime:number = 0;
+  public isUpdating: boolean = false;
+  private intervalUpdatePosition;
+  private intervalVisibility;
   public isActive = this.authProvider.userState == ESTADOS_USUARIO.Activo;
   constructor(
     private dbProvider: DbProvider,
@@ -35,12 +40,42 @@ export class DomiciliosActivosPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DomiciliosActivosPage');
     
-    
+  }
+
+  ngOnInit(){
+    this.clockInterval();
     
   }
 
   
+  clockInterval(){
+    this.intervalVisibility = setInterval(()=> {
+      this.currentTime = new Date().getTime();
+      this.visibility();
+    }, 1000)
+  }
 
+  visibility(){
+    if (this.domiciliosProvider.pendingSolicitud){
+      
+      this.domiciliosProvider.pendingSolicitud.forEach(solicitud => {
+        const date = this.currentTime;
+        const creationDate = solicitud.key;
+        const minDistancia = this.domiciliosProvider.reglasActivos.RazonDeCambio.Distancia;
+        const timeExtend = this.domiciliosProvider.reglasActivos.RazonDeCambio.Tiempo;
+        const timeHasPass = (date - creationDate) 
+        const visibility = (timeHasPass * minDistancia) / timeExtend
+        solicitud.visibility = visibility;
+        
+      });
+
+      if (!this.isUpdating){
+        this.udpateDistFromInitSrvcPoint();
+        this.isUpdating = true;
+      }
+      
+    }
+  }
   
 
   loadConfirm(service){
@@ -63,12 +98,20 @@ export class DomiciliosActivosPage {
     this.confirmCompra.present();
   }
 
-
-
- 
+  udpateDistFromInitSrvcPoint(){
+    if (this.domiciliosProvider.reglasActivos){
+      this.intervalUpdatePosition = setInterval(()=> {
+        this.domiciliosProvider.getDistance();
+      }, this.domiciliosProvider.reglasActivos.TiempoActualizarPosicion)
+        
+    }
+    
+  }
 
   ionViewWillUnload(){
     /* this.domiciliosProvider.sub.unsubscribe(); */
+    clearInterval(this.intervalUpdatePosition);
+    clearInterval(this.intervalVisibility);
     console.log("unsuscribiendo solicitudes pendientes")
     console.log('DomiciliosActivosPage ionViewWillUnload')
     

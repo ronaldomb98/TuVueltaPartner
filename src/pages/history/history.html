@@ -1,0 +1,35 @@
+<!--
+  Generated template for the HistoryPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title text-center>Historial</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list *ngIf="solicitudes">
+    <span *ngFor="let solicitud of solicitudes">
+      <ion-list-header>{{solicitud.month}}</ion-list-header>
+      <button ion-item *ngFor="let row of solicitud.solicitudes" (click)="showSolicitud(row)">
+        <h3>{{ row.key | date:'short' }}</h3>
+        <p *ngIf="row.payload.val().Estado"           >Estado:        {{ row.payload.val().Estado }}</p>
+        <p *ngIf="row.payload.val().Ciudad"           >Ciudad:        {{ row.payload.val().Ciudad }}</p>
+        <p *ngIf="row.payload.val().Descripcion"      >Descripcion:   {{ row.payload.val().Descripcion }}</p>
+        <p *ngIf="row.payload.val().FechaCompra"      >Fecha Compra:  {{ row.payload.val().FechaCompra }}</p>
+        <p *ngIf="row.payload.val().GananciaMensajero">Ganancia base: {{ row.payload.val().GananciaMensajero }}</p>
+        
+      </button>  
+    </span>
+    
+  </ion-list>
+</ion-content>

@@ -15,10 +15,10 @@ export class DistancematrixProvider {
     console.log('Hello DistancematrixProvider Provider');
   }
 
-  getDistance(destinations: string){
+  getDistance(origin:string, destinations: string){
     let url = this.base;
     url+='?key='+this.API_KEY;
-    url+='&origins='+'4.404787,-75.148138';
+    url+='&origins='+ origin;
     url+='&destinations='+destinations;
     return this.http.get(url)
   }

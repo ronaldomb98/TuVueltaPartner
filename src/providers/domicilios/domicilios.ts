@@ -4,6 +4,7 @@ import { AuthProvider } from '../auth/auth';
 import { DbProvider } from '../db/db';
 import { Subscription } from 'rxjs/Subscription';
 import { DistancematrixProvider } from '../distancematrix/distancematrix';
+import { Geolocation, GeolocationOptions } from '@ionic-native/geolocation';
 
 /*
   Generated class for the DomiciliosProvider provider.
@@ -24,7 +25,8 @@ export class DomiciliosProvider {
   constructor(
     private authProvider: AuthProvider,
     private dbProvider: DbProvider,
-    private distanceMatrixProvider: DistancematrixProvider
+    private distanceMatrixProvider: DistancematrixProvider,
+    private geolocation: Geolocation
   ) {
     console.log('Hello DomiciliosProvider Provider');
   }
@@ -97,14 +99,20 @@ export class DomiciliosProvider {
   }
 
   async getDistance(){
-    
+    console.log("updating distance from me services")
+    let options: GeolocationOptions = {
+      enableHighAccuracy: true,
+      timeout: 300000000
+    };
     const destinations = this.pendingSolicitud
       .map(solicitud => solicitud.payload.val().puntoInicialCoors)
       .join('|')
       console.log(destinations)  
     if (destinations.length > 0) {
       try {
-        const dist_promise: any = await this.distanceMatrixProvider.getDistance(destinations).toPromise()
+        const _geolocation = await this.geolocation.getCurrentPosition(options); 
+        const origin = _geolocation.coords.latitude+','+_geolocation.coords.longitude;
+        const dist_promise: any = await this.distanceMatrixProvider.getDistance(origin,destinations).toPromise()
         const distances: any = dist_promise.rows[0].elements;
         for (let index = 0; index < this.pendingSolicitud.length; index++) {
           this.pendingSolicitud[index].distanceFromMe = distances[index].distance.value;
@@ -113,7 +121,7 @@ export class DomiciliosProvider {
         console.log(this.pendingSolicitud)
         
       }catch (err) {
-        console.log(err)
+        console.log(`Error en get distance: ${err.message}`)
       }
     }
   }
@@ -121,6 +129,20 @@ export class DomiciliosProvider {
   public sortServiceByDistance(list) {
     return list.sort( (a,b) =>{
       return a.distanceFromMe - b.distanceFromMe
+    })
+  }
+
+  public subReglasActivos: Subscription;
+  public reglasActivos;
+  public loadReglasActivos() {
+    const sub = this.subReglasActivos;
+    if (sub) {
+      this.subReglasActivos.unsubscribe();
+    }
+    this.subReglasActivos = this.dbProvider.objectReglasActivos().snapshotChanges().subscribe(response => {
+      this.reglasActivos= response.payload.val();
+      console.log(this.reglasActivos)
+      this.loadPendingSolicitud();
     })
   }
 

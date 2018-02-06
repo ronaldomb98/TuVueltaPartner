@@ -18,6 +18,7 @@ import { UsuarioBloqueadoPage } from '../pages/usuario-bloqueado/usuario-bloquea
 import { ROLES } from '../config/Roles';
 import { NoMensajeroRolPage } from '../pages/no-mensajero-rol/no-mensajero-rol';
 import { DomiciliosProvider } from '../providers/domicilios/domicilios';
+import { HistoryPage } from '../pages/history/history';
 
 @Component({
   templateUrl: 'app.html'
@@ -47,7 +48,8 @@ export class MyApp {
     this.pages = [
       { title: 'Inicio', component: PrincipalPage },
       { title: 'Retirar', component: RetirarPage },
-      { title: 'Mi Cuenta', component: CompleteRegistrationPage }
+      { title: 'Mi Cuenta', component: CompleteRegistrationPage },
+      { title: 'Historial', component: HistoryPage }
     ];
 
   }
@@ -78,7 +80,11 @@ export class MyApp {
     if (this.domiciliosProvider.subInProcces != undefined){
       this.domiciliosProvider.subInProcces.unsubscribe();
     }
-    
+
+    if (this.domiciliosProvider.subReglasActivos != undefined){
+      this.domiciliosProvider.subReglasActivos.unsubscribe();
+    }
+
     this.authProvider.userInfo = null;
     this.userDataSub.unsubscribe();
     this.dbProvider.subGanancias.unsubscribe();
@@ -134,11 +140,11 @@ export class MyApp {
               this.dbProvider.loadGananciasMensajero();
               if (this.authProvider.userState == ESTADOS_USUARIO.Activo) {
                 this.domiciliosProvider.loadInProccesSolicitud();
-                this.domiciliosProvider.loadPendingSolicitud();
+                this.domiciliosProvider.loadReglasActivos();
               }
               
               
-              this.nav.setRoot(PrincipalPage).then(()=>{ //  EquipmentPage
+              this.nav.setRoot(HistoryPage).then(()=>{ //  PrincipalPage
                 this.nav.popToRoot()
                 loading.dismiss()
               })

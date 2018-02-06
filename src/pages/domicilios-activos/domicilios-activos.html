@@ -12,31 +12,38 @@
     <ion-item-divider>
         Domicilios
     </ion-item-divider>
-    <ion-item *ngFor="let row of domiciliosProvider.pendingSolicitud">
-      <span item-start>
-        $ {{ row.payload.val().GananciaMensajero}}
-      </span>
-      <p>
-        <ion-icon name="md-more"></ion-icon><span>{{ row.payload.val().puntoInicio}}</span>
-      </p>
-      <p>
-        <ion-icon name="md-pin"></ion-icon> <span>{{ row.payload.val().puntoFinal}}</span>
-      </p>
-      <p>
-        <ion-icon name="arrow-round-up"></ion-icon>
-        <ion-icon *ngIf="row.payload.val().esPagoConTarjeta == true" name="arrow-round-down"></ion-icon>
-        <span margin-right>{{ row.key | date:'shortTime'}}</span>
-      </p>
-      <p *ngIf="row.payload.val().BonoRelanzamiento">
-        Bonificación: $ {{ row.payload.val().BonoRelanzamiento | number }}
-      </p>
-      <p *ngIf="row.payload.val().ValorDomicilio">
-        $ {{ row.payload.val().ValorDomicilio | number }}
-      </p>
-      <button (click)="loadConfirm(row)" *ngIf="domiciliosProvider.inProccessSolicitud && domiciliosProvider.inProccessSolicitud.length < 2" ion-button color="primary" item-end>
-        Comprar
-      </button>
+    <span *ngFor="let row of domiciliosProvider.pendingSolicitud">
+      <ion-item  *ngIf="row.visibility > row.distanceFromMe">
+      
+      
+        <span item-start>
+          $ {{ row.payload.val().GananciaMensajero}}
+        </span>
+        <p>
+          <ion-icon name="md-more"></ion-icon><span>{{ row.payload.val().puntoInicio}}</span>
+        </p>
+        <p>
+          <ion-icon name="md-pin"></ion-icon> <span>{{ row.payload.val().puntoFinal}}</span>
+        </p>
+        <p>
+          <ion-icon name="arrow-round-up"></ion-icon>
+          <ion-icon *ngIf="row.payload.val().esPagoConTarjeta == true" name="arrow-round-down"></ion-icon>
+          <span margin-right>{{ row.key | date:'shortTime'}}</span>
+        </p>
+        <p *ngIf="row.payload.val().BonoRelanzamiento">
+          Bonificación: $ {{ row.payload.val().BonoRelanzamiento | number }}
+        </p>
+        <p *ngIf="row.payload.val().ValorDomicilio">
+          $ {{ row.payload.val().ValorDomicilio | number }}
+        </p>
+        <button (click)="loadConfirm(row)" *ngIf="domiciliosProvider.inProccessSolicitud && domiciliosProvider.inProccessSolicitud.length < 2" ion-button color="primary" item-end>
+          Comprar
+        </button>
+      
+      
     </ion-item>
+    </span>
+    
 
     <div class="no-solicitudes-pendientes" text-center *ngIf="domiciliosProvider.pendingSolicitud.length == 0">
       <img src="assets/imgs/surprised.png" width="20%"/>
@@ -52,4 +59,5 @@
       <br/>
     Debes estar activo para poder ver los servicios pendientes
   </div>
+  
 </ion-content>

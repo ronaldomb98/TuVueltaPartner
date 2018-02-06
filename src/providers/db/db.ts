@@ -4,6 +4,7 @@ import { ESTADOS_ERVICIO } from '../../config/EstadosServicio';
 import { AuthProvider } from '../auth/auth';
 import { LoadingProvider } from '../loading/loading';
 import { Subscription } from 'rxjs/Subscription';
+import { Reference } from '@firebase/database-types';
 
 /*
   Generated class for the DbProvider provider.
@@ -84,6 +85,9 @@ export class DbProvider {
   public objectLogSolicitud(key, date){
     return this.db.object(`/Operativo/Logs/Solicitud/${key}/${date}`);
   }
+  public objectLogsSolicitud(key){
+    return this.db.object(`/Operativo/Logs/Solicitud/${key}`);
+  }
   
   public objectLogRetiros(key, date){
     return this.db.object(`/Operativo/Logs/CreditosMensajero/Retiros/${key}/${date}`);
@@ -91,6 +95,12 @@ export class DbProvider {
 
   public objectGananciasMensajero(key) {
     return this.db.object(`/Operativo/Logs/GananciasMensjero/${key}`)
+  }
+
+  public listSolicitud(key){
+    return this.db.list(`/Operativo/Solicitud`, (ref: Reference) => 
+      ref.orderByChild('Motorratoner_id').equalTo(key)
+    )
   }
 
   public relaunchSolicitud(serviceKey, GananciaMensajero, bonoRelanzamiento){
@@ -155,6 +165,10 @@ export class DbProvider {
 
       /* this.amountToRetiro=this.gananciasMensajero.CreditosNoRetiro + this.gananciasMensajero.CreditosRetiro; */
     })
+  }
+
+  objectReglasActivos(){
+    return this.db.object('/Administrativo/ReglasActivos')
   }
 
 

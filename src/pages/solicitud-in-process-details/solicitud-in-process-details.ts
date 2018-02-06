@@ -4,6 +4,8 @@ import { DbProvider } from '../../providers/db/db';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ESTADOS_ERVICIO } from '../../config/EstadosServicio';
+import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
+import { LoadingProvider } from '../../providers/loading/loading';
 /**
  * Generated class for the SolicitudInProcessDetailsPage page.
  *
@@ -23,7 +25,9 @@ export class SolicitudInProcessDetailsPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public dbProvider: DbProvider,
-    public authProvider: AuthProvider
+    public authProvider: AuthProvider,
+    private launchNavigator: LaunchNavigator,
+    private loadingProvider: LoadingProvider
   ) {
   }
 
@@ -117,6 +121,15 @@ export class SolicitudInProcessDetailsPage {
 
   goBack(){
     this.navCtrl.pop();
+  }
+
+  openNavigator(isOrigin){
+    const destination= isOrigin ? this.solicitudDetails.payload.val().puntoInicialCoors : this.solicitudDetails.payload.val().puntoFinalCoors
+    this.launchNavigator.navigate(destination)
+      .catch(err=>{
+        const loading = this.loadingProvider.createUpdatedToast(3000, "Algo salio mal abriendo el navegador");
+        loading.present();
+      })
   }
 
 }
