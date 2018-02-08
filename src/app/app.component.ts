@@ -144,7 +144,7 @@ export class MyApp {
               }
               
               
-              this.nav.setRoot(HistoryPage).then(()=>{ //  PrincipalPage
+              this.nav.setRoot(PrincipalPage).then(()=>{ //  PrincipalPage
                 this.nav.popToRoot()
                 loading.dismiss()
               })
