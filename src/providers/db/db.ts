@@ -6,6 +6,7 @@ import { LoadingProvider } from '../loading/loading';
 import { Subscription } from 'rxjs/Subscription';
 import { Reference } from '@firebase/database-types';
 import { HttpClient } from '@angular/common/http';
+import { ROLES } from '../../config/Roles';
 
 /*
   Generated class for the DbProvider provider.
@@ -175,6 +176,10 @@ export class DbProvider {
 
   objectReglasActivos(){
     return this.db.object('/Administrativo/ReglasActivos')
+  }
+
+  public listClientes(){
+    return this.db.list("/Administrativo/Usuarios", ref => ref.orderByChild('Rol').equalTo(ROLES.Cliente));
   }
 
 

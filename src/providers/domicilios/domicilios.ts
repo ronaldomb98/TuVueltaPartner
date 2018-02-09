@@ -20,8 +20,10 @@ export class DomiciliosProvider {
   public audio = new Audio();
   public inProccessSolicitud;
   public subInProcces: Subscription;
+  public subListClients: Subscription;
   public inProccessSolicitudByDistance;
   public lengthSolicitudes: number = -1;
+  public Mensajeros;
   constructor(
     private authProvider: AuthProvider,
     private dbProvider: DbProvider,
@@ -95,6 +97,17 @@ export class DomiciliosProvider {
       if (solicitud.payload.val().Motorratoner_id == uid){
         return solicitud
       }
+    })
+  }
+
+  loadClientes(){
+    this.subListClients = this.dbProvider.listClientes().snapshotChanges().subscribe(res => {
+      
+      this.Mensajeros = res.reduce((o,val) => {
+        o[val.key] = val.payload.val();
+        return o;
+      }, {});
+      
     })
   }
 

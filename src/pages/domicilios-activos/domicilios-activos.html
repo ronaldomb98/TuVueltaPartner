@@ -19,6 +19,10 @@
         <span item-start>
           $ {{ row.payload.val().GananciaMensajero}}
         </span>
+
+        <p *ngIf="domiciliosProvider.Mensajeros && domiciliosProvider.Mensajeros[row.payload.val().user_id]">
+          Cliente: {{ domiciliosProvider.Mensajeros[row.payload.val().user_id].Nombres }} {{ domiciliosProvider.Mensajeros[row.payload.val().user_id].Apellidos }}
+        </p>
         <p>
           <ion-icon name="md-more"></ion-icon><span>{{ row.payload.val().puntoInicio}}</span>
         </p>

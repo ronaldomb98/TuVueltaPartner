@@ -85,6 +85,10 @@ export class MyApp {
       this.domiciliosProvider.subReglasActivos.unsubscribe();
     }
 
+    if (this.domiciliosProvider.subListClients != undefined){
+      this.domiciliosProvider.subListClients.unsubscribe();
+    }
+
     this.authProvider.userInfo = null;
     this.userDataSub.unsubscribe();
     this.dbProvider.subGanancias.unsubscribe();
@@ -154,6 +158,7 @@ export class MyApp {
               if (this.authProvider.userState == ESTADOS_USUARIO.Activo) {
                 this.domiciliosProvider.loadInProccesSolicitud();
                 this.domiciliosProvider.loadReglasActivos();
+                this.domiciliosProvider.loadClientes();
               }
               
               
