@@ -41,7 +41,7 @@ export class DomiciliosProvider {
         this.notifyNewSolicitud(res.length)
         this.pendingSolicitud = res
         if (res.length > 0) {
-          /* this.getDistance(); */
+          this.getDistance();
         }
         
 

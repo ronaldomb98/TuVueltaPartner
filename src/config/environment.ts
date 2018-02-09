@@ -7,7 +7,7 @@ export const firebaseConfig = {
     messagingSenderId: "1008156158697"
   };
 
-/*   export const firebaseConfig = {
+  /* export const firebaseConfig = {
     apiKey: "AIzaSyB_Shc3PWqhPr2JCC_GTCheczHMyyttNmY",
     authDomain: "tuvueltap.firebaseapp.com",
     databaseURL: "https://tuvueltap.firebaseio.com",

@@ -5,6 +5,7 @@ import { AuthProvider } from '../auth/auth';
 import { LoadingProvider } from '../loading/loading';
 import { Subscription } from 'rxjs/Subscription';
 import { Reference } from '@firebase/database-types';
+import { HttpClient } from '@angular/common/http';
 
 /*
   Generated class for the DbProvider provider.
@@ -18,7 +19,8 @@ export class DbProvider {
   constructor(
     private db: AngularFireDatabase,
     private authProvider: AuthProvider,
-    private loadingProvider: LoadingProvider
+    private loadingProvider: LoadingProvider,
+    private http: HttpClient
   ) {
     console.log('Hello DbProvider Provider');
   }
@@ -29,6 +31,10 @@ export class DbProvider {
 
   public objectUserInfo(uid){
     return this.db.object(`/Administrativo/Usuarios/${uid}`)
+  }
+
+  public testobjectUserInfo(uid){
+    return this.http.get(`/Administrativo/Usuarios/${uid}`)
   }
 
   public objectEquipamiento(){

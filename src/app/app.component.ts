@@ -106,6 +106,7 @@ export class MyApp {
       loading.present()
 
       const _flag: boolean = _authState ? true : false;
+      
       this.authProvider.isLoggedIn = _flag;
       this.menuController.enable(_flag);
       if (!_flag) {
@@ -116,7 +117,19 @@ export class MyApp {
         })
       }else {
         let uid = _authState.uid;
-       
+
+        /* let test = this.dbProvider.testobjectUserInfo(uid).toPromise()
+        console.log("Antes de la promesa")
+        test.then(res => {
+          console.log("Dentro de la promesa")
+          console.log(res)
+          loading.dismiss()
+          return 0
+        }).catch(err => {
+          console.log("Dentro de la promesa")
+          console.log(err.message)
+          loading.dismiss()
+        }) */
         
         this.userDataSub = this.dbProvider.objectUserInfo(uid)
           .snapshotChanges()
@@ -154,7 +167,12 @@ export class MyApp {
                 loading.dismiss()
               })
             }
+          },err => {
+
+          }, ()=> {
+            
           })
+          console.log(this.userDataSub)      
       }
     })
   }
