@@ -6,12 +6,6 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { ESTADOS_ERVICIO } from '../../config/EstadosServicio';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { LoadingProvider } from '../../providers/loading/loading';
-/**
- * Generated class for the SolicitudInProcessDetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-solicitud-in-process-details',

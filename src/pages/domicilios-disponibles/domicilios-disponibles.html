@@ -1,66 +1,78 @@
-<!--
-  Generated template for the DomiciliosDisponiblesPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
-  <ion-navbar>
-    <ion-title text-center>domicilios-disponibles</ion-title>
-  </ion-navbar>
-
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title text-center>TuVuelta Partner</ion-title>
+    </ion-navbar>
 </ion-header>
-
-
-<ion-content padding>
-  <ion-list *ngIf="domiciliosProvider.inProccessSolicitud && isActive">
-    <ion-item-divider>
-        Domicilios
-    </ion-item-divider>
-    <ion-item *ngFor="let row of domiciliosProvider.inProccessSolicitud">
-      <span item-start>
-        $ {{ row.payload.val().GananciaMensajero}}
-      </span>
-      <p *ngIf="domiciliosProvider.Mensajeros && domiciliosProvider.Mensajeros[row.payload.val().user_id]">
-        Cliente: {{ domiciliosProvider.Mensajeros[row.payload.val().user_id].Nombres }} {{ domiciliosProvider.Mensajeros[row.payload.val().user_id].Apellidos }}
-      </p>
-      <p>
-        <ion-icon name="md-more"></ion-icon><span>{{ row.payload.val().puntoInicio}}</span>
-      </p>
-      <p>
-        <ion-icon name="md-pin"></ion-icon> <span>{{ row.payload.val().puntoFinal}}</span>
-      </p>
-      <p>
-        <span margin-right>{{ row.key | date:'full'}}</span>
-        <ion-icon name="arrow-round-up"></ion-icon>
-        <ion-icon *ngIf="row.payload.val().esPagoConTarjeta == true" name="arrow-round-down"></ion-icon>
-      </p>
-      <p *ngIf="row.payload.val().ValorDomicilio">
-        $ {{ row.payload.val().ValorDomicilio }}
-      </p>
-      <p *ngIf="row.payload.val().BonoRelanzamiento">
-          Bonificación: $ {{ (row.payload.val().BonoRelanzamiento ) | number }}
-          Total: $ {{ (row.payload.val().BonoRelanzamiento + row.payload.val().GananciaMensajero) | number }}
-      </p>
       
-      <button (click)="relaunch(row)" *ngIf="row.payload.val().fechaCompra && ((row.payload.val().fechaCompra + 30000) > currentTime ) && row.payload.val().Estado == 'EnProceso' " ion-button color="orange" item-end>
-        Relanzar {{ (((row.payload.val().fechaCompra + 30000) - currentTime) / 1000) | number:'2.0-0' }}
-      </button>
-      
-      
-      <button (click)="openScheduleDetails(row.key)" ion-button color="orange" item-end>
-        Ver
-      </button>
-    </ion-item>
 
-    <div class="no-solicitudes-pendientes" text-center *ngIf="domiciliosProvider.inProccessSolicitud.length == 0">
-        <img src="assets/imgs/surprised.png" width="20%"/>
-        <br/>
-        <br/>
-        No Hay Solicitudes En Proceso
-      </div>
+<ion-content>
+
+  <ion-list *ngFor="let row of domiciliosProvider.inProccessSolicitud" >
+        <ion-item-divider color="orange">
+                Domicilios
+        </ion-item-divider>
+      <ion-grid  >
+          <ion-row justify-content-start>
+            <ion-col col-3 class="domiciliosColor" tex-center>
+                 <p class="textoCenter" >$ {{ row.payload.val().GananciaMensajero}}</p>
+            </ion-col>
+            <ion-col col-9>
+                <p *ngIf="domiciliosProvider.Mensajeros && domiciliosProvider.Mensajeros[row.payload.val().user_id]">
+                    Cliente: {{ domiciliosProvider.Mensajeros[row.payload.val().user_id].Nombres }} {{ domiciliosProvider.Mensajeros[row.payload.val().user_id].Apellidos }}
+                </p>
+                <div>
+                    <ion-icon name="md-pin" color="secondary"></ion-icon>
+                    <span class="text-center">{{ row.payload.val().puntoInicio}}</span>
+                </div>
+                <div>
+                    <ion-icon name="md-pin" color="primary"></ion-icon> 
+                    <span>{{ row.payload.val().puntoFinal}}</span>
+                </div>
+                <div>
+                    <ion-icon name="arrow-round-up" color="primary"></ion-icon>
+                    <ion-icon *ngIf="row.payload.val().esPagoConTarjeta == true" name="arrow-round-down" color="primary"></ion-icon>
+                    <span margin-right>{{ row.key | date:'short'}}</span>
+                </div>
+                <div>
+                    <span *ngIf="row.payload.val().ValorDomicilio">
+                        $ {{ row.payload.val().ValorDomicilio }}
+                      </span>
+                </div>
+                <div *ngIf="row.payload.val().BonoRelanzamiento">
+                  <span>
+                    Bonificación: $ {{ (row.payload.val().BonoRelanzamiento ) | number }}
+                    Total: $ {{ (row.payload.val().BonoRelanzamiento + row.payload.val().GananciaMensajero) | number }}
+                  </span>
+              </div>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col col-6>
+                <button (click)="relaunch(row)" *ngIf="row.payload.val().fechaCompra && ((row.payload.val().fechaCompra + 30000) > currentTime ) && row.payload.val().Estado == 'EnProceso' " ion-button full color="yellow" item-end>
+                     Relanzar {{ (((row.payload.val().fechaCompra + 30000) - currentTime) / 1000) | number:'2.0-0' }}
+                </button>
+              </ion-col>
+              <ion-col col-6>
+                  <button (click)="openScheduleDetails(row.key)" ion-button full>
+                    Ver
+                 </button>
+              </ion-col>
+          </ion-row>
+      </ion-grid>
+    
+      <div class="no-solicitudes-pendientes" text-center *ngIf="domiciliosProvider.inProccessSolicitud.length == 0">
+            <img src="assets/imgs/surprised.png" width="20%"/>
+            <br/>
+            <br/>
+            No Hay Solicitudes En Proceso
+          </div>
+
   </ion-list>
+
+
   <div *ngIf="!isActive" class="no-active-message" text-center>
       <img src="assets/imgs/surprised-face.png" width="20%"/>
       <br/>

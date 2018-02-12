@@ -32,16 +32,18 @@
 }
 
 .header-auth{
-  background: #56CCF2;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: #108ADD;  /* fallback for old browsers */
+  //background: -webkit-radial-gradient(to right, #0babff, #37befe);  /* Chrome 10-25, Safari 5.1-6 */
+  //background: radial-gradient(to right, #0babff, #37befe); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   //background: color($colors, orange);
-  height: 15em;
+  height: 17em;
   text-align: center;
   color: white;
   img{
-    margin-top: 2em;
-    height: 8em;
+    margin-top: 5vh;
+    margin-left: 2vw;
+    height: 7em;
+    //margin-left: 17em;
   }
   font-family: 'Questrial', sans-serif;
 }
@@ -53,54 +55,67 @@ ion-card.auth{
   margin-top: -2em;
   width: calc(100% - 4em);
   margin-left: 2em;
-  -webkit-box-shadow: 5px 6px 5px 0px rgba(212,212,212,1);
-  -moz-box-shadow: 5px 6px 5px 0px rgba(212,212,212,1);
-  box-shadow: 5px 6px 5px 0px rgba(212,212,212,1);
-  font-family: 'Questrial', sans-serif;
+//  -webkit-box-shadow: 5px 6px 5px 0px rgb(228,226,223);
+//  -moz-box-shadow: 5px 6px 5px 0px rgb(228,226,223);
+//  box-shadow: 5px 6px 5px 0px rgb(228,226,223);
+//  font-family: 'Questrial', sans-serif;
 }
 
-.logout{
-  
-}
+
 .logo-menu{
   color: white;
   font-weight: 400;
 
   div.logo{
     width: 100%;
-    background: #2F80ED;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #2F80ED, #2F80ED); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    height: 220px;
+    background: #108ADD;  /* fallback for old browsers */
+    //background: -webkit-linear-gradient(to right, #0babff, #37befe);  /* Chrome 10-25, Safari 5.1-6 */
+    //background: linear-gradient(to right, #0babff, #37befe); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    height: 240px;
   }
 
   img.logo{
     margin-top: 10%;
-    width: 60%;
-    height: 95px;
+    width: 30%;
   }
 
   .username{
     text-decoration: none;    
     margin: .5em 0;
     font-family: 'Questrial', sans-serif;
-    font-size: 18px;
+    font-size: 14px;
+    text-transform: uppercase;
   }
   
   .creditos{
     font-family: 'Questrial', sans-serif;
+    background: #F03C02;
+    margin-top: 14%;
+    height: 50px;
+    padding: 8px; 
   }
   
   .credito-name{
     font-family: 'Questrial', sans-serif;
-    font-size: 20px;
-    text-shadow: 2px 2px #2F80ED;
+    font-size: 14px;
+   
   }
   .credito-description{
     font-family: 'Questrial', sans-serif;
-    font-size: 18px;
-    text-shadow: 1px 1px #2F80ED;
+    font-size: 15px;
+  
   }
+
+  .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+    border-bottom-color: #e2e2e2;
+    -webkit-box-shadow: inset 0 -1px 0 0 #e2e2e2;
+    box-shadow: inset 0 -1px 0 0 #e2e2e2;
+}
+
+img {
+  background: #98c8ff;
+  border-radius: 50%;
+}
 
 }
 

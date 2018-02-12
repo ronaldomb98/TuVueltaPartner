@@ -4,4 +4,40 @@ page-login {
         font-size: 20px;
         
     }
+
+    .avatar {
+        vertical-align: middle;
+        width: 120px;
+        height: 120px;
+        border-radius: 60%;
+        background: #e5f3fa;
+      
+        text-align: center;
+        position: absolute; left: 35vw; top: 14%;
+    }
+    
+    .errormensaje{
+        color: #C7260A;
+        font-family: 'Questrial', sans-serif;
+        text-align: center;
+    }
+
+    .errormensajecard{
+        color: #fff;
+        background:#C7260A;
+        font-family: 'Questrial', sans-serif;
+        text-align: center;
+        opacity: 0.9;
+        filter: alpha(opacity=80);
+    }
+
+    
+    .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+        border-bottom-color: #e2e2e2;
+        -webkit-box-shadow: inset 0 -1px 0 0 #e2e2e2;
+        box-shadow: inset 0 -1px 0 0 #e2e2e2;
+    }   
+
+
+
 }

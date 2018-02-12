@@ -1,25 +1,21 @@
 <ion-header>
-
   <ion-navbar  color="primary">
     <ion-title text-center>domicilios-activos</ion-title>
   </ion-navbar>
-
 </ion-header>
+
 
 
 <ion-content>
   <ion-list *ngIf="domiciliosProvider.pendingSolicitud && isActive">
-    <ion-item-divider>
-        Domicilios
+    <ion-item-divider color="orange">
+      Domicilios
     </ion-item-divider>
     <span *ngFor="let row of domiciliosProvider.pendingSolicitud">
       <ion-item  *ngIf="row.visibility > row.distanceFromMe">
-      
-      
         <span item-start>
           $ {{ row.payload.val().GananciaMensajero}}
         </span>
-
         <p *ngIf="domiciliosProvider.Mensajeros && domiciliosProvider.Mensajeros[row.payload.val().user_id]">
           Cliente: {{ domiciliosProvider.Mensajeros[row.payload.val().user_id].Nombres }} {{ domiciliosProvider.Mensajeros[row.payload.val().user_id].Apellidos }}
         </p>
@@ -43,12 +39,8 @@
         <button (click)="loadConfirm(row)" *ngIf="domiciliosProvider.inProccessSolicitud && domiciliosProvider.inProccessSolicitud.length < 2" ion-button color="primary" item-end>
           Comprar
         </button>
-      
-      
     </ion-item>
     </span>
-    
-
     <div class="no-solicitudes-pendientes" text-center *ngIf="domiciliosProvider.pendingSolicitud.length == 0">
       <img src="assets/imgs/surprised.png" width="20%"/>
       <br/>
@@ -63,5 +55,4 @@
       <br/>
     Debes estar activo para poder ver los servicios pendientes
   </div>
-  
 </ion-content>

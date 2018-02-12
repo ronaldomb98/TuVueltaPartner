@@ -30,6 +30,7 @@
     "@ionic/pro": "1.0.16",
     "@ionic/storage": "2.1.3",
     "angularfire2": "^5.0.0-rc.6",
+    "com.hutchind.cordova.plugins.streamingmedia": "~0.1.4",
     "cordova-android": "6.3.0",
     "cordova-plugin-actionsheet": "^2.3.3",
     "cordova-plugin-device": "^1.1.7",
@@ -70,8 +71,6 @@
       "cordova-plugin-network-information": {},
       "uk.co.workingedge.phonegap.plugin.launchnavigator": {}
     },
-    "platforms": [
-      "android"
-    ]
+    "platforms": []
   }
 }

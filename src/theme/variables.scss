@@ -23,7 +23,8 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
 
-
+$grid-padding-width: 1px;
+$list-md-margin-left: 0px;
 
 // Named Color Variables
 // --------------------------------------------------
@@ -34,13 +35,15 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #1E90FF,
+  primary:    #108ADD,
   secondary:  #66CD00,
   danger:     #f53d3d,
   light:      #d1d2d4,
   dark:       #222,
-orange:     #FF4500,
-  white:     #fff
+orange:     #F03C02,
+  white:     #fff,
+  green:    #D1E751,
+  yellow:  #ffce36,
 );
 
 
@@ -50,13 +53,13 @@ orange:     #FF4500,
 
 $tabs-ios-tab-icon-color-active: color($colors, primary);
 $tabs-ios-tab-text-color-active: color($colors, primary);
-
+$tabs-ios-tab-max-width: 350px;
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 $tabs-md-tab-icon-color-active: color($colors, primary);
 $tabs-md-tab-text-color-active: color($colors, primary);
-
+$tabs-md-tab-max-width: 350px;
 
 // App Windows Variables
 // --------------------------------------------------
