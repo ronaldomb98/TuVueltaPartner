@@ -7,7 +7,10 @@ import { Subscription } from 'rxjs/Subscription';
 import { Reference } from '@firebase/database-types';
 import { HttpClient } from '@angular/common/http';
 import { ROLES } from '../../config/Roles';
-
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/do';
+import { Observable } from 'rxjs/Observable';
+import { IConfigGlobal } from '../../entities/configglobal.interface';
 /*
   Generated class for the DbProvider provider.
 
@@ -17,6 +20,7 @@ import { ROLES } from '../../config/Roles';
 @Injectable()
 export class DbProvider {
   private urlParamsSignup: string = '/Administrativo/ParamsRegistro'
+  public isUpdatingUserInfo: boolean = false;
   constructor(
     private db: AngularFireDatabase,
     private authProvider: AuthProvider,
@@ -182,6 +186,11 @@ export class DbProvider {
     return this.db.list("/Administrativo/Usuarios", ref => ref.orderByChild('Rol').equalTo(ROLES.Cliente));
   }
 
-
-
+  public objectGlobalConfig(): Observable<IConfigGlobal>{
+    return this.db.object(`/Administrativo/ConfigGlobal`)
+    .snapshotChanges()
+    .distinctUntilChanged()
+    .map(res => res.payload.val())
+    .do(console.log)
+  }
 }

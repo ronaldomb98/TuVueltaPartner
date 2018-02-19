@@ -8,7 +8,7 @@
 
 
 <ion-content>
-  <ion-list *ngIf="domiciliosProvider.pendingSolicitud && isActive">
+  <ion-list *ngIf="domiciliosProvider.pendingSolicitud && (authProvider.userState == 'Activo')">
     <ion-item-divider>
         Domicilios
     </ion-item-divider>
@@ -17,7 +17,7 @@
       
       
         <span item-start>
-          $ {{ row.payload.val().GananciaMensajero}}
+          $ {{ row.payload.val().GananciaMensajero | number:'1.1-3'}}
         </span>
 
         <p *ngIf="domiciliosProvider.Mensajeros && domiciliosProvider.Mensajeros[row.payload.val().user_id]">
@@ -40,9 +40,12 @@
         <p *ngIf="row.payload.val().ValorDomicilio">
           $ {{ row.payload.val().ValorDomicilio | number }}
         </p>
-        <button (click)="loadConfirm(row)" *ngIf="domiciliosProvider.inProccessSolicitud && domiciliosProvider.inProccessSolicitud.length < 2" ion-button color="primary" item-end>
-          Comprar
-        </button>
+        <ng-container *ngIf="domiciliosProvider.globalConfig && domiciliosProvider.inProccessSolicitud" item-end>
+          <button (click)="loadConfirm(row)" *ngIf="domiciliosProvider.inProccessSolicitud.length < domiciliosProvider.globalConfig.CantSrvcQuePuedeComprarMensajero" ion-button color="primary" >
+            Comprar
+          </button>
+        </ng-container>
+        
       
       
     </ion-item>
@@ -57,7 +60,7 @@
     </div>
   </ion-list>
 
-  <div *ngIf="!isActive" class="no-active-message" text-center>
+  <div *ngIf="authProvider.userState == 'Inactivo'" class="no-active-message" text-center>
       <img src="assets/imgs/surprised-face.png" width="20%"/>
       <br/>
       <br/>

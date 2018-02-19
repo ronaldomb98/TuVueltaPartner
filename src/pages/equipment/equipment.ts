@@ -5,7 +5,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthProvider } from '../../providers/auth/auth';
 import { PrincipalPage } from '../principal/principal';
 import { Subscription } from 'rxjs/Subscription';
-import { Geolocation, GeolocationOptions, PositionError} from '@ionic-native/geolocation'
+import { Geolocation, GeolocationOptions, PositionError } from '@ionic-native/geolocation'
+import { ESTADOS_USUARIO } from '../../config/EstadosUsuario';
+import { localStorageConstants } from '../../config/LocalstorageConstants';
 
 /**
  * Generated class for the EquipmentPage page.
@@ -23,7 +25,7 @@ export class EquipmentPage {
   public form: FormGroup;
   public sub: Subscription;
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     private dbProvider: DbProvider,
     private formBuilder: FormBuilder,
@@ -39,18 +41,18 @@ export class EquipmentPage {
     this.buildForm();
   }
 
-  ionViewWillUnload(){
+  ionViewWillUnload() {
     console.log('Equipament ionViewWillUnload')
     this.sub.unsubscribe();
   }
-  ionViewDidLeave(){
+  ionViewDidLeave() {
     console.log('Equipament ionViewDidLeave')
   }
-  ionViewWillLeave(){
+  ionViewWillLeave() {
     console.log('Equipament ionViewWillLeave')
   }
 
-  buildForm(){
+  buildForm() {
     this.form = this.formBuilder.group({
       EquipoMoto: this.formBuilder.control(null, Validators.required),
       EquipoMensajero: this.formBuilder.control(null, Validators.required),
@@ -59,56 +61,47 @@ export class EquipmentPage {
     })
   }
 
-  loadObjectEquipamiento(){
-    this.sub = this.dbProvider.objectEquipamiento().snapshotChanges().subscribe(res=>{
+  loadObjectEquipamiento() {
+    this.sub = this.dbProvider.objectEquipamiento().snapshotChanges().subscribe(res => {
       console.log(res.payload.val())
       this.equipment = res.payload.val()
     })
   }
 
-  _onSubmit(){
-    let data = this.form.value;
-    const date = new Date().getTime();
-    const uid = this.authProvider.currentUserUid;
-    this.dbProvider.objectLogUsuarioEquipamiento(uid, date)
-    .update(data)
-    .then(()=>{
-      return this.navCtrl.setRoot(PrincipalPage);
-    }).then(()=>{
-      return this.navCtrl.popToRoot();
-    })
-    
-    
-  }
+
   onSubmit() {
     let options: GeolocationOptions = {
       enableHighAccuracy: true,
       timeout: 30000
     };
-    this.platform.ready().then(()=>{
+    const uid = this.authProvider.currentUserUid;
+    this.platform.ready().then(() => {
       return this.geolocation.getCurrentPosition(options)
     })
-    .then(response => {
-      let data = this.form.value;
-      data.LatLng = response.coords.latitude+','+response.coords.longitude;
-      const date = new Date().getTime();
-      
-      const uid = this.authProvider.currentUserUid;
-      return this.dbProvider.objectLogUsuarioEquipamiento(uid, date)
-        .update(data)
-    })
-    .then(()=> {
-      return this.navCtrl.setRoot(PrincipalPage);
-    })
-    .then(()=>{
-      return this.navCtrl.popToRoot();
-    })
-    .catch((err: PositionError) => {
-      console.log("Error obteniendo location")
-      
-    })
-    
-    
+      .then(response => {
+        let data = this.form.value;
+        data.LatLng = response.coords.latitude + ',' + response.coords.longitude;
+        const date = new Date().getTime();
+        console.log(data);
+
+        return this.dbProvider.objectLogUsuarioEquipamiento(uid, date)
+          .update(data)
+      })
+      .then(res => {
+        console.log("")
+        const date = new Date().getTime().toString();
+        localStorage.setItem(localStorageConstants.lastStateChanged, date);
+        return this.dbProvider.objectUserInfo(uid).update({
+          Estado: ESTADOS_USUARIO.Activo
+        })
+      })
+
+      .catch((err: PositionError) => {
+        console.log("Error obteniendo location")
+
+      })
+
+
   }
   get EquipoMoto() { return this.form.get('EquipoMoto') }
   get EquipoMensajero() { return this.form.get('EquipoMensajero') }

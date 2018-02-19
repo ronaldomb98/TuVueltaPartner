@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 import { DbProvider } from '../../providers/db/db';
 import { Subscription } from 'rxjs/Subscription';
 import { AuthProvider } from '../../providers/auth/auth';
 import { ESTADOS_ERVICIO } from '../../config/EstadosServicio';
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
 import { LoadingProvider } from '../../providers/loading/loading';
+import { GeolocationOptions, Geolocation, Geoposition } from '@ionic-native/geolocation';
+import { DistancematrixProvider } from '../../providers/distancematrix/distancematrix';
+import { HttpClient } from '@angular/common/http';
+import { DomiciliosProvider } from '../../providers/domicilios/domicilios';
 /**
  * Generated class for the SolicitudInProcessDetailsPage page.
  *
@@ -27,7 +31,12 @@ export class SolicitudInProcessDetailsPage {
     public dbProvider: DbProvider,
     public authProvider: AuthProvider,
     private launchNavigator: LaunchNavigator,
-    private loadingProvider: LoadingProvider
+    private loadingProvider: LoadingProvider,
+    private platform: Platform,
+    private geolocation: Geolocation,
+    private distanceMatrixProvider: DistancematrixProvider,
+    private http: HttpClient,
+    public domiciliosProvider: DomiciliosProvider
   ) {
   }
 
@@ -49,11 +58,41 @@ export class SolicitudInProcessDetailsPage {
     this.clockInterval();
   }
 
+  calcDistanceFromPoints(){
+    let options: GeolocationOptions = {
+      enableHighAccuracy: true,
+      timeout: 300000000
+    };
+
+    this.platform.ready().then(()=>{
+      return this.geolocation.getCurrentPosition(options)
+    }).then((_geolocation: Geoposition) => {
+      const origin = _geolocation.coords.latitude + ',' + _geolocation.coords.longitude;
+      alert(origin)
+      const puntoInicio = this.solicitudDetails.payload.val().puntoInicialCoors;
+      const puntoFinal = this.solicitudDetails.payload.val().puntoFinalCoors;
+      const destinations = `${puntoInicio}|${puntoFinal}`
+      alert(JSON.stringify(this.solicitudDetails))
+      alert(destinations)
+      return this.distanceMatrixProvider.getDistance(origin, destinations).toPromise()
+    }).then((res: any) => {
+      const elements = res.rows[0].elements
+      this.solicitudDetails['DistanceFromPuntoInicio'] = elements[0].distance.value;
+      this.solicitudDetails['DistanceFromPuntoFinal'] = elements[1].distance.value;
+      return this.http.patch(`https://tuvueltap.firebaseio.com/distancematrix.json`,res).toPromise();
+    }).then(res=>{
+      alert(res)
+    }).catch(err => {
+      alert(err)
+    })
+  }
+
   loadSolicitudData(){
     
     this.sub = this.getSolicitudObject().snapshotChanges().subscribe(res=> {
       console.log(res.payload.val());
       this.solicitudDetails = res;
+      this.calcDistanceFromPoints();
     })
   }
 

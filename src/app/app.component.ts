@@ -3,7 +3,7 @@ import { Nav, Platform, LoadingController, MenuController } from 'ionic-angular'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-
+import { FirebaseAuth, User } from '@firebase/auth-types';
 import { AuthPage } from '../pages/auth/auth';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AuthProvider } from '../providers/auth/auth';
@@ -28,11 +28,11 @@ export class MyApp {
 
   rootPage: any = AuthPage;
   userDataSub: Subscription = new Subscription();
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{ title: string, component: any }>;
   public _userInfo;
   constructor(
-    public platform: Platform, 
-    public statusBar: StatusBar, 
+    public platform: Platform,
+    public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     public angularFireAuth: AngularFireAuth,
     public loadingCtrl: LoadingController,
@@ -73,111 +73,103 @@ export class MyApp {
 
   public signOut() {
     console.log(this.domiciliosProvider.sub != undefined)
-    if(this.domiciliosProvider.sub != undefined){
+    if (this.domiciliosProvider.sub != undefined) {
       this.domiciliosProvider.sub.unsubscribe();
     }
-    
-    if (this.domiciliosProvider.subInProcces != undefined){
+
+    if (this.domiciliosProvider.subInProcces != undefined) {
       this.domiciliosProvider.subInProcces.unsubscribe();
     }
 
-    if (this.domiciliosProvider.subReglasActivos != undefined){
+    if (this.domiciliosProvider.subReglasActivos != undefined) {
       this.domiciliosProvider.subReglasActivos.unsubscribe();
     }
 
-    if (this.domiciliosProvider.subListClients != undefined){
+    if (this.domiciliosProvider.subListClients != undefined) {
       this.domiciliosProvider.subListClients.unsubscribe();
     }
 
     this.authProvider.userInfo = null;
     this.userDataSub.unsubscribe();
     this.dbProvider.subGanancias.unsubscribe();
-    this.nav.setRoot(AuthPage).then(()=>{
-      this.nav.popToRoot().then(()=>{
-        setTimeout(() =>{
+    this.nav.setRoot(AuthPage).then(() => {
+      this.nav.popToRoot().then(() => {
+        setTimeout(() => {
           this.authProvider.signOut();
-        },100)
+        }, 100)
       });
     });
   }
 
 
 
-  public checkLog(){
-    this.angularFireAuth.authState.subscribe(_authState => {
-      this.authProvider.currentUserUid = _authState ?  _authState.uid: '';
-      let loading = this.loadingCtrl.create({content: 'Cargando Credenciales...', spinner: 'dots'})
-      loading.present()
-
-      const _flag: boolean = _authState ? true : false;
+  public checkLog(): void {
+    this.angularFireAuth.authState.subscribe((_authState: User) => {
+      this.authProvider.currentUserUid = _authState ? _authState.uid : '';
       
+      let loading = this.loadingCtrl.create({ content: 'Cargando Credenciales...', spinner: 'dots' })
+      loading.present()
+      const _flag: boolean = _authState ? true : false;
       this.authProvider.isLoggedIn = _flag;
       this.menuController.enable(_flag);
+
+      // If user is not logged in
       if (!_flag) {
-        this.nav.setRoot(AuthPage).then(()=>{
+        this.nav.setRoot(AuthPage).then(() => {
           loading.dismiss()
           this.userDataSub.unsubscribe();
           this.nav.popToRoot()
         })
-      }else {
-        let uid = _authState.uid;
+      } else {
+        // If user is logged in
 
-        /* let test = this.dbProvider.testobjectUserInfo(uid).toPromise()
-        console.log("Antes de la promesa")
-        test.then(res => {
-          console.log("Dentro de la promesa")
-          console.log(res)
-          loading.dismiss()
-          return 0
-        }).catch(err => {
-          console.log("Dentro de la promesa")
-          console.log(err.message)
-          loading.dismiss()
-        }) */
-        
+        let uid = _authState.uid;
         this.userDataSub = this.dbProvider.objectUserInfo(uid)
           .snapshotChanges()
           .subscribe(res => {
-            
-            this.authProvider.userInfo = res.payload.val();
-            if (this.authProvider.userInfo && this.authProvider.userInfo.Rol != ROLES.Mensajero){
-              this.nav.setRoot(NoMensajeroRolPage).then(()=>{ //  EquipmentPage
-                this.nav.popToRoot()
-                loading.dismiss()
-              })
-            }else if(this.authProvider.userInfo && this.authProvider.userInfo.Estado == ESTADOS_USUARIO.Bloqueado){
-              this.authProvider.userState = this.authProvider.userInfo.Estado;
-              this.nav.setRoot(UsuarioBloqueadoPage).then(()=>{ //  EquipmentPage
-                this.nav.popToRoot()
-                loading.dismiss()
-              })
-            }else if (this.authProvider.userInfo) {
-              console.log(this.authProvider.userInfo)
-              this.authProvider.userState = this.authProvider.userInfo.Estado;
-              this.dbProvider.loadGananciasMensajero();
-              if (this.authProvider.userState == ESTADOS_USUARIO.Activo) {
-                this.domiciliosProvider.loadInProccesSolicitud();
-                this.domiciliosProvider.loadReglasActivos();
-                this.domiciliosProvider.loadClientes();
+
+            const userInfo = this.authProvider.userInfo = res.payload.val();
+            if (userInfo) {
+              if (userInfo.Rol != ROLES.Mensajero) {
+                this.nav.setRoot(NoMensajeroRolPage).then(() => {
+                  this.nav.popToRoot()
+                  loading.dismiss()
+                })
+              } else if (userInfo.Estado == ESTADOS_USUARIO.Bloqueado) {
+                this.authProvider.userState = userInfo.Estado;
+                this.nav.setRoot(UsuarioBloqueadoPage).then(() => {
+                  this.nav.popToRoot()
+                  loading.dismiss()
+                })
+              } else {
+                this.authProvider.userState = userInfo.Estado;
+                this.dbProvider.loadGananciasMensajero();
+                if (this.authProvider.userState == ESTADOS_USUARIO.Activo) {
+                  this.domiciliosProvider.loadInProccesSolicitud();
+                  this.domiciliosProvider.loadReglasActivos();
+                  this.domiciliosProvider.loadClientes();
+                  this.domiciliosProvider.loadGlobalConfig();
+                }
+                if (!this.dbProvider.isUpdatingUserInfo){
+                  this.nav.setRoot(PrincipalPage).then(() => { //  PrincipalPage
+                    this.nav.popToRoot()
+                    loading.dismiss()
+                  })
+                }
+                
               }
-              
-              
-              this.nav.setRoot(PrincipalPage).then(()=>{ //  PrincipalPage
-                this.nav.popToRoot()
-                loading.dismiss()
-              })
             } else {
-              this.nav.setRoot(CompleteRegistrationPage).then(()=>{
+              this.nav.setRoot(CompleteRegistrationPage).then(() => {
                 this.nav.popToRoot()
                 loading.dismiss()
               })
             }
-          },err => {
+          }, err => {
 
-          }, ()=> {
-            
+          }, () => {
+
           })
-          console.log(this.userDataSub)      
+        console.log(this.userDataSub)
       }
     })
   }

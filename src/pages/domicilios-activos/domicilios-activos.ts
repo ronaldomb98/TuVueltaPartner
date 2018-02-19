@@ -57,7 +57,6 @@ export class DomiciliosActivosPage implements OnInit {
 
   visibility(){
     if (this.domiciliosProvider.pendingSolicitud){
-      
       this.domiciliosProvider.pendingSolicitud.forEach(solicitud => {
         const date = this.currentTime;
         const creationDate = solicitud.key;

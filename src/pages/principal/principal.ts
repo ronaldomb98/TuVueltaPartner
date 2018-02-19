@@ -6,7 +6,8 @@ import { ESTADOS_USUARIO } from '../../config/EstadosUsuario';
 import { DbProvider } from '../../providers/db/db';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { EquipmentPage } from '../equipment/equipment';
- 
+import { localStorageConstants } from '../../config/LocalstorageConstants';
+
 
 @Component({
   selector: 'page-principal',
@@ -32,7 +33,7 @@ export class PrincipalPage implements OnInit {
     this.loadAuthState();
   }
 
-  loadAuthState(){
+  loadAuthState() {
     this.authState = this.authProvider.userState == ESTADOS_USUARIO.Activo
   }
 
@@ -40,27 +41,23 @@ export class PrincipalPage implements OnInit {
     console.log('ionViewDidLoad PrincipalPage');
   }
 
-  updateState(event){
+  updateState(event) {
     console.log(event)
     console.log("updating state")
-    this.isDisabledToggle = true;
+    if (event) {
+      this.navCtrl.setRoot(EquipmentPage).then(() => {
+        this.navCtrl.popToRoot();
+      })
+      return
+    }
     let uid = this.authProvider.currentUserUid;
     this.dbProvider.objectUserInfo(uid).update({
-      Estado: event ? ESTADOS_USUARIO.Activo : ESTADOS_USUARIO.Inactivo
+      Estado: ESTADOS_USUARIO.Inactivo
     })
-    .then(() => {
-      if (event){
-        this.navCtrl.setRoot(EquipmentPage).then(() => {
-          this.navCtrl.popToRoot();
-        })
-        return 
-      }
-      this.isDisabledToggle = false;
-    })
-    .catch((err) => {
-      this.isDisabledToggle = false;
-      console.log(err)
-    })
+    this.isDisabledToggle = true;
+    
+    
+      
   }
 
 }
