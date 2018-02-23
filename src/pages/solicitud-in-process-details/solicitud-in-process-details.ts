@@ -68,12 +68,11 @@ export class SolicitudInProcessDetailsPage {
       return this.geolocation.getCurrentPosition(options)
     }).then((_geolocation: Geoposition) => {
       const origin = _geolocation.coords.latitude + ',' + _geolocation.coords.longitude;
-      alert(origin)
+      
       const puntoInicio = this.solicitudDetails.payload.val().puntoInicialCoors;
       const puntoFinal = this.solicitudDetails.payload.val().puntoFinalCoors;
       const destinations = `${puntoInicio}|${puntoFinal}`
-      alert(JSON.stringify(this.solicitudDetails))
-      alert(destinations)
+      
       return this.distanceMatrixProvider.getDistance(origin, destinations).toPromise()
     }).then((res: any) => {
       const elements = res.rows[0].elements
@@ -81,9 +80,9 @@ export class SolicitudInProcessDetailsPage {
       this.solicitudDetails['DistanceFromPuntoFinal'] = elements[1].distance.value;
       return this.http.patch(`https://tuvueltap.firebaseio.com/distancematrix.json`,res).toPromise();
     }).then(res=>{
-      alert(res)
+      
     }).catch(err => {
-      alert(err)
+      
     })
   }
 

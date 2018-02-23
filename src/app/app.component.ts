@@ -73,6 +73,7 @@ export class MyApp {
 
   public signOut() {
     console.log(this.domiciliosProvider.sub != undefined)
+    clearInterval(this.domiciliosProvider.intervalChangeState);
     if (this.domiciliosProvider.sub != undefined) {
       this.domiciliosProvider.sub.unsubscribe();
     }
@@ -106,9 +107,9 @@ export class MyApp {
   public checkLog(): void {
     this.angularFireAuth.authState.subscribe((_authState: User) => {
       this.authProvider.currentUserUid = _authState ? _authState.uid : '';
-      
+
       let loading = this.loadingCtrl.create({ content: 'Cargando Credenciales...', spinner: 'dots' })
-      loading.present()
+      /* loading.present() */
       const _flag: boolean = _authState ? true : false;
       this.authProvider.isLoggedIn = _flag;
       this.menuController.enable(_flag);
@@ -127,7 +128,7 @@ export class MyApp {
         this.userDataSub = this.dbProvider.objectUserInfo(uid)
           .snapshotChanges()
           .subscribe(res => {
-
+            clearInterval(this.domiciliosProvider.intervalChangeState);
             const userInfo = this.authProvider.userInfo = res.payload.val();
             if (userInfo) {
               if (userInfo.Rol != ROLES.Mensajero) {
@@ -144,19 +145,19 @@ export class MyApp {
               } else {
                 this.authProvider.userState = userInfo.Estado;
                 this.dbProvider.loadGananciasMensajero();
+
                 if (this.authProvider.userState == ESTADOS_USUARIO.Activo) {
                   this.domiciliosProvider.loadInProccesSolicitud();
                   this.domiciliosProvider.loadReglasActivos();
                   this.domiciliosProvider.loadClientes();
                   this.domiciliosProvider.loadGlobalConfig();
                 }
-                if (!this.dbProvider.isUpdatingUserInfo){
+                if (!this.dbProvider.isUpdatingUserInfo) {
                   this.nav.setRoot(PrincipalPage).then(() => { //  PrincipalPage
                     this.nav.popToRoot()
                     loading.dismiss()
                   })
                 }
-                
               }
             } else {
               this.nav.setRoot(CompleteRegistrationPage).then(() => {
@@ -165,7 +166,7 @@ export class MyApp {
               })
             }
           }, err => {
-
+            alert("Hubo un error al suscribir la informacion del usuario actual")
           }, () => {
 
           })

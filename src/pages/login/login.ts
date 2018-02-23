@@ -57,7 +57,7 @@ export class LoginPage {
       });
   }
   touchPassword(){
-    alert("que onda")
+    
   }
 
   goToSignup() {

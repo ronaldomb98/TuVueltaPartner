@@ -3,4 +3,5 @@ export interface IConfigGlobal {
     DistanciaActivarBotonEstadoSrvc: number;
     TiempoCambiarAInactivo: number;
     TiempoIntervaloRevisarUltimoCambioEstado: number;
+    Usuarios?: any;
 }
