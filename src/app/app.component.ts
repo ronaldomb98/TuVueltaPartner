@@ -19,6 +19,7 @@ import { ROLES } from '../config/Roles';
 import { NoMensajeroRolPage } from '../pages/no-mensajero-rol/no-mensajero-rol';
 import { DomiciliosProvider } from '../providers/domicilios/domicilios';
 import { HistoryPage } from '../pages/history/history';
+import { LocatorProvider } from '../providers/locator/locator';
 
 @Component({
   templateUrl: 'app.html'
@@ -40,7 +41,8 @@ export class MyApp {
     public authProvider: AuthProvider,
     public dbProvider: DbProvider,
     public pushNotifications: PushNotificationProvider,
-    public domiciliosProvider: DomiciliosProvider
+    public domiciliosProvider: DomiciliosProvider,
+    private locationProvider: LocatorProvider
   ) {
     this.initializeApp();
 
@@ -72,6 +74,7 @@ export class MyApp {
   }
 
   public signOut() {
+    this.locationProvider.stopWatchingLocation();
     console.log(this.domiciliosProvider.sub != undefined)
     clearInterval(this.domiciliosProvider.intervalChangeState);
     if (this.domiciliosProvider.sub != undefined) {
@@ -119,7 +122,8 @@ export class MyApp {
         this.nav.setRoot(AuthPage).then(() => {
           loading.dismiss()
           this.userDataSub.unsubscribe();
-          this.nav.popToRoot()
+          this.locationProvider.stopWatchingLocation();
+          this.nav.popToRoot();
         })
       } else {
         // If user is logged in
@@ -128,6 +132,7 @@ export class MyApp {
         this.userDataSub = this.dbProvider.objectUserInfo(uid)
           .snapshotChanges()
           .subscribe(res => {
+            this.locationProvider.stopWatchingLocation();
             clearInterval(this.domiciliosProvider.intervalChangeState);
             const userInfo = this.authProvider.userInfo = res.payload.val();
             if (userInfo) {
@@ -145,12 +150,13 @@ export class MyApp {
               } else {
                 this.authProvider.userState = userInfo.Estado;
                 this.dbProvider.loadGananciasMensajero();
-
+                
                 if (this.authProvider.userState == ESTADOS_USUARIO.Activo) {
                   this.domiciliosProvider.loadInProccesSolicitud();
                   this.domiciliosProvider.loadReglasActivos();
                   this.domiciliosProvider.loadClientes();
                   this.domiciliosProvider.loadGlobalConfig();
+                  this.locationProvider.startWatchingLocation();
                 }
                 if (!this.dbProvider.isUpdatingUserInfo) {
                   this.nav.setRoot(PrincipalPage).then(() => { //  PrincipalPage

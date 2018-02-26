@@ -159,14 +159,12 @@ export class DomiciliosActivosPage implements OnInit {
       return
     }
 
-    let GananciaMensajero = service.payload.val().GananciaMensajero
+    
     let _key = service.key;
     let _uid = this.authProvider.currentUserUid;
     let date = new Date().getTime()
-    let bonoRelanzamiento = service.payload.val().BonoRelanzamiento;
-    if (bonoRelanzamiento) {
-      GananciaMensajero += bonoRelanzamiento
-    }
+    
+    
 
     this.dbProvider.objectSolicitud(_key)
       .update({
@@ -180,12 +178,14 @@ export class DomiciliosActivosPage implements OnInit {
           Estado: ESTADOS_ERVICIO.EnProceso,
           Motorratoner_id: _uid
         })
-      }).then(res => {
+      })
+      /* .then(res => {
         return this.dbProvider.objectLogCreditoRetiro(_uid, date).update({
           servicio_id: _key,
           GananciaMensajero: GananciaMensajero
         })
-      }).catch(err => {
+      }) */
+      .catch(err => {
         console.log(err);
       })
   }
