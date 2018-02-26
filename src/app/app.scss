@@ -26,16 +26,13 @@
 
 .no-active-message{
   margin-top: 10em;
-  font-size: 1.5em;
+  font-size: 1.3em;
   color: color($colors, primary);
   font-family: 'Questrial', sans-serif;
 }
 
 .header-auth{
-  background: #56CCF2;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to right, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  //background: color($colors, orange);
+  background: #1d76fc;  /* fallback for old browsers */
   height: 15em;
   text-align: center;
   color: white;
@@ -47,7 +44,7 @@
 }
 
 
-ion-card.auth{
+.auth{
   border-radius:5px;
   position: relative;
   margin-top: -2em;
@@ -59,25 +56,21 @@ ion-card.auth{
   font-family: 'Questrial', sans-serif;
 }
 
-.logout{
-  
-}
 .logo-menu{
   color: white;
   font-weight: 400;
 
   div.logo{
     width: 100%;
-    background: #2F80ED;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #2F80ED, #2F80ED); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    height: 220px;
+    background: #1d76fc;  /* fallback for old browsers */
+    height: 250px;
   }
 
   img.logo{
-    margin-top: 10%;
-    width: 60%;
-    height: 95px;
+    margin-top: 12%;
+    border-radius: 50%;
+    background: white;
+
   }
 
   .username{
@@ -89,17 +82,23 @@ ion-card.auth{
   
   .creditos{
     font-family: 'Questrial', sans-serif;
+    background: #dd3e16;
+    margin-top: 7%;
   }
   
   .credito-name{
     font-family: 'Questrial', sans-serif;
-    font-size: 20px;
-    text-shadow: 2px 2px #2F80ED;
+    font-size: 15px;
   }
+
   .credito-description{
     font-family: 'Questrial', sans-serif;
-    font-size: 18px;
-    text-shadow: 1px 1px #2F80ED;
+    font-size: 15px;
+  }
+  
+  .menu-list{
+    background: #dd3e16;
+    color: white;
   }
 
 }

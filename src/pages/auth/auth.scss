@@ -2,42 +2,28 @@ page-auth {
     .logo{
         
         min-height: 8em;
-        height: 30vh;
         margin: 3em 0;
         width: 80vw;
-        margin-top: 20vh;
+        margin-top: 15vh;
     }
+    
     .signup-button{
         border: solid;
         border-width: 1px;
     }
 
-   // .background{
-        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f2825b+0,e55b2b+50,f07146+100;Red+3D+%232 */
-            //background: #f2825b; /* Old browsers */
-    //background: -moz-radial-gradient(center, ellipse cover, #f2825b 0%, #e55b2b 50%, #f07146 100%); /* FF3.6-15 */
-//background: -webkit-radial-gradient(center, ellipse cover, #f2825b 0%,#e55b2b 50%,#f07146 100%); /* Chrome10-25,Safari5.1-6 */
-//background: radial-gradient(ellipse at center, #f2825b 0%,#e55b2b 50%,#f07146 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ *
-//filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2825b', endColorstr='#f07146',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
- //   }
+    .background{
+        background: #1d76fc;  /* fallback for old browsers */
+        font-family: roboto;
+    }
 
 
- //.background{
- //   background: #e43a15;  /* fallback for old browsers */
- //   background: -webkit-linear-gradient(to right, #e65245, #e43a15);  /* Chrome 10-25, Safari 5.1-6 */
- //   background: linear-gradient(to right, #e65245, #e43a15); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
- // }
+    .titlelinit{
+        color: #fff;
+    }
 
- .background{
-    background: #56CCF2;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #2F80ED, #56CCF2);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #2F80ED, #56CCF2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
- }
-
- //.background{
- //   background: #fe8c00;  /* fallback for old browsers */
- //   background: -webkit-linear-gradient(to right, #f83600, #fe8c00);  /* Chrome 10-25, Safari 5.1-6 */
- //   background: linear-gradient(to right, #f83600, #fe8c00); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
- //}
+    .boxbuttons{
+        margin-top: 25%;
+    }
 
 }

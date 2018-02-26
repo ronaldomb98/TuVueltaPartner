@@ -4,9 +4,11 @@
     <!-- Header logo and user information -->
     <div text-center class="logo-menu">
       <div class="logo">
-          <img class="logo" src="assets/imgs/tuvueltablanco.png" alt="tuvuelta.co">
+          <img class="logo" src="assets/imgs/avatar.png" alt="avatar">
           <div *ngIf="authProvider.userInfo" class="username">
-            {{ authProvider.userInfo.Correo}}
+            {{ authProvider.userInfo.Nombres}}  {{ authProvider.userInfo.Apellidos}}
+            <br/>
+            {{ authProvider.userInfo.Rol}}
           </div>
           <ion-row *ngIf="dbProvider.gananciasMensajero" class="creditos">
             <ion-col col-6>

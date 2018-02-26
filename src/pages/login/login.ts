@@ -5,12 +5,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 import { ResetPasswordPage } from '../reset-password/reset-password';
 import { SignupPage } from '../signup/signup';
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-login',
@@ -69,6 +63,7 @@ export class LoginPage {
   goToHome(){
     this.navCtrl.pop();
   }
+  
   get email() { return this.form.get('email') }
   get password1(){ return this.form.get('password1') }
 

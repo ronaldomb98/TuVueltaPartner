@@ -3,6 +3,76 @@ page-signup {
         margin-top: 15px;
         font-family: 'Questrial', sans-serif;
         font-size: 20px;
-        
+        color: #fff;
     }
+
+    
+    .title{
+        margin-top: 28vh;
+        color: #fff;
+    }
+
+    .boxBack{
+        background: #1d76fc;
+    }
+
+    .logo{
+        width: 40%;
+        margin-top: 12vh;
+        margin-left: 30%;
+    }
+
+    .labelerror{
+        text-align: center;
+        color: #b80d0d;
+    }
+
+    .boxerror{
+        text-align: center;
+        background: #b80d0d;
+        color: #fff;
+        text-align: center;
+    }
+
+    .item-md.item-input.item-input-has-focus .item-inner,
+    .item-md.item-input.input-has-focus .item-inner {
+        border-bottom-color: #1d76fc;
+        -webkit-box-shadow: inset 0 -1px 0 0 #1d76fc;
+        box-shadow: inset 0 -1px 0 0 #1d76fc;
+    }
+
+    .list-md .item-input.item-input-has-focus:last-child,
+    .list-md .item-input.input-has-focus:last-child {
+        border-bottom-color: #1d76fc;
+        -webkit-box-shadow: inset 0 -1px 0 0 #1d76fc;
+        box-shadow: inset 0 -1px 0 0 #1d76fc;
+    }
+
+    .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner,
+    .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+        border-bottom-color: #1d76fc;
+        -webkit-box-shadow: inset 0 -1px 0 0 #1d76fc;
+        box-shadow: inset 0 -1px 0 0 #1d76fc;
+    }
+
+    .scroll-content {
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        z-index: 1;
+        display: block;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        will-change: scroll-position;
+        contain: size style layout;
+    }
+
+    .divtoolbar{
+        margin-top: 4em;
+    }
+
+
 }

@@ -34,13 +34,15 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #1E90FF,
+  primary:    #1d76fc,
   secondary:  #66CD00,
-  danger:     #f53d3d,
+  danger:     #d61111,
   light:      #d1d2d4,
   dark:       #222,
-orange:     #FF4500,
-  white:     #fff
+  orange:     #dd3e16,
+  oranget:     #dd3e16,
+  white:     #fff,
+
 );
 
 
@@ -56,6 +58,7 @@ $tabs-ios-tab-text-color-active: color($colors, primary);
 // Material Design only Sass variables can go here
 $tabs-md-tab-icon-color-active: color($colors, primary);
 $tabs-md-tab-text-color-active: color($colors, primary);
+
 
 
 // App Windows Variables

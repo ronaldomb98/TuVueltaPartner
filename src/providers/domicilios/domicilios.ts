@@ -11,12 +11,6 @@ import { ESTADOS_USUARIO } from '../../config/EstadosUsuario';
 import { localStorageConstants } from '../../config/LocalstorageConstants';
 import { Platform } from 'ionic-angular';
 
-/*
-  Generated class for the DomiciliosProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class DomiciliosProvider {
 

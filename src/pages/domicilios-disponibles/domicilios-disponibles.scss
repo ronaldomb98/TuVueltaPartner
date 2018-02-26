@@ -1,7 +1,16 @@
 page-domicilios-disponibles {
-    p{
-        ion-icon{
-          width: 12px
-        }
-      }
+  p{
+    ion-icon{
+      width: 12px
+    }
+  }
+  
+  .grid {
+    padding: 0px !important;
+  }
+
+  ion-app.md [padding] .scroll-content {
+    padding: 0px!important;
+  }
+
 }

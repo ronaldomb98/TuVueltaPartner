@@ -5,20 +5,19 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title text-center>TuVuelta Partner</ion-title>
-    
-  </ion-navbar>
-  <ion-toolbar >
-      <ion-title text-center>
-        {{ authProvider.userState }}
+    <ion-buttons end>
+        <ion-toggle *ngIf="!isDisabledToggle" (ngModelChange)="updateState($event)" [disabled]="isDisabledToggle" [(ngModel)]="authState" clearInput item-right>
+           <p>{{ authProvider.userState }}</p>
+        </ion-toggle>
+    </ion-buttons>
+    <ion-title text-center>
+        
       </ion-title>
-      <ion-buttons end>
-          <ion-toggle *ngIf="!isDisabledToggle" (ngModelChange)="updateState($event)" [disabled]="isDisabledToggle" [(ngModel)]="authState" clearInput item-right></ion-toggle>
-      </ion-buttons>
-    </ion-toolbar>
+  </ion-navbar>
 </ion-header>
 <br/>
 
-<ion-tabs tabsPlacement="botton"  class="tabs-icon-top tabs-color-active-positive"  tabs-top >
+<ion-tabs tabsPlacement="top"  class="tabs-icon-top tabs-color-active-positive"  tabs-top color="primary" >
   <ion-tab tabIcon="md-menu" tabTitle="Disponibles" [root]="tab1"></ion-tab>
   <ion-tab tabIcon="md-megaphone" tabTitle="Activos" [root]="tab2"></ion-tab>
 </ion-tabs>
