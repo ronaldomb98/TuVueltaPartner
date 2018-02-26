@@ -24,9 +24,9 @@ import { DomiciliosProvider } from '../../providers/domicilios/domicilios';
 export class SolicitudInProcessDetailsPage {
   private sub: Subscription;
   public solicitudDetails;
-  public currentTime:number;
+  public currentTime: number;
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public dbProvider: DbProvider,
     public authProvider: AuthProvider,
@@ -40,16 +40,16 @@ export class SolicitudInProcessDetailsPage {
   ) {
   }
 
-  clockInterval(){
-    setInterval(()=> {
+  clockInterval() {
+    setInterval(() => {
       this.currentTime = new Date().getTime();
     }, 1000)
   }
 
-  ionViewWillUnload(){
+  ionViewWillUnload() {
     this.sub.unsubscribe();
     console.log('SolicitudInProcessDetailsPage ionViewWillUnload')
-    
+
   }
 
   ionViewDidLoad() {
@@ -58,113 +58,134 @@ export class SolicitudInProcessDetailsPage {
     this.clockInterval();
   }
 
-  calcDistanceFromPoints(){
+  calcDistanceFromPoints() {
     let options: GeolocationOptions = {
       enableHighAccuracy: true,
       timeout: 300000000
     };
 
-    this.platform.ready().then(()=>{
+    this.platform.ready().then(() => {
       return this.geolocation.getCurrentPosition(options)
     }).then((_geolocation: Geoposition) => {
       const origin = _geolocation.coords.latitude + ',' + _geolocation.coords.longitude;
-      
+
       const puntoInicio = this.solicitudDetails.payload.val().puntoInicialCoors;
       const puntoFinal = this.solicitudDetails.payload.val().puntoFinalCoors;
       const destinations = `${puntoInicio}|${puntoFinal}`
-      
+
       return this.distanceMatrixProvider.getDistance(origin, destinations).toPromise()
     }).then((res: any) => {
       const elements = res.rows[0].elements
       this.solicitudDetails['DistanceFromPuntoInicio'] = elements[0].distance.value;
       this.solicitudDetails['DistanceFromPuntoFinal'] = elements[1].distance.value;
-      return this.http.patch(`https://tuvueltap.firebaseio.com/distancematrix.json`,res).toPromise();
-    }).then(res=>{
-      
+      return this.http.patch(`https://tuvueltap.firebaseio.com/distancematrix.json`, res).toPromise();
+    }).then(res => {
+
     }).catch(err => {
-      
+
     })
   }
 
-  loadSolicitudData(){
-    
-    this.sub = this.getSolicitudObject().snapshotChanges().subscribe(res=> {
-      console.log(res.payload.val());
-      this.solicitudDetails = res;
-      this.calcDistanceFromPoints();
+  loadSolicitudData() {
+
+    this.sub = this.getSolicitudObject().snapshotChanges().subscribe(res => {
+      if (res.payload.val()) {
+        console.log(res.payload.val());
+        this.solicitudDetails = res;
+        this.calcDistanceFromPoints();
+      } else {
+        this.navCtrl.pop();
+      }
+
     })
   }
 
-  
-  getSolicitudObject(){
+
+  getSolicitudObject() {
     let key = this.navParams.get('key');
     return this.dbProvider.objectSolicitud(key)
   }
 
-  changeStateToEnSitio():void {
+  changeStateToEnSitio(): void {
     const newEstate = ESTADOS_ERVICIO.EnSitio
     this.updateSolicitudEstado(newEstate)
   }
 
-  changeStateToDespachado():void {
+  changeStateToDespachado(): void {
     const newEstate = ESTADOS_ERVICIO.Despachado
     this.updateSolicitudEstado(newEstate)
   }
 
-  changeStateToDondeElCliente():void {
+  changeStateToDondeElCliente(): void {
     const newEstate = ESTADOS_ERVICIO.EnPunto
     this.updateSolicitudEstado(newEstate)
   }
 
-  changeStateToDevolucionDatafono():void {
+  changeStateToDevolucionDatafono(): void {
     const newEstate = ESTADOS_ERVICIO.DevolucionDatafono
     this.updateSolicitudEstado(newEstate)
   }
 
-  changeStateToFinalizado():void {
+  changeStateToFinalizado(): void {
     const newEstate = ESTADOS_ERVICIO.Finalizado
     this.updateSolicitudEstado(newEstate, true)
   }
 
-  updateSolicitudEstado(state, isFinalizado=false){
+  updateSolicitudEstado(state, isFinalizado = false) {
     let key = this.navParams.get('key')
     let _uid = this.authProvider.currentUserUid;
     let date = new Date().getTime()
     this.getSolicitudObject().update({
       Estado: state,
       EnProceso: !isFinalizado
-    }).then(res=>{
-      return this.dbProvider.objectLogSolicitud(key,date).update({
+    }).then(res => {
+      return this.dbProvider.objectLogSolicitud(key, date).update({
         Estado: state,
         Motorratoner_id: _uid
       })
     })
+
+    if (isFinalizado) {
+      const data = this.solicitudDetails.payload.val()
+      let GananciaMensajero = data.GananciaMensajero
+      let BonoRelanzamiento = data.BonoRelanzamiento;
+      if (BonoRelanzamiento) {
+        GananciaMensajero += BonoRelanzamiento
+      }
+      const Retefuente = Number(GananciaMensajero) * 0.04;
+      GananciaMensajero-=Retefuente;
+      this.dbProvider.objectLogCreditoRetiro(_uid, date).update({
+        servicio_id: key,
+        Retefuente: Retefuente,
+        GananciaMensajero: GananciaMensajero
+      })
+    }
   }
 
-  public relaunch(service){
+  public relaunch(service) {
     const serviceKey = service.key;
     const GananciaMensajero = service.payload.val().GananciaMensajero;
     let bonoRelanzamiento = 0;
-    if (service.payload.val().BonoRelanzamiento){ 
+    if (service.payload.val().BonoRelanzamiento) {
       bonoRelanzamiento += service.payload.val().BonoRelanzamiento;
     }
-    this.navCtrl.pop().then(()=>{
+    this.navCtrl.pop().then(() => {
       return this.dbProvider.relaunchSolicitud(serviceKey, GananciaMensajero, bonoRelanzamiento)
-    }) 
-    .catch(err => {
-      console.log("Algo salio mal relanzando la solicitud")
-    });
+    })
+      .catch(err => {
+        console.log("Algo salio mal relanzando la solicitud")
+      });
   }
 
 
-  goBack(){
+  goBack() {
     this.navCtrl.pop();
   }
 
-  openNavigator(isOrigin){
-    const destination= isOrigin ? this.solicitudDetails.payload.val().puntoInicialCoors : this.solicitudDetails.payload.val().puntoFinalCoors
+  openNavigator(isOrigin) {
+    const destination = isOrigin ? this.solicitudDetails.payload.val().puntoInicialCoors : this.solicitudDetails.payload.val().puntoFinalCoors
     this.launchNavigator.navigate(destination)
-      .catch(err=>{
+      .catch(err => {
         const loading = this.loadingProvider.createUpdatedToast(3000, "Algo salio mal abriendo el navegador");
         loading.present();
       })

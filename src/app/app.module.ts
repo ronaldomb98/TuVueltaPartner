@@ -40,6 +40,7 @@ import { DistancematrixProvider } from '../providers/distancematrix/distancematr
 import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { HistoryPage } from '../pages/history/history';
 import { HistoryDetailPage } from '../pages/history-detail/history-detail';
+import { LocatorProvider } from '../providers/locator/locator';
 @NgModule({
   declarations: [
     MyApp,
@@ -103,7 +104,8 @@ import { HistoryDetailPage } from '../pages/history-detail/history-detail';
     PushNotificationProvider,
     DomiciliosProvider,
     LaunchNavigator,
-    DistancematrixProvider
+    DistancematrixProvider,
+    LocatorProvider
   ]
 })
 export class AppModule {}
