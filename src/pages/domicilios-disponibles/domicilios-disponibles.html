@@ -4,12 +4,12 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
   <ion-list *ngIf="domiciliosProvider.inProccessSolicitud && isActive">
     <ion-grid *ngFor="let row of domiciliosProvider.inProccessSolicitud">
-      <ion-row>
-        <ion-col col-4 text-center>
-            $ {{ row.payload.val().GananciaMensajero | currency:"$":0}}
+      <ion-row >
+        <ion-col col-4  text-center class="borderDomicilios"  >
+            <p class="pricenter"> $ {{ row.payload.val().GananciaMensajero | currency:"$":0}}</p>
         </ion-col>
         <ion-col col-8>
             <p *ngIf="domiciliosProvider.Mensajeros && domiciliosProvider.Mensajeros[row.payload.val().user_id]">
@@ -19,7 +19,7 @@
               <ion-icon name="md-pin" color="secondary"></ion-icon><span>{{ row.payload.val().puntoInicio}}</span>
             </p>
             <p>
-              <ion-icon name="md-pin" color="primary"></ion-icon> <span>{{ row.payload.val().puntoFinal}}</span>
+              <ion-icon name="md-pin" color="orange"></ion-icon> <span>{{ row.payload.val().puntoFinal}}</span>
             </p>
             <p>
               <ion-icon name="arrow-round-up" color="danger"></ion-icon>

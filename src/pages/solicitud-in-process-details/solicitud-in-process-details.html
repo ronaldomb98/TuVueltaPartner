@@ -1,93 +1,102 @@
-<!--
-  Generated template for the SolicitudInProcessDetailsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-
-  <ion-navbar>
-    <ion-title text-center>SolicitudInProcessDetails</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding>
-
-  <div *ngIf="solicitudDetails">
-    <ion-card class="details">
-      <ion-card-header text-center>
-        Descripción de Solicitud
-
-      </ion-card-header>
-      <ion-card-content>
-        <ion-list>
-          <ion-item>
-            <ion-label stacked>Punto de Inicio</ion-label>
-            <ion-input readonly [value]="solicitudDetails.payload.val().puntoInicio"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label stacked>Punto de Finalización</ion-label>
-            <ion-input readonly [value]="solicitudDetails.payload.val().puntoFinal"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label stacked>Nombres</ion-label>
-            <ion-input readonly [value]="solicitudDetails.payload.val().Nombres"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label stacked>Apellidos</ion-label>
-            <ion-input readonly [value]="solicitudDetails.payload.val().Apellidos"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label stacked>Celular</ion-label>
-            <ion-input readonly [value]="solicitudDetails.payload.val().Celular"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label stacked>Distancia Total en Km</ion-label>
-            <ion-input readonly [value]="solicitudDetails.payload.val().DistanciaTotal / 1000"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label stacked>Estado </ion-label>
-            <ion-input readonly [value]="solicitudDetails.payload.val().Estado"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label stacked>Descripción </ion-label>
-          </ion-item>
-          <div>{{ solicitudDetails.payload.val().Descripcion }}</div>
-          <ion-item>
-            <ion-label stacked>Descripción Domicilio</ion-label>
-          </ion-item>
-          <div>{{ solicitudDetails.payload.val().DescripcionDomicilio }}</div>
-        </ion-list>
-
-        <!-- Navigator -->
-        <button block ion-button color="orange" (click)="openNavigator(true)">Ruta al punto de Inicio</button>
-        <button block ion-button color="orange" (click)="openNavigator(false)">Ruta al punto de Finalizacion</button>
-
-        <!-- Service States -->
-        <ng-container *ngIf="solicitudDetails.DistanceFromPuntoInicio && solicitudDetails.DistanceFromPuntoFinal && domiciliosProvider.globalConfig">
-          <button [disabled]="!(solicitudDetails.DistanceFromPuntoInicio < domiciliosProvider.globalConfig.DistanciaActivarBotonEstadoSrvc)" block ion-button color="orange" (click)="changeStateToEnSitio()" *ngIf="solicitudDetails.payload.val().Estado == 'EnProceso'">En Sitio</button>
-          <button [disabled]="!(solicitudDetails.DistanceFromPuntoInicio < domiciliosProvider.globalConfig.DistanciaActivarBotonEstadoSrvc)" block ion-button color="orange" (click)="changeStateToDespachado()" *ngIf="solicitudDetails.payload.val().Estado == 'EnSitio'">Despachado</button>
-          <button [disabled]="!(solicitudDetails.DistanceFromPuntoFinal < domiciliosProvider.globalConfig.DistanciaActivarBotonEstadoSrvc)" block ion-button color="orange" (click)="changeStateToDondeElCliente()" *ngIf="solicitudDetails.payload.val().Estado == 'Despachado'">Donde El Cliente</button>
-          <button [disabled]="!(solicitudDetails.DistanceFromPuntoInicio < domiciliosProvider.globalConfig.DistanciaActivarBotonEstadoSrvc)" block ion-button color="orange" (click)="changeStateToDevolucionDatafono()" *ngIf="solicitudDetails.payload.val().Estado == 'EnPunto' && solicitudDetails.payload.val().esPagoConTarjeta == true">Devolucion Datafono</button>
-          <button [disabled]="!(solicitudDetails.DistanceFromPuntoInicio < domiciliosProvider.globalConfig.DistanciaActivarBotonEstadoSrvc)" block ion-button color="orange" (click)="changeStateToFinalizado()" *ngIf="solicitudDetails.payload.val().Estado == 'EnPunto' && solicitudDetails.payload.val().esPagoConTarjeta == false">Finalizar</button>
-          <button [disabled]="!(solicitudDetails.DistanceFromPuntoInicio < domiciliosProvider.globalConfig.DistanciaActivarBotonEstadoSrvc)" block ion-button color="orange" (click)="changeStateToFinalizado()" *ngIf="solicitudDetails.payload.val().Estado == 'DevolucionDatafono' && solicitudDetails.payload.val().esPagoConTarjeta == true">Finalizar</button>
-        </ng-container>
-
-
-        <!-- User movements -->
-        <button block ion-button color="light" (click)="goBack()">Volver</button>
-        <button block (click)="relaunch(solicitudDetails)" *ngIf="solicitudDetails.payload.val().fechaCompra && ((solicitudDetails.payload.val().fechaCompra + 30000) > currentTime ) && solicitudDetails.payload.val().Estado == 'EnProceso'"
-          ion-button color="orange">
-          Relanzar {{ (((solicitudDetails.payload.val().fechaCompra + 30000) - currentTime) / 1000) | number:'2.0-0' }}
-        </button>
-
-      </ion-card-content>
-    </ion-card>
-
-
-  </div>
-
-
+ <ion-content *ngIf="solicitudDetails">
+    <ion-toolbar color="orange">
+        <ion-buttons start>
+            <button icon-only ion-button color="white" (click)="goBack()">
+                <ion-icon name="ios-arrow-back"></ion-icon>
+            </button>
+          </ion-buttons>
+          <ion-title>Descipción de la solicitud</ion-title>
+      </ion-toolbar>
+      <!--<ion-card class="details" >
+        <ion-card-content>-->
+           <ion-grid>
+              <h6 text-center>Estado y Distancia</h6>
+             <ion-row>
+               <ion-col col-6>
+                  <ion-item>
+                      <ion-label stacked>Distancia Total</ion-label>
+                      <ion-input readonly [value]="solicitudDetails.payload.val().DistanciaTotal / 1000"></ion-input>
+                    </ion-item>
+               </ion-col>
+               <ion-col col-6>
+                  <ion-item>
+                      <ion-label stacked>Estado </ion-label>
+                      <ion-input readonly [value]="solicitudDetails.payload.val().Estado"></ion-input>
+                    </ion-item>
+               </ion-col>
+             </ion-row>
+             <ion-row>
+               <ion-col col-12>
+                  <ng-container *ngIf="solicitudDetails.DistanceFromPuntoInicio && solicitudDetails.DistanceFromPuntoFinal && domiciliosProvider.globalConfig">
+                      <button [disabled]="!(solicitudDetails.DistanceFromPuntoInicio < domiciliosProvider.globalConfig.DistanciaActivarBotonEstadoSrvc)" block ion-button color="orange" (click)="changeStateToEnSitio()" *ngIf="solicitudDetails.payload.val().Estado == 'EnProceso'">En Sitio</button>
+                      <button [disabled]="!(solicitudDetails.DistanceFromPuntoInicio < domiciliosProvider.globalConfig.DistanciaActivarBotonEstadoSrvc)" block ion-button color="orange" (click)="changeStateToDespachado()" *ngIf="solicitudDetails.payload.val().Estado == 'EnSitio'">Despachado</button>
+                      <button [disabled]="!(solicitudDetails.DistanceFromPuntoFinal < domiciliosProvider.globalConfig.DistanciaActivarBotonEstadoSrvc)" block ion-button color="orange" (click)="changeStateToDondeElCliente()" *ngIf="solicitudDetails.payload.val().Estado == 'Despachado'">Donde El Cliente</button>
+                      <button [disabled]="!(solicitudDetails.DistanceFromPuntoInicio < domiciliosProvider.globalConfig.DistanciaActivarBotonEstadoSrvc)" block ion-button color="orange" (click)="changeStateToDevolucionDatafono()" *ngIf="solicitudDetails.payload.val().Estado == 'EnPunto' && solicitudDetails.payload.val().esPagoConTarjeta == true">Devolucion Datafono</button>
+                      <button [disabled]="!(solicitudDetails.DistanceFromPuntoInicio < domiciliosProvider.globalConfig.DistanciaActivarBotonEstadoSrvc)" block ion-button color="orange" (click)="changeStateToFinalizado()" *ngIf="solicitudDetails.payload.val().Estado == 'EnPunto' && solicitudDetails.payload.val().esPagoConTarjeta == false">Finalizar</button>
+                      <button [disabled]="!(solicitudDetails.DistanceFromPuntoInicio < domiciliosProvider.globalConfig.DistanciaActivarBotonEstadoSrvc)" block ion-button color="orange" (click)="changeStateToFinalizado()" *ngIf="solicitudDetails.payload.val().Estado == 'DevolucionDatafono' && solicitudDetails.payload.val().esPagoConTarjeta == true">Finalizar</button>
+                    </ng-container>
+               </ion-col>
+             </ion-row>
+             <ion-row>
+               <ion-col col-12>
+                  <h6 text-center>Rutas</h6>
+               </ion-col>
+               <ion-col col-12>
+                  <ion-item>  
+                    <ion-label stacked><ion-icon name="md-pin" color="secondary"></ion-icon> Punto de Inicio</ion-label>
+                    <ion-input readonly [value]="solicitudDetails.payload.val().puntoInicio"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label stacked> <ion-icon name="md-pin" color="orange"></ion-icon> Punto de Finalización</ion-label>
+                    <ion-input readonly [value]="solicitudDetails.payload.val().puntoFinal"></ion-input>
+                  </ion-item>
+                  <!-- Navigator -->
+                  <button block ion-button color="secondary" (click)="openNavigator(true)">Ruta al punto de Inicio</button>
+                  <button block ion-button color="orange" (click)="openNavigator(false)">Ruta al punto de Finalizacion</button>
+               </ion-col>
+             </ion-row>
+             <ion-row>
+               <ion-col col-12>
+                  <h6 text-center>Datos del cliente</h6>
+               </ion-col>
+               <ion-col col-6>
+                  <ion-item>
+                      <ion-label stacked>Nombres</ion-label>
+                      <ion-input readonly [value]="solicitudDetails.payload.val().Nombres"></ion-input>
+                    </ion-item>
+               </ion-col>
+               <ion-col col-6>
+                  <ion-item>
+                      <ion-label stacked>Apellidos</ion-label>
+                      <ion-input readonly [value]="solicitudDetails.payload.val().Apellidos"></ion-input>
+                    </ion-item>
+               </ion-col>
+               <ion-col col-6>
+                  <ion-item>
+                      <ion-label stacked>Celular</ion-label>
+                      <ion-input readonly [value]="solicitudDetails.payload.val().Celular"></ion-input>
+                    </ion-item>
+               </ion-col>
+               <ion-col col-6>
+                  <ion-item>
+                      <ion-label stacked>Teléfono</ion-label>
+                      <ion-input readonly [value]="solicitudDetails.payload.val().Telefono"></ion-input>
+                    </ion-item>
+               </ion-col>
+               <ion-col col-12>
+                  <ion-item>
+                      <ion-label stacked>Descripción </ion-label>
+                    </ion-item>
+                    <ion-textarea readonly [value]="solicitudDetails.payload.val().Descripcion"></ion-textarea>
+               </ion-col>
+               <ion-col col-12>
+                  <ion-item>
+                      <ion-label stacked>Descripción Domicilio</ion-label>
+                    </ion-item>
+                    <ion-textarea readonly [value]="solicitudDetails.payload.val().DescripcionDomicilio"></ion-textarea>
+               </ion-col>
+             </ion-row>
+           </ion-grid>
+      <!--  </ion-card-content>
+      </ion-card>-->
 </ion-content>

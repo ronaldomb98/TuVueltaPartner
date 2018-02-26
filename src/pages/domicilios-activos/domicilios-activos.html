@@ -11,8 +11,8 @@
       </ion-toolbar>
       <ion-grid *ngFor="let row of domiciliosProvider.pendingSolicitud">
         <ion-row>
-          <ion-col col-4 text-center style="margin-top:15%">
-              {{ row.payload.val().GananciaMensajero | currency:"$":0}}
+          <ion-col col-4 text-center class="borderDomicilios">
+              <p class="pricenter">{{ row.payload.val().GananciaMensajero | currency:"$":0}}</p>
           </ion-col>
           <ion-col col-8>
               <p *ngIf="domiciliosProvider.Mensajeros && domiciliosProvider.Mensajeros[row.payload.val().user_id]">
@@ -22,11 +22,11 @@
                 <ion-icon name="md-pin" color="secondary"></ion-icon><span>{{ row.payload.val().puntoInicio}}</span>
               </p>
               <p>
-                <ion-icon name="md-pin" color="primary"></ion-icon> <span>{{ row.payload.val().puntoFinal}}</span>
+                <ion-icon name="md-pin" color="orange"></ion-icon> <span>{{ row.payload.val().puntoFinal}}</span>
               </p>
               <p>
-                <ion-icon name="arrow-round-up" color="danger"></ion-icon>
-                <ion-icon *ngIf="row.payload.val().esPagoConTarjeta == true" name="arrow-round-down" color="orange"></ion-icon>
+                <ion-icon name="arrow-round-up" color="primary"></ion-icon>
+                <ion-icon *ngIf="row.payload.val().esPagoConTarjeta == true" name="arrow-round-down" color="primary"></ion-icon>
                 <span margin-right>{{ row.key | date:'shortTime'}}</span>
               </p>
               <p *ngIf="row.payload.val().BonoRelanzamiento">

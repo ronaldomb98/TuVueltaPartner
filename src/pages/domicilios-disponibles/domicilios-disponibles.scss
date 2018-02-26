@@ -9,8 +9,19 @@ page-domicilios-disponibles {
     padding: 0px !important;
   }
 
-  ion-app.md [padding] .scroll-content {
+  .ion-app.md [padding] .scroll-content {
     padding: 0px!important;
   }
+
+  .borderDomicilios{
+    border-left: 5px solid;
+    border-left-color:#6ad802;
+  }
+
+  .pricenter{
+    margin-top: 15vh;
+  }
+  
+
 
 }
