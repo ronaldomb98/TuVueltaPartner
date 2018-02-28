@@ -41,6 +41,7 @@ import { LaunchNavigator } from '@ionic-native/launch-navigator';
 import { HistoryPage } from '../pages/history/history';
 import { HistoryDetailPage } from '../pages/history-detail/history-detail';
 import { LocatorProvider } from '../providers/locator/locator';
+import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
 @NgModule({
   declarations: [
     MyApp,
@@ -95,7 +96,7 @@ import { LocatorProvider } from '../providers/locator/locator';
     StatusBar,
     SplashScreen,
     OneSignal,
-    Geolocation,
+    
     Network,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
@@ -105,7 +106,9 @@ import { LocatorProvider } from '../providers/locator/locator';
     DomiciliosProvider,
     LaunchNavigator,
     DistancematrixProvider,
-    LocatorProvider
+    LocatorProvider,
+    BackgroundGeolocation,
+    Geolocation,
   ]
 })
 export class AppModule {}
