@@ -30,7 +30,7 @@ export class LocatorProvider {
       desiredAccuracy: 100,
       stationaryRadius: 0,
       distanceFilter: 0,
-      debug: true,
+      debug: false,
       interval: 500,
       fastestInterval: 500,
       notificationTitle: 'Estado Activo',

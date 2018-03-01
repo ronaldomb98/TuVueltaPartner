@@ -6,9 +6,6 @@
 
 <ion-content>
   <ion-list *ngIf="domiciliosProvider.pendingSolicitud && (authProvider.userState == 'Activo')">
-      <ion-toolbar >
-          <ion-searchbar></ion-searchbar>
-      </ion-toolbar>
       <ion-grid *ngFor="let row of domiciliosProvider.pendingSolicitud">
         <ion-row>
           <ion-col col-4 text-center class="borderDomicilios">

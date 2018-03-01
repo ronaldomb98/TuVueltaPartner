@@ -125,7 +125,7 @@ export class DomiciliosActivosPage implements OnInit {
 
   canBuyService(service): boolean {
     const user_id: string = service.payload.val().user_id;
-    alert(`Analizando si puede comprar solicitud del cliente ${user_id}`)
+    //alert(`Analizando si puede comprar solicitud del cliente ${user_id}`)
     const customConfig = this.domiciliosProvider.globalConfig.Usuarios[user_id];
     if (customConfig) {
       if (customConfig.CantSrvcQuePuedeComprarMensajero > 0) {
