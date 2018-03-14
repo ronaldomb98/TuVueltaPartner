@@ -11,12 +11,8 @@ import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/do';
 import { Observable } from 'rxjs/Observable';
 import { IConfigGlobal } from '../../entities/configglobal.interface';
-/*
-  Generated class for the DbProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+
 @Injectable()
 export class DbProvider {
   private urlParamsSignup: string = '/Administrativo/ParamsRegistro'
@@ -58,7 +54,7 @@ export class DbProvider {
     let _today = new Date(yyyy, mm, dd).getTime().toString()
     ref.orderByKey().startAt(_today) */
     return this.db.list(
-      '/Operativo/Solicitud', 
+      '/Operativo/Solicitud',
       ref => ref.orderByChild('Estado').equalTo('Pendiente')
     )
   }
@@ -99,7 +95,7 @@ export class DbProvider {
   public objectLogsSolicitud(key){
     return this.db.object(`/Operativo/Logs/Solicitud/${key}`);
   }
-  
+
   public objectLogRetiros(key, date){
     return this.db.object(`/Operativo/Logs/CreditosMensajero/Retiros/${key}/${date}`);
   }
@@ -109,7 +105,7 @@ export class DbProvider {
   }
 
   public listSolicitud(key){
-    return this.db.list(`/Operativo/Solicitud`, (ref: Reference) => 
+    return this.db.list(`/Operativo/Solicitud`, (ref: Reference) =>
       ref.orderByChild('Motorratoner_id').equalTo(key)
     )
   }
@@ -119,7 +115,7 @@ export class DbProvider {
     const date = new Date().getTime();
     let _bonoRelanzamiento = 0;
     _bonoRelanzamiento += bonoRelanzamiento;
-    
+
     const relounchLogData = {
       servicio_id: serviceKey,
       Multa: 2000,
@@ -131,7 +127,7 @@ export class DbProvider {
       EnProceso: false,
       BonoRelanzamiento: _bonoRelanzamiento
     }
-    
+
     const loading = this.loadingProvider.createLoading()
     const infoToUpdate = loading.present().then((()=>{
       const p_relounch = this.objectLogRelanzamientos(userId, date).update(relounchLogData)
@@ -147,32 +143,32 @@ export class DbProvider {
   public subGanancias: Subscription;
   public gananciasMensajero;
   loadGananciasMensajero() {
-    
+
     if (this.gananciasMensajero){
-      console.log("Unsuscribiendo ganancias mensajero")
+      //console.log("Unsuscribiendo ganancias mensajero")
       this.subGanancias.unsubscribe();
     }
-    
+
     const uid = this.authProvider.currentUserUid;
     const gananciasMensajero = this.objectGananciasMensajero(uid).snapshotChanges();
     this.subGanancias = gananciasMensajero.subscribe(response => {
       this.gananciasMensajero = response.payload.val();
-      console.log()
+      //console.log()
       this.gananciasMensajero = {
         CreditosRetiro: 0,
         CreditosNoRetiro: 0
       }
-      
+
       if (response.payload.val()){
         if (response.payload.val().CreditosRetiro) {
           this.gananciasMensajero.CreditosRetiro = response.payload.val().CreditosRetiro;
         }
-  
+
         if (response.payload.val().CreditosNoRetiro) {
           this.gananciasMensajero.CreditosNoRetiro = response.payload.val().CreditosNoRetiro;
         }
       }
-      
+
 
       /* this.amountToRetiro=this.gananciasMensajero.CreditosNoRetiro + this.gananciasMensajero.CreditosRetiro; */
     })

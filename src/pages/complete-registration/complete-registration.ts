@@ -45,49 +45,49 @@ export class CompleteRegistrationPage {
   }
 
   loadInfo(){
-    
+
   }
 
   ionViewWillUnload(){
     this.sub.unsubscribe();
     console.log('DomiciliosActivosPage ionViewWillUnload')
-    
+
   }
-  
+
 
   buildForm(): void{
     this.form = this.formBuilder.group({
-      Nombres: 
+      Nombres:
         this.formBuilder.control(null, [Validators.required]),
-      Apellidos: 
+      Apellidos:
         this.formBuilder.control(null, [Validators.required]),
-      Celular: 
+      Celular:
         this.formBuilder.control(null, [Validators.required]),
-      CelularFijo: 
+      CelularFijo:
         this.formBuilder.control(null, [Validators.required]),
-      Correo: 
+      Correo:
         this.formBuilder.control(null, [Validators.required]),
-      Cedula: 
+      Cedula:
         this.formBuilder.control(null, [Validators.required]),
-      Direccion: 
+      Direccion:
         this.formBuilder.control(null, [Validators.required]),
-      FechaNacimiento: 
+      FechaNacimiento:
         this.formBuilder.control(null, [Validators.required]),
-      TipoCelular: 
+      TipoCelular:
         this.formBuilder.control(null, [Validators.required]),
-      Ciudad: 
+      Ciudad:
         this.formBuilder.control(null, [Validators.required]),
-      TieneDatos: 
+      TieneDatos:
         this.formBuilder.control(null, [Validators.required]),
-      TieneEPS: 
+      TieneEPS:
         this.formBuilder.control(null, [Validators.required]),
-      TipoVehiculo: 
+      TipoVehiculo:
         this.formBuilder.control(null, [Validators.required]),
-      PlacaVehiculo: 
+      PlacaVehiculo:
         this.formBuilder.control(null, [Validators.required]),
-      TiempoDispParaHacerServicio: 
+      TiempoDispParaHacerServicio:
         this.formBuilder.control(null, [Validators.required]),
-      ComoNosConocio: 
+      ComoNosConocio:
         this.formBuilder.control(null, [Validators.required])
     })
 
@@ -102,12 +102,12 @@ export class CompleteRegistrationPage {
     let hasData: boolean = true;
     const loading = this.loadingProvider.createLoading();
     loading.present();
-    if (!this.authProvider.userInfo){ 
+    if (!this.authProvider.userInfo){
       data.Rol = ROLES.Mensajero;
-      data.Estado = ESTADOS_USUARIO.Inactivo;
+      data.Estado = ESTADOS_USUARIO.Bloqueado;
       hasData = false;
     }
-    
+
     console.log(data)
     this.dbProvider.objectUserInfo(uid)
       .update(data)
@@ -138,7 +138,7 @@ export class CompleteRegistrationPage {
         })
         console.log(this.Ciudades)
       })
-  } 
+  }
 
   get Nombres() { return this.form.get('Nombres')}
   get Apellidos() { return this.form.get('Apellidos')}

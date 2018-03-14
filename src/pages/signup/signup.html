@@ -1,10 +1,16 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>Registro de Mensajero</ion-title>
+    </ion-navbar>
+  </ion-header>
+
 <ion-content class="boxBack" padding >
+    <div padding ion-fixed text-center>
     <img class="logo" src="assets/imgs/tuvueltablanco.png">
-  <div class="scroll-content">
       <p text-center class="title">Registro de Mensajero</p>
     <form [formGroup]="form">
       <ion-item>
-        <ion-label><ion-icon name="mail" color="primary"></ion-icon></ion-label>
+        <ion-label><ion-icon name="mail" color="white"></ion-icon></ion-label>
         <ion-input clearInput placeholder="Correo Electrónico" formControlName="email" type="email"></ion-input>
       </ion-item>
       <ion-item *ngIf="email.invalid && (email.dirty || email.touched)">
@@ -12,7 +18,7 @@
         <p class="labelerror" *ngIf="email.errors.email">El campo debe ser un correo. Ej: usuario@email.com</p>
       </ion-item>
       <ion-item>
-        <ion-label><ion-icon name="key" color="primary"></ion-icon></ion-label>
+        <ion-label><ion-icon name="lock" color="white"></ion-icon></ion-label>
         <ion-input clearInput placeholder="Contraseña" formControlName="password1" minlength="6" type="password"></ion-input>
       </ion-item>
       <ion-item  *ngIf="password1.invalid && (password1.dirty || password1.touched)">
@@ -20,7 +26,7 @@
         <p class="labelerror" *ngIf="password1.errors.minlength">Debe contener más de 6 caracteres</p>
       </ion-item>
       <ion-item>
-        <ion-label><ion-icon name="key" color="primary"></ion-icon></ion-label>
+        <ion-label><ion-icon name="lock" color="white"></ion-icon></ion-label>
         <ion-input clearInput placeholder="Confirmar contraseña" formControlName="password2" type="password"></ion-input>
       </ion-item>
       <ion-item class="error" *ngIf="password2.invalid && (password2.dirty || password2.touched)">
@@ -32,18 +38,15 @@
       <div text-center margin-top>
         <button (click)="signup()" color="orange" [disabled]="!(form.valid && (password1.value == password2.value))" ion-button block>Registrarme!</button>
       </div>
-     
+
       <div class="divtoolbar">
           <div text-center>
-              <button color="orange" (click)="goToLogin()" ion-button block>Ya tengo una cuenta</button>
+              <button color="white" (click)="goToLogin()"  clear ion-button block full>Ya tengo una cuenta</button>
             </div>
-        <div text-center>
-          <button color="white" (click)="goToHome()" ion-button block>Volver</button>
-        </div>
       </div>
     </form>
   </div>
-  
+
   <ion-card *ngIf="errorMessage">
       <ion-card-header class="boxerror">
         {{ errorMessage }}

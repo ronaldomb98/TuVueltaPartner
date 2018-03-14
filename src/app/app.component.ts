@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform, LoadingController, MenuController } from 'ionic-angular';
+import { Nav, Platform, LoadingController, MenuController, Icon } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -29,7 +29,7 @@ export class MyApp {
 
   rootPage: any = AuthPage;
   userDataSub: Subscription = new Subscription();
-  pages: Array<{ title: string, component: any }>;
+  pages: Array<{ title: string, component: any, icon: string }>;
   public _userInfo;
   constructor(
     public platform: Platform,
@@ -48,10 +48,10 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Inicio', component: PrincipalPage },
-      { title: 'Retirar', component: RetirarPage },
-      { title: 'Mi Cuenta', component: CompleteRegistrationPage },
-      { title: 'Historial', component: HistoryPage }
+      { title: 'Solicitudes', component: PrincipalPage, icon:'bicycle' },
+      { title: 'Retirar', component: RetirarPage, icon:'cash' },
+      { title: 'Mi Cuenta', component: CompleteRegistrationPage, icon:'person' },
+      { title: 'Historial', component: HistoryPage, icon:'list' },
     ];
 
   }
@@ -150,7 +150,7 @@ export class MyApp {
               } else {
                 this.authProvider.userState = userInfo.Estado;
                 this.dbProvider.loadGananciasMensajero();
-                
+
                 if (this.authProvider.userState == ESTADOS_USUARIO.Activo) {
                   this.domiciliosProvider.loadInProccesSolicitud();
                   this.domiciliosProvider.loadReglasActivos();

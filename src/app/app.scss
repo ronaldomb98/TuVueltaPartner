@@ -31,38 +31,13 @@
   font-family: 'Questrial', sans-serif;
 }
 
-.header-auth{
-  background: #1d76fc;  /* fallback for old browsers */
-  height: 15em;
-  text-align: center;
-  color: white;
-  img{
-    margin-top: 2em;
-    height: 8em;
-  }
-  font-family: 'Questrial', sans-serif;
-}
-
-
-.auth{
-  border-radius:5px;
-  position: relative;
-  margin-top: -2em;
-  width: calc(100% - 4em);
-  margin-left: 2em;
-  -webkit-box-shadow: 5px 6px 5px 0px rgba(212,212,212,1);
-  -moz-box-shadow: 5px 6px 5px 0px rgba(212,212,212,1);
-  box-shadow: 5px 6px 5px 0px rgba(212,212,212,1);
-  font-family: 'Questrial', sans-serif;
-}
-
 .logo-menu{
   color: white;
   font-weight: 400;
 
   div.logo{
     width: 100%;
-    background: #1d76fc;  /* fallback for old browsers */
+    background: #33CCFF;  /* fallback for old browsers */
     height: 250px;
   }
 
@@ -74,18 +49,18 @@
   }
 
   .username{
-    text-decoration: none;    
+    text-decoration: none;
     margin: .5em 0;
     font-family: 'Questrial', sans-serif;
     font-size: 18px;
   }
-  
+
   .creditos{
     font-family: 'Questrial', sans-serif;
     background: #dd3e16;
     margin-top: 7%;
   }
-  
+
   .credito-name{
     font-family: 'Questrial', sans-serif;
     font-size: 15px;
@@ -95,11 +70,16 @@
     font-family: 'Questrial', sans-serif;
     font-size: 15px;
   }
-  
+
   .menu-list{
     background: #dd3e16;
     color: white;
   }
+
+  .background{
+    background-color: #dd3e16;
+  }
+
 
 }
 

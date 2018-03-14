@@ -9,7 +9,7 @@
     <ion-grid *ngFor="let row of domiciliosProvider.inProccessSolicitud">
       <ion-row >
         <ion-col col-4  text-center class="borderDomicilios"  >
-            <p class="pricenter"> $ {{ row.payload.val().GananciaMensajero | currency:"$":0}}</p>
+            <p class="pricenter"> ${{ row.payload.val().GananciaMensajero | number:0}}</p>
         </ion-col>
         <ion-col col-8>
             <p *ngIf="domiciliosProvider.Mensajeros && domiciliosProvider.Mensajeros[row.payload.val().user_id]">
@@ -48,7 +48,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    
+
     <div class="no-solicitudes-pendientes" text-center *ngIf="domiciliosProvider.inProccessSolicitud.length == 0">
         <img src="assets/imgs/tuvuelta.png" width="40%"/>
         <br/>

@@ -1,6 +1,5 @@
 <ion-menu [content]="content">
   <ion-content>
-
     <!-- Header logo and user information -->
     <div text-center class="logo-menu">
       <div class="logo">
@@ -13,24 +12,24 @@
           <ion-row *ngIf="dbProvider.gananciasMensajero" class="creditos">
             <ion-col col-6>
               <div text-center class="credito-name">Retiro</div>
-              <div text-center class="credito-description">$ {{ dbProvider.gananciasMensajero.CreditosRetiro | number }}</div>
+              <div text-center class="credito-description"> {{ dbProvider.gananciasMensajero.CreditosRetiro | currency }}</div>
             </ion-col>
             <ion-col col-6>
               <div text-center class="credito-name">No Retiro</div>
-              <div text-center class="credito-description">$ {{ dbProvider.gananciasMensajero.CreditosNoRetiro | number }}</div>
+              <div text-center class="credito-description">{{ dbProvider.gananciasMensajero.CreditosNoRetiro | number:0 }}</div>
             </ion-col>
           </ion-row>
       </div>
-      
+
     </div>
 
     <!-- option list  -->
-    <div class="menu-list">
+    <div >
 
       <!-- main routes -->
       <ion-list *ngIf="authProvider.userInfo && authProvider.userInfo.Rol == 'Mensajero'">
         <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-          {{p.title}}
+            <ion-icon name={{p.icon}} ></ion-icon>  {{p.title}}
         </button>
         <button menuClose ion-item (click)="signOut()">Cerrar Sesión</button>
       </ion-list>
@@ -39,7 +38,7 @@
       <ion-list class="logout" *ngIf="authProvider.userInfo && authProvider.userInfo.Rol != 'Mensajero'">
         <button menuClose ion-item (click)="signOut()">Cerrar Sesión</button>
       </ion-list>
-    </div>    
+    </div>
   </ion-content>
 
 </ion-menu>

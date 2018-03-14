@@ -150,11 +150,14 @@ export class DomiciliosProvider {
 
   public subReglasActivos: Subscription;
   public reglasActivos;
+
+
   public loadReglasActivos() {
     const sub = this.subReglasActivos;
     if (sub) {
       this.subReglasActivos.unsubscribe();
     }
+
     this.subReglasActivos = this.dbProvider.objectReglasActivos()
       .snapshotChanges()
       .subscribe(response => {
@@ -163,7 +166,7 @@ export class DomiciliosProvider {
         this.loadPendingSolicitud();
       })
   }
-  
+
 
   loadGlobalConfig() {
     this.dbProvider.objectGlobalConfig().subscribe(res => {
@@ -171,7 +174,7 @@ export class DomiciliosProvider {
       this.loadIntervalChangeState();
     })
   }
-  
+
   loadIntervalChangeState(): any {
     if (this.intervalChangeState) {
       clearInterval(this.intervalChangeState);

@@ -6,12 +6,7 @@ import { AuthProvider } from '../auth/auth';
 import { Subscription } from 'rxjs/Subscription';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { BackgroundGeolocation, BackgroundGeolocationConfig, BackgroundGeolocationResponse } from '@ionic-native/background-geolocation';
-/*
-  Generated class for the LocatorProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class LocatorProvider {
   private subWatch: Subscription;
@@ -27,8 +22,8 @@ export class LocatorProvider {
 
     /* Background geolocation */
     const config: BackgroundGeolocationConfig = {
-      desiredAccuracy: 100,
-      stationaryRadius: 0,
+      desiredAccuracy: 1,
+      stationaryRadius: 2,
       distanceFilter: 0,
       debug: false,
       interval: 500,
@@ -57,7 +52,7 @@ export class LocatorProvider {
         alert(JSON.stringify(err))
 
       });
-    // Turn ON the background-geolocation system.
+
 
     this.backgroundGeolocation.start();
 
@@ -67,6 +62,8 @@ export class LocatorProvider {
       enableHighAccuracy: true,
       timeout: 30000
     };
+
+
     const geo: Observable<Geoposition> = this.geolocation.watchPosition(options);
     this.subWatch = geo.subscribe(res => {
       const userId: string = this.authProvider.currentUserUid;

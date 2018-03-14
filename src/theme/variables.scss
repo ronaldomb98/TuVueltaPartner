@@ -23,7 +23,10 @@ $app-direction: ltr;
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
 
 
-
+$text-input-placeholder-color: #fff;
+$text-input-highlight-color-valid: #fff;
+$text-input-highlight-color-invalid: #db0000;
+$text-input-md-input-clear-icon-color: #fff;
 
 // Named Color Variables
 // --------------------------------------------------
@@ -34,14 +37,14 @@ $app-direction: ltr;
 // The "primary" color is the only required color in the map.
 
 $colors: (
-  primary:    #1d76fc,
+  primary:    #33CCFF,
   secondary:  #50a33e,
-  danger:     #d61111,
+  danger:     #db0000,
   light:      #d1d2d4,
   dark:       #222,
   orange:     #dd3e16,
-  oranget:     #dd3e16,
   white:     #fff,
+  accent:       #FF4500
 
 );
 
@@ -52,12 +55,15 @@ $colors: (
 
 $tabs-ios-tab-icon-color-active: color($colors, primary);
 $tabs-ios-tab-text-color-active: color($colors, primary);
+$text-input-ios-background-color: #33CCFF;
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
 $tabs-md-tab-icon-color-active: color($colors, primary);
 $tabs-md-tab-text-color-active: color($colors, primary);
+$text-input-md-background-color: #fff;
+//$list-md-background-color: #33CCFF;
 
 
 

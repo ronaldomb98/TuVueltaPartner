@@ -1,11 +1,16 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>Iniciar Sesión</ion-title>
+    </ion-navbar>
+  </ion-header>
+
 <ion-content class="background" padding>
-    <img class="logo" src="assets/imgs/tuvueltablanco.png">
-   
-  <div class="scroll-content">
-      <p text-center class="title">Inicia sessión con el email que se registro</p>
+  <div padding text-center ion-fixed>
+      <img class="logo" src="assets/imgs/tuvueltablanco.png">
+      <p text-center class="titulo">Inicia sessión con el email que se registro</p>
       <form [formGroup]="form">
         <ion-item>
-          <ion-label>  <ion-icon name="mail" color="primary"></ion-icon></ion-label>
+          <ion-label>  <ion-icon name="person" color="white"></ion-icon></ion-label>
           <ion-input formControlName="email" clearInput placeholder="Correo Electrónico" type="email"></ion-input>
         </ion-item>
         <ion-item class="labelerror" *ngIf="email.invalid && (email.dirty || email.touched)">
@@ -14,7 +19,7 @@
         </ion-item>
         <ion-item>
           <ion-label>
-            <ion-icon  name="key" *ngIf="!canSeePass" color="primary"></ion-icon>
+            <ion-icon  name="lock" *ngIf="!canSeePass" color="white"></ion-icon>
           </ion-label>
           <ion-input formControlName="password1" placeholder="Contraseña"  clearInput minlength="6" [type]="canSeePass? 'text':'password'"></ion-input>
         </ion-item>
@@ -23,30 +28,26 @@
           <br/>
         </ion-item>
 
+        <p text-center class="terminos">Al iniciar sesión asegura haber leído y estar de acuerdo con los
+            <a class="link" href="#">términos y condiciones</a>
+          </p>
         <div text-center>
-            <button color="orange" (click)="login()" [disabled]="!form.valid" ion-button full>Iniciar Sesión!</button>
+            <button color="accent" (click)="login()" [disabled]="!form.valid" ion-button full block large >Iniciar Sesión!</button>
         </div>
 
         <div class="divtoolbar">
           <ion-grid>
             <ion-row>
               <ion-col col-12>
-                  <button color="white" (click)="openResetPassPage()"   ion-button full outline >¿Olvide Contraseña?</button>
+                  <button color="white" (click)="openResetPassPage()"   ion-button full clear >¿Olvide Contraseña?</button>
               </ion-col>
             </ion-row>
-            <!--<ion-row>
-              <ion-col>
-                  <button color="orange" (click)="goToHome()"  ion-button icon-start icon-ios-arrow-back-outline >
-                      <ion-icon name="ios-arrow-back-outline"></ion-icon>
-                      Volver</button>
-              </ion-col>
-            </ion-row>-->
           </ion-grid>
 
           <ion-col col-12>
-              <button color="orange" (click)="goToSignup()"   ion-button full   >Registrarme</button>
+              <button color="accent" (click)="goToSignup()"   ion-button full   >Registrarme</button>
           </ion-col>
-          
+
         </div>
       </form>
       <ion-card *ngIf="errorMessage"  >
