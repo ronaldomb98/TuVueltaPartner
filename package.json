@@ -20,6 +20,7 @@
     "@angular/http": "5.0.3",
     "@angular/platform-browser": "5.0.3",
     "@angular/platform-browser-dynamic": "5.0.3",
+    "@ionic-native/app-availability": "^4.5.3",
     "@ionic-native/background-geolocation": "^4.5.3",
     "@ionic-native/core": "4.4.0",
     "@ionic-native/geolocation": "^4.5.3",
@@ -33,6 +34,7 @@
     "angularfire2": "^5.0.0-rc.6",
     "cordova-android": "6.3.0",
     "cordova-plugin-actionsheet": "^2.3.3",
+    "cordova-plugin-appavailability": "^0.4.2",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-dialogs": "^2.0.1",
     "cordova-plugin-geolocation": "^4.0.1",
@@ -69,7 +71,8 @@
       },
       "cordova-plugin-network-information": {},
       "uk.co.workingedge.phonegap.plugin.launchnavigator": {},
-      "cordova-plugin-mauron85-background-geolocation": {}
+      "cordova-plugin-mauron85-background-geolocation": {},
+      "cordova-plugin-appavailability": {}
     },
     "platforms": [
       "android"

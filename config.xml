@@ -92,4 +92,5 @@
     <allow-navigation href="http://192.168.1.4:8100" />
     <plugin name="cordova-plugin-mauron85-background-geolocation" spec="^2.3.3" />
     <engine name="android" spec="~6.3.0" />
+    <plugin name="cordova-plugin-appavailability" spec="^0.4.2" />
 </widget>

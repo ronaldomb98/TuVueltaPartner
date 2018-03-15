@@ -42,6 +42,7 @@ import { HistoryPage } from '../pages/history/history';
 import { HistoryDetailPage } from '../pages/history-detail/history-detail';
 import { LocatorProvider } from '../providers/locator/locator';
 import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
+import { AppAvailability } from '@ionic-native/app-availability';
 @NgModule({
   declarations: [
     MyApp,
@@ -109,6 +110,7 @@ import { BackgroundGeolocation } from '@ionic-native/background-geolocation';
     LocatorProvider,
     BackgroundGeolocation,
     Geolocation,
+    AppAvailability
   ]
 })
 export class AppModule {}

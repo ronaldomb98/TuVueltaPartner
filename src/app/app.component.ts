@@ -20,6 +20,7 @@ import { NoMensajeroRolPage } from '../pages/no-mensajero-rol/no-mensajero-rol';
 import { DomiciliosProvider } from '../providers/domicilios/domicilios';
 import { HistoryPage } from '../pages/history/history';
 import { LocatorProvider } from '../providers/locator/locator';
+import { AppAvailability } from '@ionic-native/app-availability';
 
 @Component({
   templateUrl: 'app.html'
@@ -42,7 +43,8 @@ export class MyApp {
     public dbProvider: DbProvider,
     public pushNotifications: PushNotificationProvider,
     public domiciliosProvider: DomiciliosProvider,
-    private locationProvider: LocatorProvider
+    private locationProvider: LocatorProvider,
+    private appAvailability: AppAvailability
   ) {
     this.initializeApp();
 
@@ -63,6 +65,20 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
       this.pushNotifications.init_notifications();
+
+      let app;
+
+      if (this.platform.is('ios')) {
+        app = 'twitter://';
+      } else if (this.platform.is('android')) {
+        app = 'com.lexa.fakegps';
+      }
+
+      this.appAvailability.check(app)
+        .then(
+          (yes: boolean) => alert(app + ' is available'),
+          (no: boolean) =>  alert(app + ' is NOT available')
+        );
       this.checkLog();
     });
   }
@@ -150,7 +166,7 @@ export class MyApp {
               } else {
                 this.authProvider.userState = userInfo.Estado;
                 this.dbProvider.loadGananciasMensajero();
-                
+
                 if (this.authProvider.userState == ESTADOS_USUARIO.Activo) {
                   this.domiciliosProvider.loadInProccesSolicitud();
                   this.domiciliosProvider.loadReglasActivos();
